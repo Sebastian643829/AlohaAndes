@@ -1,0 +1,24 @@
+{
+	"title": "Nombres de las tablas de alohaandes Uniandes para la aplicación B",
+	"unidadPersistencia": "alohaandes",
+	"tablas":
+	[
+		"alohaandes_sequence",
+		"A_OPERADOR",
+		"A_PROPIETARIO",
+		"A_EMPRESA",
+		"A_ALOJAMIENTO",
+		"A_VIVIENDAUNIVERSITARIA",
+		"A_HABITACIONVIVIENDA",
+		"A_APARTAMENTO",
+		"A_HABITACIONHOTEL",
+		"A_HOSTAL",
+		"A_VIVIENDATEMPORAL",
+		"A_CLIENTE",
+		"A_MIEMBROACTIVO",
+		"A_MIEMBROSECUNDARIO",
+		"A_SERVICIO",
+		"A_DISPONE",
+		"A_RESERVA"
+	]
+}
