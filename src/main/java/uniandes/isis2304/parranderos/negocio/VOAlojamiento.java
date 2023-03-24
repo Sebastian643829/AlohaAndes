@@ -43,6 +43,11 @@ public interface VOAlojamiento {
        * @return el numero de reservas del alojamiento
        */
       public int getNumReservas();
+
+      /**
+      * @return El id del operador
+      */
+      public long getIdOperador();
   
       @Override
       /**

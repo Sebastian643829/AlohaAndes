@@ -44,6 +44,11 @@ public class Alojamiento implements VOAlojamiento {
 	 */
 	private int numReservas;
 
+	/**
+	 * El identificador ÚNICO de los alojamientos
+	 */
+	private long idOperador; 
+
 	/* ****************************************************************
 	 * 			Métodos 
 	 *****************************************************************/
@@ -60,6 +65,7 @@ public class Alojamiento implements VOAlojamiento {
 		this.precioNoche = 0;
         this.ocupacionTotal = 0;
 		this.numReservas = 0;
+		this.idOperador = 0;
 	}
 
 	/**
@@ -72,8 +78,9 @@ public class Alojamiento implements VOAlojamiento {
 	 * @param precioNoche - El precio de la noche del alojamiento
      * @param ocupacionTotal - La ocupacion total actual del alojamiento
 	 * @param numReservas - El numero de reservas del alojamiento
+	 * @param idOperador - El id del alojamiento
 	 */
-    public Alojamiento(long idAlojamiento, String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionTotal, int numReservas) 
+    public Alojamiento(long idAlojamiento, String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionTotal, int numReservas, long idOperador) 
     {
     	this.idAlojamiento = idAlojamiento;
 		this.nombre = nombre;
@@ -83,6 +90,7 @@ public class Alojamiento implements VOAlojamiento {
 		this.precioNoche = precioNoche;
         this.ocupacionTotal = ocupacionTotal;
 		this.numReservas = numReservas;
+		this.idOperador = idOperador;
 	}
 
     /**
@@ -212,15 +220,31 @@ public class Alojamiento implements VOAlojamiento {
 	{
 		this.numReservas = numReservas;
 	}
+
+	/**
+	 * @return El id del alojamiento
+	 */
+	public long getIdOperador() 
+	{
+		return idOperador;
+	}
+	
+	/**
+	 * @param idOperador - El nuevo id del alojamiento
+	 */
+	public void setIdOperador(long idOperador) 
+	{
+		this.idOperador = idOperador;
+	}
 	
 	@Override
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del bar
-	 */
+	 */ 
 	public String toString() 
 	{
 		return "Alojamiento [idAlojamiento=" + idAlojamiento + ", nombre=" + nombre + ", capacidad=" + capacidad + 
         ", ubicacion=" + ubicacion + ", tamano=" + tamano + ", precioNoche=" + precioNoche 
-        + ", ocupacionTotal=" + ocupacionTotal + ", numReservas=" + numReservas + "]";
+        + ", ocupacionTotal=" + ocupacionTotal + ", numReservas=" + numReservas + ", idOperador=" + idOperador + "]";
 	}
 }
