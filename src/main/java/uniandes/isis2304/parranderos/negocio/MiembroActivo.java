@@ -14,6 +14,11 @@ public class MiembroActivo implements VOMiembroActivo {
 	 */
 	private String carnet;
 
+	/**
+	 * El tipo del miembro activo
+	 */
+	private String tipo;
+
 	/* ****************************************************************
 	 * 			Métodos 
 	 *****************************************************************/
@@ -24,16 +29,19 @@ public class MiembroActivo implements VOMiembroActivo {
     {
     	this.idMiembroActivo = 0;
 		this.carnet = "";
+		this.tipo = "";
 	}
 
 	/**
 	 * Constructor con valores
 	 * @param idMiembroActivo - El id del miembro activo
 	 * @param carnet - El carnet del miembro activo
+	 * @param tipo - El tipo del miembro activo
 	 */
     public MiembroActivo(long idMiembroActivo, String carnet){
     	this.idMiembroActivo = idMiembroActivo;
 		this.carnet = carnet;
+		this.tipo = "";
 	}
 
     /**
@@ -67,6 +75,22 @@ public class MiembroActivo implements VOMiembroActivo {
 	{
 		this.carnet = carnet;
 	}
+
+	/**
+	 * @return El tipo del miembro activo
+	 */
+	public String getTipo() 
+	{
+		return tipo;
+	}
+	
+	/**
+	 * @param tipo - EL nuevo tipo del miembro activo
+	 */
+	public void setTipo(String tipo) 
+	{
+		this.tipo = tipo;
+	}
 	
 	@Override
 	/**
@@ -74,6 +98,6 @@ public class MiembroActivo implements VOMiembroActivo {
 	 */
 	public String toString() 
 	{
-		return "MiembroActivo  [idMiembroActivo=" + idMiembroActivo + ", carnet=" + carnet + "]";
+		return "MiembroActivo  [idMiembroActivo=" + idMiembroActivo + ", carnet=" + carnet + ", tipo=" + tipo + "]";
 	}
 }

@@ -14,6 +14,11 @@ public interface VOMiembroActivo {
        */
       public String getCarnet();
 
+      /**
+       * @return El tipo del miembro activo
+       */
+      public String getTipo();
+
       @Override
       /**
        * @return Una cadena de caracteres con todos los atributos del miembro activo
