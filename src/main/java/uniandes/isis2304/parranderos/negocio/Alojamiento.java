@@ -45,7 +45,7 @@ public class Alojamiento implements VOAlojamiento {
 	private int numReservas;
 
 	/**
-	 * El identificador ÚNICO de los alojamientos
+	 * El id del operador
 	 */
 	private long idOperador; 
 
@@ -78,7 +78,7 @@ public class Alojamiento implements VOAlojamiento {
 	 * @param precioNoche - El precio de la noche del alojamiento
      * @param ocupacionTotal - La ocupacion total actual del alojamiento
 	 * @param numReservas - El numero de reservas del alojamiento
-	 * @param idOperador - El id del alojamiento
+	 * @param idOperador - El id del operador
 	 */
     public Alojamiento(long idAlojamiento, String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionTotal, int numReservas, long idOperador) 
     {
@@ -222,7 +222,7 @@ public class Alojamiento implements VOAlojamiento {
 	}
 
 	/**
-	 * @return El id del alojamiento
+	 * @return El id del operador
 	 */
 	public long getIdOperador() 
 	{
@@ -230,7 +230,7 @@ public class Alojamiento implements VOAlojamiento {
 	}
 	
 	/**
-	 * @param idOperador - El nuevo id del alojamiento
+	 * @param idOperador - El nuevo id del operador
 	 */
 	public void setIdOperador(long idOperador) 
 	{
