@@ -30,7 +30,7 @@ public class Dispone implements VODispone {
 	/**
 	 * Constructor con valores
 	 * @param idServicio - El id del servicio
-	 * @param nombre - El id del alojamiento
+	 * @param idAlojamiento - El id del alojamiento
 	 */
     public Dispone(long idServicio, long idAlojamiento){
     	this.idServicio = idServicio;
