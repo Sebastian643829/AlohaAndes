@@ -1,18 +1,3 @@
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad	de	los	Andes	(Bogotá	- Colombia)
- * Departamento	de	Ingeniería	de	Sistemas	y	Computación
- * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
- * 		
- * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
-
 package uniandes.isis2304.parranderos.interfazApp;
 
 import java.awt.BorderLayout;
@@ -51,7 +36,7 @@ import uniandes.isis2304.parranderos.negocio.VOTipoBebida;
 
 /**
  * Clase principal de la interfaz
- * @author Germán Bravo
+ * @author Juan Sebastian Sanchez
  */
 @SuppressWarnings("serial")
 
@@ -178,7 +163,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     	if ( guiConfig == null )
     	{
     		log.info ( "Se aplica configuración por defecto" );			
-			titulo = "Parranderos APP Default";
+			titulo = "Alohaandes APP Default";
 			alto = 300;
 			ancho = 500;
     	}
@@ -430,13 +415,22 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			
 			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
 			String resultado = "\n\n************ Limpiando la base de datos ************ \n";
-			resultado += eliminados [0] + " Gustan eliminados\n";
-			resultado += eliminados [1] + " Sirven eliminados\n";
-			resultado += eliminados [2] + " Visitan eliminados\n";
-			resultado += eliminados [3] + " Bebidas eliminadas\n";
-			resultado += eliminados [4] + " Tipos de bebida eliminados\n";
-			resultado += eliminados [5] + " Bebedores eliminados\n";
-			resultado += eliminados [6] + " Bares eliminados\n";
+			resultado += eliminados [0] + " Reservas eliminadas\n";
+			resultado += eliminados [1] + " Dispone eliminados\n";
+			resultado += eliminados [2] + " Alojamientos eliminados\n";
+			resultado += eliminados [3] + " Clientes eliminados\n";
+			resultado += eliminados [4] + " Operadores eliminados\n";
+			resultado += eliminados [5] + " Propietarios eliminados\n";
+			resultado += eliminados [6] + " Empresas eliminadas\n";
+			resultado += eliminados [7] + " ViviendasUniversitarias eliminadas\n";
+			resultado += eliminados [8] + " HabitacionesViviendas eliminadas\n";
+			resultado += eliminados [9] + " Apartamentos eliminados\n";
+			resultado += eliminados [10] + " HabitacionesHoteles eliminadas\n";
+			resultado += eliminados [11] + " Hostales eliminados\n";
+			resultado += eliminados [12] + " ViviendasTemporales eliminadas\n";
+			resultado += eliminados [13] + " MiembrosActivos eliminados\n";
+			resultado += eliminados [14] + " MiembroSecundarios eliminados\n";
+			resultado += eliminados [15] + " Servicio eliminados\n";
 			resultado += "\nLimpieza terminada";
    
 			panelDatos.actualizarInterfaz(resultado);
@@ -450,27 +444,19 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	}
 	
 	/**
-	 * Muestra la presentación general del proyecto
-	 */
-	public void mostrarPresentacionGeneral ()
-	{
-		mostrarArchivo ("data/00-ST-ParranderosJDO.pdf");
-	}
-	
-	/**
-	 * Muestra el modelo conceptual de Parranderos
+	 * Muestra el modelo conceptual de Alohaandes
 	 */
 	public void mostrarModeloConceptual ()
 	{
-		mostrarArchivo ("data/Modelo Conceptual Parranderos.pdf");
+		mostrarArchivo ("Docs/Modelo conceptual - Iteracion 2.pdf");
 	}
 	
 	/**
-	 * Muestra el esquema de la base de datos de Parranderos
+	 * Muestra el esquema de la base de datos de Alohaandes
 	 */
 	public void mostrarEsquemaBD ()
 	{
-		mostrarArchivo ("data/Esquema BD Parranderos.pdf");
+		mostrarArchivo ("Docs/Modelo relacional - Iteracion 2.pdf");
 	}
 	
 	/**
@@ -478,15 +464,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	 */
 	public void mostrarScriptBD ()
 	{
-		mostrarArchivo ("data/EsquemaParranderos.sql");
-	}
-	
-	/**
-	 * Muestra la arquitectura de referencia para Parranderos
-	 */
-	public void mostrarArqRef ()
-	{
-		mostrarArchivo ("data/ArquitecturaReferencia.pdf");
+		mostrarArchivo ("Docs/Esquema - iteracion2.sql");
 	}
 	
 	/**
@@ -494,26 +472,24 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	 */
 	public void mostrarJavadoc ()
 	{
-		mostrarArchivo ("doc/index.html");
+		mostrarArchivo ("Docs/index.html");  // Pendiente
 	}
 	
 	/**
-     * Muestra la información acerca del desarrollo de esta apicación
+     * Muestra la información acerca del desarrollo de esta aplicación
      */
     public void acercaDe ()
     {
 		String resultado = "\n\n ************************************\n\n";
 		resultado += " * Universidad	de	los	Andes	(Bogotá	- Colombia)\n";
 		resultado += " * Departamento	de	Ingeniería	de	Sistemas	y	Computación\n";
-		resultado += " * Licenciado	bajo	el	esquema	Academic Free License versión 2.1\n";
 		resultado += " * \n";		
 		resultado += " * Curso: isis2304 - Sistemas Transaccionales\n";
-		resultado += " * Proyecto: Parranderos Uniandes\n";
+		resultado += " * Proyecto: AlohaAndes\n";
 		resultado += " * @version 1.0\n";
-		resultado += " * @author Germán Bravo\n";
-		resultado += " * Julio de 2018\n";
+		resultado += " * @author Juan Sebastian Sanchez, Santiago Vargas\n";
+		resultado += " * Marzo de 2023\n";
 		resultado += " * \n";
-		resultado += " * Revisado por: Claudia Jiménez, Christian Ariza\n";
 		resultado += "\n ************************************\n\n";
 
 		panelDatos.actualizarInterfaz(resultado);		

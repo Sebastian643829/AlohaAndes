@@ -1,28 +1,105 @@
 {
-	"title": "Aplicación transaccional de Parranderos Uniandes",
+	"title": "Aplicación transaccional de AlohaAndes Uniandes",
 	"frameH": 600,
 	"frameW": 800,
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
-		{ "menuTitle": "TipoBebida",
+		{ "menuTitle": "RF",
 		  "options":
 			[
 				{
-					"label": "Adicionar",
-					"event": "adicionarTipoBebida"
+					"label": "Adicionar Operador",
+					"event": "adicionarOperador"
 				},
 				{
-					"label": "Listar",
-					"event": "listarTipoBebida"
+					"label": "Adicionar Propietario",
+					"event": "adicionarPropietario"
 				},
 				{
-					"label": "Borrar por Id",
-					"event": "eliminarTipoBebidaPorId"
+					"label": "Adicionar Empresa",
+					"event": "adicionarEmpresa"
 				},
 				{
-					"label": "Buscar por Nombre",
-					"event": "buscarTipoBebidaPorNombre"
+					"label": "Adicionar Alojamiento",
+					"event": "adicionarAlojamiento"
+				},
+				{
+					"label": "Adicionar Vivienda Universitaria",
+					"event": "adicionarViviendaUniversitaria"
+				},
+				{
+					"label": "Adicionar Habitacion de Vivienda",
+					"event": "adicionarHabitacionVivienda"
+				},
+				{
+					"label": "Adicionar Apartamento",
+					"event": "adicionarApartamento"
+				},
+				{
+					"label": "Adicionar Habitacion Hotel",
+					"event": "adicionarHabitacionHotel"
+				},
+				{
+					"label": "Adicionar Hostal",
+					"event": "adicionarHostal"
+				},
+				{
+					"label": "Adicionar Vivienda Temporal",
+					"event": "adicionaViviendaTemporalr"
+				},
+				{
+					"label": "Adicionar Cliente",
+					"event": "adicionarCliente"
+				},
+				{
+					"label": "Adicionar Miembro Activo",
+					"event": "adicionarMiembroActivo"
+				},
+				{
+					"label": "Adicionar Miembro Secundario",
+					"event": "adicionarMiembroSecundario"
+				},
+				{
+					"label": "Adicionar Servicio",
+					"event": "adicionarServicio"
+				},
+				{
+					"label": "Adicionar Dispone",
+					"event": "adicionaDispone"
+				},
+				{
+					"label": "Registrar una Reserva",
+					"event": "adicionarReserva"
+				},
+				{
+					"label": "Cancelar una Reserva",
+					"event": ""
+				},
+				{
+					"label": "Retirar una oferta de alojamiento ",
+					"event": ""
+				}
+			]
+		},
+		{ "menuTitle": "RFC",
+		  "options":
+			[
+				{
+					"label": "RFC1",
+					"event": ""
+				},
+				{
+					"label": "RFC2",
+					"event": ""
+				},
+				{
+					"label": "RFC3",
+					"event": ""
+				},
+				{
+					"label": "RFC4",
+					"event": ""
 				}
 			]
 		},
@@ -55,24 +132,16 @@
 		  "options":
 			[
 				{
-					"label": "Presentación general",
-					"event": "mostrarPresentacionGeneral"
-				},
-				{
 					"label": "Modelo conceptual",
 					"event": "mostrarModeloConceptual"
 				},
 				{
-					"label": "Esquema de la BD",
+					"label": "Modelo relacional",
 					"event": "mostrarEsquemaBD"
 				},
 				{
 					"label": "Script creación de la BD",
 					"event": "mostrarScriptBD"
-				},
-				{
-					"label": "Arquitectura de referencia",
-					"event": "mostrarArqRef"
 				},
 				{
 					"label": "Javadoc Parranderos",

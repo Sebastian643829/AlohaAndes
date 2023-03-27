@@ -1512,15 +1512,16 @@ public class Parranderos
 	 *****************************************************************/
 
 	/**
-	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
-	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
-	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
+	 * Elimina todas las tuplas de todas las tablas de la base de datos de AlohaAndes
+	 * @return Un arreglo con 16 números que indican el número de tuplas borradas en las tablas OPERADOR, EMPRESA, PROPIETARIO, ALOJAMIENTO,
+	 * VIVIENDAUNIVERSITARIA, HABITACIONVIVIENDA, APARTAMENTO, HABITACIONHOTEL, HOSTAL, VIVIENDATEMPORAL, CLIENTE, MIEMBROACTIVO, MIEMBROSECUNDARIO,
+	 * SERVICIO, DISPONE y RESERVA, respectivamente
 	 */
 	public long [] limpiarParranderos ()
 	{
-        log.info ("Limpiando la BD de Parranderos");
+        log.info ("Limpiando la BD de AlohaAndes ");
         long [] borrrados = pp.limpiarParranderos();	
-        log.info ("Limpiando la BD de Parranderos: Listo!");
+        log.info ("Limpiando la BD de AlohaAndes: Listo!");
         return borrrados;
 	}
 }

@@ -1,28 +1,13 @@
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Universidad	de	los	Andes	(Bogotá	- Colombia)
- * Departamento	de	Ingeniería	de	Sistemas	y	Computación
- * Licenciado	bajo	el	esquema	Academic Free License versión 2.1
- * 		
- * Curso: isis2304 - Sistemas Transaccionales
- * Proyecto: Parranderos Uniandes
- * @version 1.0
- * @author Germán Bravo
- * Julio de 2018
- * 
- * Revisado por: Claudia Jiménez, Christian Ariza
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- */
-
 package uniandes.isis2304.parranderos.persistencia;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto BAR de Parranderos
+ * Clase que realiza la limpieza a la base de datos de AlohaAndes
  * Nótese que es una clase que es sólo conocida en el paquete de persistencia
  * 
- * @author Germán Bravo
+ * @author Juan Sebastian Sanchez 
  */
 class SQLUtil
 {
@@ -72,28 +57,49 @@ class SQLUtil
 	/**
 	 * Crea y ejecuta las sentencias SQL para cada tabla de la base de datos - EL ORDEN ES IMPORTANTE 
 	 * @param pm - El manejador de persistencia
-	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
-	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
+	 * @return Un arreglo con 16 números que indican el número de tuplas borradas en las tablas OPERADOR, EMPRESA, PROPIETARIO, ALOJAMIENTO,
+	 * VIVIENDAUNIVERSITARIA, HABITACIONVIVIENDA, APARTAMENTO, HABITACIONHOTEL, HOSTAL, VIVIENDATEMPORAL, CLIENTE, MIEMBROACTIVO, MIEMBROSECUNDARIO,
+	 * SERVICIO, DISPONE y RESERVA, respectivamente
 	 */
 	public long [] limpiarParranderos (PersistenceManager pm)
 	{
-        Query qGustan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaGustan ());          
-        Query qSirven = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaSirven ());
-        Query qVisitan = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaVisitan ());
-        Query qBebida = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBebida ());
-        Query qTipoBebida = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaTipoBebida ());
-        Query qBebedor = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBebedor ());
-        Query qBar = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar ());
+        Query qReserva = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva ());          
+        Query qDispone = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaDispone ());
+        Query qAlojamiento = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAlojamiento ());
+        Query qCliente = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaCliente ());
+        Query qOperador = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOperador ());
+        Query qPropietario = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaPropietario ());
+        Query qEmpresa = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaEmpresa ());
+		Query qViviendaUniversitaria = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaViviendaUniversitaria ());          
+        Query qHabitacionVivienda = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionVivienda ());
+        Query qApartamento = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaApartamento ());
+        Query qHabitacionHotel = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionHotel ());
+        Query qHostal = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHostal ());
+        Query qViviendaTemporal = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaViviendaTemporal ());
+        Query qMiembroActivo = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMiembroActivo ());
+		Query qMiembroSecundario= pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMiembroSecundario ());          
+        Query qServicio = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServicio ());
 
-        long gustanEliminados = (long) qGustan.executeUnique ();
-        long sirvenEliminados = (long) qSirven.executeUnique ();
-        long visitanEliminadas = (long) qVisitan.executeUnique ();
-        long bebidasEliminadas = (long) qBebida.executeUnique ();
-        long tiposBebidaEliminados = (long) qTipoBebida.executeUnique ();
-        long bebedoresEliminados = (long) qBebedor.executeUnique ();
-        long baresEliminados = (long) qBar.executeUnique ();
-        return new long[] {gustanEliminados, sirvenEliminados, visitanEliminadas, bebidasEliminadas, 
-        		tiposBebidaEliminados, bebedoresEliminados, baresEliminados};
+
+        long reservaEliminadas = (long) qReserva.executeUnique ();
+        long disponeEliminados = (long) qDispone.executeUnique ();
+        long alojamientoEliminados = (long) qAlojamiento.executeUnique ();
+        long clienteEliminados = (long) qCliente.executeUnique ();
+        long operadorEliminados = (long) qOperador.executeUnique ();
+        long propietarioEliminados = (long) qPropietario.executeUnique ();
+        long empresaEliminadas = (long) qEmpresa.executeUnique ();
+		long viviendaUniversitariaEliminadas = (long) qViviendaUniversitaria.executeUnique ();
+        long habitacionViviendaEliminadas = (long) qHabitacionVivienda.executeUnique ();
+        long apartamentoEliminados = (long) qApartamento.executeUnique ();
+		long habitacionHotelEliminadas = (long) qHabitacionHotel.executeUnique ();
+        long hostalEliminados = (long) qHostal.executeUnique ();
+        long viviendaTemporalEliminadas = (long) qViviendaTemporal.executeUnique ();
+		long miembroActivoEliminados = (long) qMiembroActivo.executeUnique ();
+        long miembroSecundarioEliminados = (long) qMiembroSecundario.executeUnique ();
+		long servicioEliminados = (long) qServicio.executeUnique ();
+        return new long[] {reservaEliminadas, disponeEliminados, alojamientoEliminados, clienteEliminados, 
+			operadorEliminados, propietarioEliminados, empresaEliminadas, viviendaUniversitariaEliminadas, habitacionViviendaEliminadas, apartamentoEliminados, habitacionHotelEliminadas, 
+			hostalEliminados, viviendaTemporalEliminadas, miembroActivoEliminados, miembroSecundarioEliminados, servicioEliminados};
 	}
 
 }
