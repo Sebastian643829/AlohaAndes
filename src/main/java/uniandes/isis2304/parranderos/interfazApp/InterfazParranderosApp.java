@@ -919,7 +919,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			return false;
 		}
 	}
-
+ 
 	/**
 	 * Abre el archivo dado como parámetro con la aplicación por defecto del sistema
 	 * @param nombreArchivo - El nombre del archivo que se quiere mostrar
