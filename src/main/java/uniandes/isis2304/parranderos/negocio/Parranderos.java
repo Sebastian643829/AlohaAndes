@@ -198,10 +198,10 @@ public class Parranderos
 	 * @param tipoHabitacion - El tipo de habitacion de la vivienda universitaria
 	 * @return El objeto ViviendaUniversitaria adicionado. null si ocurre alguna Excepción
 	 */
-	public ViviendaUniversitaria adicionarViviendaUniversitaria (String tipoHabitacion)
+	public ViviendaUniversitaria adicionarViviendaUniversitaria (long idAlojamiento,String tipoHabitacion)
 	{
         log.info ("Adicionando ViviendaUniversitaria: ");
-        ViviendaUniversitaria viviendaUniversitaria = pp.adicionarViviendaUniversitaria (tipoHabitacion);		
+        ViviendaUniversitaria viviendaUniversitaria = pp.adicionarViviendaUniversitaria (idAlojamiento, tipoHabitacion);		
         log.info ("Adicionando ViviendaUniversitaria: ");
         return viviendaUniversitaria;
 	}
@@ -276,10 +276,10 @@ public class Parranderos
 	 * @param tipoHabitacion - El tipo de habitacion de la vivienda
 	 * @return El objeto HabitacionVivienda adicionado. null si ocurre alguna Excepción
 	 */
-	public HabitacionVivienda adicionarHabitacionVivienda (String tipoBano, String tipoHabitacion)
+	public HabitacionVivienda adicionarHabitacionVivienda (long idAlojamiento, String tipoBano, String tipoHabitacion)
 	{
         log.info ("Adicionando HabitacionVivienda: ");
-        HabitacionVivienda habitacionVivienda = pp.adicionarHabitacionVivienda (tipoBano, tipoHabitacion);		
+        HabitacionVivienda habitacionVivienda = pp.adicionarHabitacionVivienda (idAlojamiento, tipoBano, tipoHabitacion);		
         log.info ("Adicionando HabitacionVivienda: ");
         return habitacionVivienda;
 	}
@@ -351,10 +351,10 @@ public class Parranderos
 	 * Adiciona de manera persistente un Apartamento
 	 * @return El objeto Apartamento adicionado. null si ocurre alguna Excepción
 	 */
-	public Apartamento adicionarApartamento ()
+	public Apartamento adicionarApartamento (long idAlojamiento)
 	{
         log.info ("Adicionando Apartamento: ");
-        Apartamento apartamento = pp.adicionarApartamento ();		
+        Apartamento apartamento = pp.adicionarApartamento (idAlojamiento);		
         log.info ("Adicionando Apartamento: ");
         return apartamento;
 	}
@@ -428,10 +428,10 @@ public class Parranderos
 	 * @param tipoHabitacion - El tipo de habitacion de la habitacion de hotel
 	 * @return El objeto HabitacionHotel adicionado. null si ocurre alguna Excepción
 	 */
-	public HabitacionHotel adicionarHabitacionHotel (String tipoHabitacion)
+	public HabitacionHotel adicionarHabitacionHotel (long idAlojamiento,String tipoHabitacion)
 	{
         log.info ("Adicionando HabitacionHotel: ");
-        HabitacionHotel habitacionHotel = pp.adicionarHabitacionHotel (tipoHabitacion);		
+        HabitacionHotel habitacionHotel = pp.adicionarHabitacionHotel (idAlojamiento, tipoHabitacion);		
         log.info ("Adicionando HabitacionHotel: ");
         return habitacionHotel;
 	}
@@ -506,10 +506,10 @@ public class Parranderos
 	 * @param horarioCierre - El horario del cierre del hostal
 	 * @return El objeto Hostal adicionado. null si ocurre alguna Excepción
 	 */
-	public Hostal adicionarHostal (String horarioApertura, String horarioCierre)
+	public Hostal adicionarHostal (long idAlojamiento, String horarioApertura, String horarioCierre)
 	{
         log.info ("Adicionando Hostal: ");
-        Hostal hostal = pp.adicionarHostal (horarioApertura, horarioCierre);		
+        Hostal hostal = pp.adicionarHostal (idAlojamiento, horarioApertura, horarioCierre);		
         log.info ("Adicionando Hostal: ");
         return hostal;
 	}
@@ -584,10 +584,10 @@ public class Parranderos
 	 * @param numHabitaciones - El numero de habitaciones de la vivienda temporal
 	 * @return El objeto ViviendaTemporal adicionado. null si ocurre alguna Excepción
 	 */
-	public ViviendaTemporal adicionarViviendaTemporal (int numHabitaciones)
+	public ViviendaTemporal adicionarViviendaTemporal (long idAlojamiento, int numHabitaciones)
 	{
         log.info ("Adicionando ViviendaTemporal: ");
-        ViviendaTemporal viviendaTemporal = pp.adicionarViviendaTemporal (numHabitaciones);		
+        ViviendaTemporal viviendaTemporal = pp.adicionarViviendaTemporal (idAlojamiento, numHabitaciones);		
         log.info ("Adicionando ViviendaTemporal: ");
         return viviendaTemporal;
 	}

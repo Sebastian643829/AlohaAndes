@@ -32,7 +32,22 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.parranderos.negocio.Parranderos;
-import uniandes.isis2304.parranderos.negocio.VOTipoBebida;
+import uniandes.isis2304.parranderos.negocio.VOAlojamiento;
+import uniandes.isis2304.parranderos.negocio.VOViviendaUniversitaria;
+import uniandes.isis2304.parranderos.negocio.VOOperador;
+import uniandes.isis2304.parranderos.negocio.VOPropietario;
+import uniandes.isis2304.parranderos.negocio.VOEmpresa;
+import uniandes.isis2304.parranderos.negocio.VOHabitacionVivienda;
+import uniandes.isis2304.parranderos.negocio.VOApartamento;
+import uniandes.isis2304.parranderos.negocio.VOHabitacionHotel;
+import uniandes.isis2304.parranderos.negocio.VOHostal;
+import uniandes.isis2304.parranderos.negocio.VOViviendaTemporal;
+import uniandes.isis2304.parranderos.negocio.VOCliente;
+import uniandes.isis2304.parranderos.negocio.VOMiembroActivo;
+import uniandes.isis2304.parranderos.negocio.VOMiembroSecundario;
+import uniandes.isis2304.parranderos.negocio.VOServicio;
+import uniandes.isis2304.parranderos.negocio.VODispone;
+import uniandes.isis2304.parranderos.negocio.VOReserva;
 
 /**
  * Clase principal de la interfaz
@@ -220,28 +235,78 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         }        
         setJMenuBar ( menuBar );	
     }
-    
+
 	/* ****************************************************************
-	 * 			CRUD de TipoBebida
+	 * 			CRUD de Operador
 	 *****************************************************************/
     /**
-     * Adiciona un tipo de bebida con la información dada por el usuario
-     * Se crea una nueva tupla de tipoBebida en la base de datos, si un tipo de bebida con ese nombre no existía
+     * Adiciona un Operador con la información dada por el usuario
+     * Se crea una nueva tupla de Operador en la base de datos, si un Operador con ese nombre no existía
      */
-    public void adicionarTipoBebida( )
+
+	public void adicionarOperador( )
     {
-    	try 
+
+	}
+
+
+	 /* ****************************************************************
+	 * 			CRUD de Propietario
+	 *****************************************************************/
+    /**
+     * Adiciona un Propietario con la información dada por el usuario
+     * Se crea una nueva tupla de Propietario en la base de datos, si un Propietario con ese nombre no existía
+     */
+
+	 public void adicionarPropietario( )
+	 {
+ 
+	 }
+
+
+	/* ****************************************************************
+	 * 			CRUD de Empresa
+	 *****************************************************************/
+    /**
+     * Adiciona una Empresa con la información dada por el usuario
+     * Se crea una nueva tupla de Empresa en la base de datos, si una Empresa con ese nombre no existía
+     */
+
+	 public void adicionarEmpresa( )
+	 {
+ 
+	 }
+
+	/* ****************************************************************
+	 * 			CRUD de Alojamiento
+	 *****************************************************************/
+    /**
+     * Adiciona un Alojamiento con la información dada por el usuario
+     * Se crea una nueva tupla de Alojamiento en la base de datos, si un Alojamiento con ese nombre no existía
+     */
+
+	 public void adicionarAlojamiento( )
+	 {
+		try 
     	{
-    		String nombreTipo = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Adicionar tipo de bebida", JOptionPane.QUESTION_MESSAGE);
-    		if (nombreTipo != null)
+    		String nombre = JOptionPane.showInputDialog (this, "Nombre del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+			String capacidad = JOptionPane.showInputDialog (this, "Capacidad del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+			String ubicacion = JOptionPane.showInputDialog (this, "Ubicacion del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+			String tamano = JOptionPane.showInputDialog (this, "Tamaño del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+			String precioNoche = JOptionPane.showInputDialog (this, "Precio por noche del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+			int ocupacionTotal = 0;
+			int numReservas = 0;
+			String idOperador = JOptionPane.showInputDialog (this, "Id del operador a cargo del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+
+    		if (nombre != null && capacidad != null && ubicacion != null && tamano != null && precioNoche != null && idOperador != null)
     		{
-        		VOTipoBebida tb = parranderos.adicionarTipoBebida (nombreTipo);
+        		VOAlojamiento tb = parranderos.adicionarAlojamiento (nombre, Integer.parseInt(capacidad), ubicacion, Integer.parseInt(tamano), Integer.parseInt(precioNoche), ocupacionTotal, numReservas, Long.parseLong(idOperador));
         		if (tb == null)
         		{
-        			throw new Exception ("No se pudo crear un tipo de bebida con nombre: " + nombreTipo);
+        			throw new Exception ("No se pudo crear un alojamiento con el nombre: " + nombre);
         		}
-        		String resultado = "En adicionarTipoBebida\n\n";
-        		resultado += "Tipo de bebida adicionado exitosamente: " + tb;
+        		String resultado = "En adicionarAlojamiento\n\n";
+        		resultado += "Alojamiento adicionado exitosamente: " + tb;
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
@@ -256,46 +321,38 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
+	 }
 
+	 public void retirarOfertaAlojamiento( )
+	 {
+ 
+	 }
+
+
+	 /* ****************************************************************
+	 * 			CRUD de ViviendaUniversitaria
+	 *****************************************************************/
     /**
-     * Consulta en la base de datos los tipos de bebida existentes y los muestra en el panel de datos de la aplicación
+     * Adiciona una ViviendaUniversitaria con la información dada por el usuario
+     * Se crea una nueva tupla de ViviendaUniversitaria en la base de datos, si una ViviendaUniversitaria con ese nombre no existía
      */
-    public void listarTipoBebida( )
-    {
-    	try 
-    	{
-			List <VOTipoBebida> lista = parranderos.darVOTiposBebida();
 
-			String resultado = "En listarTipoBebida";
-			resultado +=  "\n" + listarTiposBebida (lista);
-			panelDatos.actualizarInterfaz(resultado);
-			resultado += "\n Operación terminada";
-		} 
-    	catch (Exception e) 
+	 public void adicionarViviendaUniversitaria( )
+	 {
+		try 
     	{
-//			e.printStackTrace();
-			String resultado = generarMensajeError(e);
-			panelDatos.actualizarInterfaz(resultado);
-		}
-    }
+    		String idAlojamiento = JOptionPane.showInputDialog (this, "Id de la vivienda universitaria (debe ser de un alojamiento ya existente)?", "Adicionar nueva vivienda universitaria", JOptionPane.QUESTION_MESSAGE);
+			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion de la vivienda universitaria?", "Adicionar nueva vivienda universitaria", JOptionPane.QUESTION_MESSAGE);
 
-    /**
-     * Borra de la base de datos el tipo de bebida con el identificador dado po el usuario
-     * Cuando dicho tipo de bebida no existe, se indica que se borraron 0 registros de la base de datos
-     */
-    public void eliminarTipoBebidaPorId( )
-    {
-    	try 
-    	{
-    		String idTipoStr = JOptionPane.showInputDialog (this, "Id del tipo de bedida?", "Borrar tipo de bebida por Id", JOptionPane.QUESTION_MESSAGE);
-    		if (idTipoStr != null)
+    		if (idAlojamiento != null && tipoHabitacion != null)
     		{
-    			long idTipo = Long.valueOf (idTipoStr);
-    			long tbEliminados = parranderos.eliminarTipoBebidaPorId (idTipo);
-
-    			String resultado = "En eliminar TipoBebida\n\n";
-    			resultado += tbEliminados + " Tipos de bebida eliminados\n";
+        		VOViviendaUniversitaria tb = parranderos.adicionarViviendaUniversitaria (Long.parseLong(idAlojamiento), tipoHabitacion);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear una vivienda universitarica con el id: " + idAlojamiento);
+        		}
+        		String resultado = "En adicionarViviendaUniversitaria\n\n";
+        		resultado += "ViviendaUniversitaria adicionada exitosamente: " + tb;
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
@@ -310,28 +367,34 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
+	 }
 
+
+	/* ****************************************************************
+	 * 			CRUD de HabitacionVivienda
+	 *****************************************************************/
     /**
-     * Busca el tipo de bebida con el nombre indicado por el usuario y lo muestra en el panel de datos
+     * Adiciona una HabitacionVivienda con la información dada por el usuario
+     * Se crea una nueva tupla de HabitacionVivienda en la base de datos, si una HabitacionVivienda con ese nombre no existía
      */
-    public void buscarTipoBebidaPorNombre( )
-    {
-    	try 
+
+	 public void adicionarHabitacionVivienda( )
+	 {
+		try 
     	{
-    		String nombreTb = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Buscar tipo de bebida por nombre", JOptionPane.QUESTION_MESSAGE);
-    		if (nombreTb != null)
+    		String idAlojamiento = JOptionPane.showInputDialog (this, "Id de la habitacion de vivienda (debe ser de un alojamiento ya existente)?", "Adicionar nueva habitacion de vivienda", JOptionPane.QUESTION_MESSAGE);
+			String tipoBano = JOptionPane.showInputDialog (this, "Tipo de baño de la habitacion de vivienda?", "Adicionar nueva habitacion de vivienda", JOptionPane.QUESTION_MESSAGE);
+			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion habitacion de vivienda?", "Adicionar nueva habitacion de vivienda", JOptionPane.QUESTION_MESSAGE);
+
+    		if (idAlojamiento != null && tipoHabitacion != null && tipoBano != null)
     		{
-    			VOTipoBebida tipoBebida = parranderos.darTipoBebidaPorNombre (nombreTb);
-    			String resultado = "En buscar Tipo Bebida por nombre\n\n";
-    			if (tipoBebida != null)
-    			{
-        			resultado += "El tipo de bebida es: " + tipoBebida;
-    			}
-    			else
-    			{
-        			resultado += "Un tipo de bebida con nombre: " + nombreTb + " NO EXISTE\n";    				
-    			}
+        		VOHabitacionVivienda tb = parranderos.adicionarHabitacionVivienda (Long.parseLong(idAlojamiento),tipoBano, tipoHabitacion);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear una habitacion de vivienda con el id: " + idAlojamiento);
+        		}
+        		String resultado = "En adicionarHabitacionVivienda\n\n";
+        		resultado += "HabitacionVivienda adicionada exitosamente: " + tb;
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
@@ -346,8 +409,314 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
+	 }
 
+
+	/* ****************************************************************
+	 * 			CRUD de Apartamento
+	 *****************************************************************/
+    /**
+     * Adiciona una Apartamento con la información dada por el usuario
+     * Se crea una nueva tupla de Apartamento en la base de datos, si una Apartamento con ese nombre no existía
+     */
+
+	 public void adicionarApartamento( )
+	 {
+		try 
+    	{
+    		String idAlojamiento = JOptionPane.showInputDialog (this, "Id del apartamento (debe ser de un alojamiento ya existente)?", "Adicionar nuevo apartamento", JOptionPane.QUESTION_MESSAGE);
+
+    		if (idAlojamiento != null)
+    		{
+        		VOApartamento tb = parranderos.adicionarApartamento (Long.parseLong(idAlojamiento));
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear un apartameno con el id: " + idAlojamiento);
+        		}
+        		String resultado = "En adicionarApartamento\n\n";
+        		resultado += "Apartamento adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	 }
+
+
+	/* ****************************************************************
+	 * 			CRUD de HabitacionHotel
+	 *****************************************************************/
+    /**
+     * Adiciona una HabitacionHotel con la información dada por el usuario
+     * Se crea una nueva tupla de HabitacionHotel en la base de datos, si una HabitacionHotel con ese nombre no existía
+     */
+
+	 public void adicionarHabitacionHotel( )
+	 {
+		try 
+    	{
+    		String idAlojamiento = JOptionPane.showInputDialog (this, "Id de la habitacion de hotel (debe ser de un alojamiento ya existente)?", "Adicionar nueva habitacion de hotel", JOptionPane.QUESTION_MESSAGE);
+			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion habitacion de hotel?", "Adicionar nueva habitacion de hotel", JOptionPane.QUESTION_MESSAGE);
+
+    		if (idAlojamiento != null && tipoHabitacion != null)
+    		{
+        		VOHabitacionHotel tb = parranderos.adicionarHabitacionHotel (Long.parseLong(idAlojamiento), tipoHabitacion);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear una habitacion de hotel con el id: " + idAlojamiento);
+        		}
+        		String resultado = "En adicionarHabitacionHotel\n\n";
+        		resultado += "HabitacionHotel adicionada exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	 }
+
+
+	/* ****************************************************************
+	 * 			CRUD de Hostal
+	 *****************************************************************/
+    /**
+     * Adiciona un Hostal con la información dada por el usuario
+     * Se crea una nueva tupla de Hostal en la base de datos, si un Hostal con ese nombre no existía
+     */
+
+	 public void adicionarHostal( )
+	 {
+		try 
+    	{
+    		String idAlojamiento = JOptionPane.showInputDialog (this, "Id del hostal (debe ser de un alojamiento ya existente)?", "Adicionar nuevo hostal", JOptionPane.QUESTION_MESSAGE);
+			String horarioApertura = JOptionPane.showInputDialog (this, "Hora de apertura del hostal (HH:MM)?", "Adicionar nuevo hostal", JOptionPane.QUESTION_MESSAGE);
+			String horarioCierre = JOptionPane.showInputDialog (this, "Hora de cierre del hostal (HH:MM)?", "Adicionar nuevo hostal", JOptionPane.QUESTION_MESSAGE);
+
+    		if (idAlojamiento != null && horarioApertura != null && horarioCierre != null)
+    		{
+        		VOHostal tb = parranderos.adicionarHostal (Long.parseLong(idAlojamiento), horarioApertura, horarioCierre );
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear un hostal con el id: " + idAlojamiento);
+        		}
+        		String resultado = "En adicionarHostal\n\n";
+        		resultado += "Hostal adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	 }
+
+
+	/* ****************************************************************
+	 * 			CRUD de ViviendaTemporal
+	 *****************************************************************/
+    /**
+     * Adiciona una ViviendaTemporal con la información dada por el usuario
+     * Se crea una nueva tupla de ViviendaTemporal en la base de datos, si una ViviendaTemporal con ese nombre no existía
+     */
+
+	 public void adicionaViviendaTemporal( )
+	 {
+		try 
+    	{
+    		String idAlojamiento = JOptionPane.showInputDialog (this, "Id de la vivienda temporal (debe ser de un alojamiento ya existente)?", "Adicionar nueva vivienda temporal", JOptionPane.QUESTION_MESSAGE);
+			String numHabitaciones = JOptionPane.showInputDialog (this, "Numero de habitaciones de la vivienda temporal?", "Adicionar nueva vivienda temporal", JOptionPane.QUESTION_MESSAGE);
+
+    		if (idAlojamiento != null && numHabitaciones != null)
+    		{
+        		VOViviendaTemporal tb = parranderos.adicionarViviendaTemporal (Long.parseLong(idAlojamiento), Integer.parseInt(numHabitaciones) );
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear una vivienda temporal con el id: " + idAlojamiento);
+        		}
+        		String resultado = "En adicionarViviendaTemporal\n\n";
+        		resultado += "ViviendaTemporal adicionada exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	 }
+
+
+	 /* ****************************************************************
+	 * 			CRUD de Cliente
+	 *****************************************************************/
+    /**
+     * Adiciona una Cliente con la información dada por el usuario
+     * Se crea una nueva tupla de Cliente en la base de datos, si una Cliente con ese nombre no existía
+     */
+
+	 public void adicionarCliente( )
+	 {
+ 
+	 }
+
+
+	 /* ****************************************************************
+	 * 			CRUD de MiembroActivo
+	 *****************************************************************/
+    /**
+     * Adiciona un MiembroActivo con la información dada por el usuario
+     * Se crea una nueva tupla de MiembroActivo en la base de datos, si un MiembroActivo con ese nombre no existía
+     */
+
+	 public void adicionarMiembroActivo( )
+	 {
+ 
+	 }
+
+
+	/* ****************************************************************
+	 * 			CRUD de MiembroSecundario
+	 *****************************************************************/
+    /**
+     * Adiciona un MiembroSecundario con la información dada por el usuario
+     * Se crea una nueva tupla de MiembroSecundario en la base de datos, si un MiembroSecundario con ese nombre no existía
+     */
+
+	 public void adicionarMiembroSecundario( )
+	 {
+ 
+	 }
+
+
+	/* ****************************************************************
+	 * 			CRUD de Servicio
+	 *****************************************************************/
+    /**
+     * Adiciona un Servicio con la información dada por el usuario
+     * Se crea una nueva tupla de Servicio en la base de datos, si un Servicio con ese nombre no existía
+     */
+
+	 public void adicionarServicio( )
+	 {
+		try 
+    	{
+			String nombre = JOptionPane.showInputDialog (this, "Nombre del servicio?", "Adicionar nuevo servicio", JOptionPane.QUESTION_MESSAGE);
+			String costo = JOptionPane.showInputDialog (this, "Costo del servicio?", "Adicionar nuevo servicio", JOptionPane.QUESTION_MESSAGE);
+
+    		if (nombre != null && costo != null)
+    		{
+        		VOServicio tb = parranderos.adicionarServicio (nombre, Integer.parseInt(costo) );
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear un servicio con el nombre: " + nombre);
+        		}
+        		String resultado = "En adicionarServicio\n\n";
+        		resultado += "Servicio adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	 }
+
+
+	/* ****************************************************************
+	 * 			CRUD de Dispone
+	 *****************************************************************/
+    /**
+     * Adiciona Dispone con la información dada por el usuario
+     * Se crea una nueva tupla de Dispone en la base de datos, si Dispone con ese nombre no existía
+     */
+
+	 public void adicionaDispone( )
+	 {
+		try 
+    	{
+			String idServicio = JOptionPane.showInputDialog (this, "Id del servicio (ya existente)?", "Adicionar nueva relacion de dispone", JOptionPane.QUESTION_MESSAGE);
+    		String idAlojamiento = JOptionPane.showInputDialog (this, "Id del alojamiento (ya existente)?", "Adicionar nueva nueva relacion de dispone", JOptionPane.QUESTION_MESSAGE);
+
+    		if (idAlojamiento != null && idServicio != null)
+    		{
+        		VODispone tb = parranderos.adicionarDispone (Long.parseLong(idServicio), Long.parseLong(idAlojamiento) );
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear una nueva relacion Dispone con el id de servicio " + idServicio + " y el id de alojamiento " + idAlojamiento);
+        		}
+        		String resultado = "En Dispone\n\n";
+        		resultado += "Relacion Dispone adicionada exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	 }
+
+
+	/* ****************************************************************
+	 * 			CRUD de Reserva
+	 *****************************************************************/
+    /**
+     * Adiciona una Reserva con la información dada por el usuario
+     * Se crea una nueva tupla de Reserva en la base de datos, si una Reserva con ese nombre no existía
+     */
+
+	 public void adicionarReserva( )
+	 {
+ 
+	 }
+
+	 public void cancelarReserva( )
+	 {
+ 
+	 }
 
 	/* ****************************************************************
 	 * 			Métodos administrativos
@@ -499,22 +868,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	/* ****************************************************************
 	 * 			Métodos privados para la presentación de resultados y otras operaciones
 	 *****************************************************************/
-    /**
-     * Genera una cadena de caracteres con la lista de los tipos de bebida recibida: una línea por cada tipo de bebida
-     * @param lista - La lista con los tipos de bebida
-     * @return La cadena con una líea para cada tipo de bebida recibido
-     */
-    private String listarTiposBebida(List<VOTipoBebida> lista) 
-    {
-    	String resp = "Los tipos de bebida existentes son:\n";
-    	int i = 1;
-        for (VOTipoBebida tb : lista)
-        {
-        	resp += i++ + ". " + tb.toString() + "\n";
-        }
-        return resp;
-	}
-
+    
     /**
      * Genera una cadena de caracteres con la descripción de la excepcion e, haciendo énfasis en las excepcionsde JDO
      * @param e - La excepción recibida

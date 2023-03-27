@@ -46,7 +46,7 @@
 				},
 				{
 					"label": "Adicionar Vivienda Temporal",
-					"event": "adicionaViviendaTemporalr"
+					"event": "adicionaViviendaTemporal"
 				},
 				{
 					"label": "Adicionar Cliente",
@@ -74,11 +74,11 @@
 				},
 				{
 					"label": "Cancelar una Reserva",
-					"event": ""
+					"event": "cancelarReserva"
 				},
 				{
 					"label": "Retirar una oferta de alojamiento ",
-					"event": ""
+					"event": "retirarOfertaAlojamiento"
 				}
 			]
 		},

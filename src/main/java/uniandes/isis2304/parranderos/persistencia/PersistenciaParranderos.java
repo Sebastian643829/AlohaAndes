@@ -667,14 +667,13 @@ public class PersistenciaParranderos
 	 * @param tipoHabitacion - El tipo de habitacion de la vivienda universitaria
 	 * @return El objeto ViviendaUniversitaria adicionado. null si ocurre alguna Excepción
 	 */
-	public ViviendaUniversitaria adicionarViviendaUniversitaria(String tipoHabitacion)
+	public ViviendaUniversitaria adicionarViviendaUniversitaria(long idAlojamiento,String tipoHabitacion)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long idAlojamiento = nextval ();
             long tuplasInsertadas = sqlViviendaUniversitaria.adicionarViviendaUniversitaria(pm, idAlojamiento, tipoHabitacion);
             tx.commit();
             
@@ -764,14 +763,13 @@ public class PersistenciaParranderos
 	 * @param tipoHabitacion - El tipo de habitacion de la vivienda
 	 * @return El objeto HabitacionVivienda adicionado. null si ocurre alguna Excepción
 	 */
-	public HabitacionVivienda adicionarHabitacionVivienda(String tipoBano, String tipoHabitacion)
+	public HabitacionVivienda adicionarHabitacionVivienda(long idAlojamiento, String tipoBano, String tipoHabitacion)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long idAlojamiento = nextval ();
             long tuplasInsertadas = sqlHabitacionVivienda.adicionarHabitacionVivienda(pm, idAlojamiento, tipoBano, tipoHabitacion);
             tx.commit();
             
@@ -859,14 +857,13 @@ public class PersistenciaParranderos
 	 * @param idAlojamiento - El id del apartamento
 	 * @return El objeto Apartamento adicionado. null si ocurre alguna Excepción
 	 */
-	public Apartamento adicionarApartamento()
+	public Apartamento adicionarApartamento(long idAlojamiento)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long idAlojamiento = nextval ();
             long tuplasInsertadas = sqlApartamento.adicionarApartamento(pm, idAlojamiento);
             tx.commit();
             
@@ -956,14 +953,13 @@ public class PersistenciaParranderos
 	 * @param tipoHabitacion - El tipo de habitacion de la habitacion de hotel
 	 * @return El objeto HabitacionHotel adicionado. null si ocurre alguna Excepción
 	 */
-	public HabitacionHotel adicionarHabitacionHotel(String tipoHabitacion)
+	public HabitacionHotel adicionarHabitacionHotel(long idAlojamiento, String tipoHabitacion)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long idAlojamiento = nextval ();
             long tuplasInsertadas = sqlHabitacionHotel.adicionarHabitacionHotel(pm, idAlojamiento, tipoHabitacion);
             tx.commit();
             
@@ -1052,14 +1048,13 @@ public class PersistenciaParranderos
 	 * @param horarioCierre - El horario del cierre del hostal
 	 * @return El objeto Hostal adicionado. null si ocurre alguna Excepción
 	 */
-	public Hostal adicionarHostal(String horarioApertura, String horarioCierre)
+	public Hostal adicionarHostal(long idAlojamiento, String horarioApertura, String horarioCierre)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long idAlojamiento = nextval ();
             long tuplasInsertadas = sqlHostal.adicionarHostal(pm, idAlojamiento, horarioApertura, horarioCierre);
             tx.commit();
             
@@ -1146,14 +1141,13 @@ public class PersistenciaParranderos
 	 * @param numHabitaciones - El numero de habitaciones de la vivienda temporal
 	 * @return El objeto ViviendaTemporal adicionado. null si ocurre alguna Excepción
 	 */
-	public ViviendaTemporal adicionarViviendaTemporal(int numHabitaciones)
+	public ViviendaTemporal adicionarViviendaTemporal(long idAlojamiento, int numHabitaciones)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long idAlojamiento = nextval ();
             long tuplasInsertadas = sqlViviendaTemporal.adicionarViviendaTemporal(pm, idAlojamiento, numHabitaciones);
             tx.commit();
             
