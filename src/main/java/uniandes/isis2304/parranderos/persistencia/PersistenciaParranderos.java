@@ -128,6 +128,34 @@ public class PersistenciaParranderos
 	 * Atributo para el acceso a la tabla VIVIENDATEMPORAL de la base de datos
 	 */
 	private SQLViviendaTemporal sqlViviendaTemporal;
+	/**
+	 * Atributo para el acceso a la tabla OPERADOR de la base de datos
+	 */
+	private SQLOperador sqlOperador;
+	/**
+	 * Atributo para el acceso a la tabla PROPIETARIO de la base de datos
+	 */
+	private SQLPropietario sqlPropietario;
+	/**
+	 * Atributo para el acceso a la tabla EMPRESA de la base de datos
+	 */
+	private SQLEmpresa sqlEmpresa;
+	/**
+	 * Atributo para el acceso a la tabla CLIENTE de la base de datos
+	 */
+	private SQLCliente sqlCliente;
+	/**
+	 * Atributo para el acceso a la tabla MIEMBROACTIVO de la base de datos
+	 */
+	private SQLMiembroActivo sqlMiembroActivo;
+	/**
+	 * Atributo para el acceso a la tabla MIEMBROSECUNDARIO de la base de datos
+	 */
+	private SQLMiembroSecundario sqlMiembroSecundario;
+	/**
+	 * Atributo para el acceso a la tabla RESERVA de la base de datos
+	 */
+	private SQLReserva sqlReserva;
 
 	// PENDIENTE: CREAR ATRIBUTOS DE AERCHIVOS SQL RESTANTES
 
@@ -246,6 +274,13 @@ public class PersistenciaParranderos
 		sqlHabitacionHotel = new SQLHabitacionHotel(this);
 		sqlHostal = new SQLHostal (this);
 		sqlViviendaTemporal= new SQLViviendaTemporal(this);
+		sqlOperador= new SQLOperador(this);
+		sqlPropietario= new SQLPropietario(this);
+		sqlEmpresa= new SQLEmpresa(this);
+		sqlCliente= new SQLCliente(this);
+		sqlMiembroActivo= new SQLMiembroActivo(this);
+		sqlMiembroSecundario= new SQLMiembroSecundario(this);
+		sqlReserva= new SQLReserva(this);
 
 		// PENDIENTE: CREAR CLASES DE SQL RESTANTES
 
