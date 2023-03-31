@@ -66,7 +66,7 @@ class SQLCliente {
 	 */
 	public long eliminarClientePorId (PersistenceManager pm, long idCliente)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaCliente () + " WHERE id = ?");
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaCliente () + " WHERE idcliente = ?");
         q.setParameters(idCliente);
         return (long) q.executeUnique();
 	}
@@ -79,7 +79,7 @@ class SQLCliente {
 	 */
 	public Cliente darClientePorId (PersistenceManager pm, long idCliente) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaCliente () + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaCliente () + " WHERE idcliente = ?");
 		q.setResultClass(Cliente.class);
 		q.setParameters(idCliente);
 		return (Cliente) q.executeUnique();

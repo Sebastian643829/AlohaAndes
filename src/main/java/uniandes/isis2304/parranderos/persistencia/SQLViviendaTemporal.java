@@ -66,7 +66,7 @@ class SQLViviendaTemporal {
 	 */
 	public long eliminarViviendaTemporalPorId (PersistenceManager pm, long idAlojamiento)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaViviendaTemporal () + " WHERE id = ?");
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaViviendaTemporal () + " WHERE idalojamiento = ?");
         q.setParameters(idAlojamiento);
         return (long) q.executeUnique();
 	}
@@ -80,7 +80,7 @@ class SQLViviendaTemporal {
 	 */
 	public ViviendaTemporal darViviendaTemporalPorId (PersistenceManager pm, long idAlojamiento) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaViviendaTemporal () + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaViviendaTemporal () + " WHERE idalojamiento = ?");
 		q.setResultClass(ViviendaTemporal.class);
 		q.setParameters(idAlojamiento);
 		return (ViviendaTemporal) q.executeUnique();

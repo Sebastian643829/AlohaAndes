@@ -1,7 +1,6 @@
 package uniandes.isis2304.parranderos.persistencia;
 
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;

@@ -61,7 +61,7 @@ class SQLMiembroSecundario {
 	 */
 	public long eliminarMiembroSecundarioPorId (PersistenceManager pm, long idMiembroSecundario)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMiembroSecundario () + " WHERE id = ?");
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMiembroSecundario () + " WHERE idmiembrosecundario = ?");
         q.setParameters(idMiembroSecundario);
         return (long) q.executeUnique();
 	}
@@ -74,7 +74,7 @@ class SQLMiembroSecundario {
 	 */
 	public MiembroSecundario darMiembroSecundarioPorId (PersistenceManager pm, long idMiembroSecundario) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMiembroSecundario () + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMiembroSecundario () + " WHERE idmiembrosecundario = ?");
 		q.setResultClass(MiembroSecundario.class);
 		q.setParameters(idMiembroSecundario);
 		return (MiembroSecundario) q.executeUnique();

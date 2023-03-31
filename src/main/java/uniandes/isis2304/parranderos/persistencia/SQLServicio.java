@@ -67,7 +67,7 @@ class SQLServicio {
 	 */
 	public long eliminarServicioPorId (PersistenceManager pm, long idServicio)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServicio() + " WHERE id = ?");
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServicio() + " WHERE idservicio = ?");
         q.setParameters(idServicio);
         return (long) q.executeUnique();
 	}
@@ -81,7 +81,7 @@ class SQLServicio {
 	 */
 	public Servicio darServicioPorId (PersistenceManager pm, long idServicio) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio() + " WHERE idservicio = ?");
 		q.setResultClass(Servicio.class);
 		q.setParameters(idServicio);
 		return (Servicio) q.executeUnique();

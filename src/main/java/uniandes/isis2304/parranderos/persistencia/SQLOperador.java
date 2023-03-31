@@ -62,7 +62,7 @@ class SQLOperador {
 	 */
 	public long eliminarOperadorPorId (PersistenceManager pm, long idOperador)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOperador() + " WHERE id = ?");
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOperador() + " WHERE idoperador = ?");
         q.setParameters(idOperador);
         return (long) q.executeUnique();
 	}
@@ -75,7 +75,7 @@ class SQLOperador {
 	 */
 	public Operador darOperadorPorId (PersistenceManager pm, long idOperador) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOperador() + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaOperador() + " WHERE idoperador = ?");
 		q.setResultClass(Operador.class);
 		q.setParameters(idOperador);
 		return (Operador) q.executeUnique();

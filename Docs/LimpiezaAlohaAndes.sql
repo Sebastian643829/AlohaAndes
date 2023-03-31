@@ -22,14 +22,11 @@ DROP TABLE "A_MIEMBROSECUNDARIO" CASCADE CONSTRAINTS;
 DROP TABLE "A_SERVICIO" CASCADE CONSTRAINTS;
 DROP TABLE "A_DISPONE" CASCADE CONSTRAINTS;
 DROP TABLE "A_RESERVA" CASCADE CONSTRAINTS;
-COMMMIT;
+commit;
 
 -- Eliminar el contenido de todas las tablas de la base de datos (El orden es importante)
 delete from a_reserva;
 delete from a_dispone;
-delete from a_alojamiento;
-delete from a_cliente;
-delete from a_operador;
 delete from a_propietario;
 delete from a_empresa;
 delete from a_viviendaUniversitaria;
@@ -40,5 +37,8 @@ delete from a_hostal;
 delete from a_viviendaTemporal;
 delete from a_miembroActivo;
 delete from a_miembroSecundario;
+delete from a_cliente;
+delete from a_alojamiento;
+delete from a_operador;
 delete from a_servicio;
-commit; 
+commit;

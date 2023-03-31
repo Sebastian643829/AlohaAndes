@@ -66,7 +66,7 @@ class SQLPropietario {
 	 */
 	public long eliminarPropietarioPorId (PersistenceManager pm, long idOperador)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaPropietario () + " WHERE id = ?");
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaPropietario () + " WHERE idoperador = ?");
         q.setParameters(idOperador);
         return (long) q.executeUnique();
 	}
@@ -79,7 +79,7 @@ class SQLPropietario {
 	 */
 	public Propietario darPropietarioPorId (PersistenceManager pm, long idOperador) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaPropietario () + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaPropietario () + " WHERE idoperador = ?");
 		q.setResultClass(Propietario.class);
 		q.setParameters(idOperador);
 		return (Propietario) q.executeUnique();

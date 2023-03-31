@@ -63,7 +63,7 @@ class SQLMiembroActivo {/* *****************************************************
 	 */
 	public long eliminarMiembroActivoPorId (PersistenceManager pm, long idMiembroActivo)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMiembroActivo () + " WHERE id = ?");
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMiembroActivo () + " WHERE idmiembroactivo = ?");
         q.setParameters(idMiembroActivo);
         return (long) q.executeUnique();
 	}
@@ -76,7 +76,7 @@ class SQLMiembroActivo {/* *****************************************************
 	 */
 	public MiembroActivo darMiembroActivoPorId (PersistenceManager pm, long idMiembroActivo) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMiembroActivo () + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMiembroActivo () + " WHERE idmiembroactivo = ?");
 		q.setResultClass(MiembroActivo.class);
 		q.setParameters(idMiembroActivo);
 		return (MiembroActivo) q.executeUnique();

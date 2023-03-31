@@ -65,10 +65,7 @@ class SQLUtil
 	{
         Query qReserva = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva ());          
         Query qDispone = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaDispone ());
-        Query qAlojamiento = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAlojamiento ());
-        Query qCliente = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaCliente ());
-        Query qOperador = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOperador ());
-        Query qPropietario = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaPropietario ());
+		Query qPropietario = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaPropietario ());
         Query qEmpresa = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaEmpresa ());
 		Query qViviendaUniversitaria = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaViviendaUniversitaria ());          
         Query qHabitacionVivienda = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacionVivienda ());
@@ -77,16 +74,16 @@ class SQLUtil
         Query qHostal = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHostal ());
         Query qViviendaTemporal = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaViviendaTemporal ());
         Query qMiembroActivo = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMiembroActivo ());
-		Query qMiembroSecundario= pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMiembroSecundario ());          
+		Query qMiembroSecundario= pm.newQuery(SQL, "DELETE FROM " + pp.darTablaMiembroSecundario ());
+		Query qCliente = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaCliente ());
+        Query qAlojamiento = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAlojamiento ());
+        Query qOperador = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaOperador ());         
         Query qServicio = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaServicio ());
 
 
         long reservaEliminadas = (long) qReserva.executeUnique ();
         long disponeEliminados = (long) qDispone.executeUnique ();
-        long alojamientoEliminados = (long) qAlojamiento.executeUnique ();
-        long clienteEliminados = (long) qCliente.executeUnique ();
-        long operadorEliminados = (long) qOperador.executeUnique ();
-        long propietarioEliminados = (long) qPropietario.executeUnique ();
+		long propietarioEliminados = (long) qPropietario.executeUnique ();
         long empresaEliminadas = (long) qEmpresa.executeUnique ();
 		long viviendaUniversitariaEliminadas = (long) qViviendaUniversitaria.executeUnique ();
         long habitacionViviendaEliminadas = (long) qHabitacionVivienda.executeUnique ();
@@ -96,10 +93,14 @@ class SQLUtil
         long viviendaTemporalEliminadas = (long) qViviendaTemporal.executeUnique ();
 		long miembroActivoEliminados = (long) qMiembroActivo.executeUnique ();
         long miembroSecundarioEliminados = (long) qMiembroSecundario.executeUnique ();
+		long clienteEliminados = (long) qCliente.executeUnique ();
+        long alojamientoEliminados = (long) qAlojamiento.executeUnique ();
+        long operadorEliminados = (long) qOperador.executeUnique ();
 		long servicioEliminados = (long) qServicio.executeUnique ();
-        return new long[] {reservaEliminadas, disponeEliminados, alojamientoEliminados, clienteEliminados, 
-			operadorEliminados, propietarioEliminados, empresaEliminadas, viviendaUniversitariaEliminadas, habitacionViviendaEliminadas, apartamentoEliminados, habitacionHotelEliminadas, 
-			hostalEliminados, viviendaTemporalEliminadas, miembroActivoEliminados, miembroSecundarioEliminados, servicioEliminados};
+
+        return new long[] {reservaEliminadas, disponeEliminados, propietarioEliminados, empresaEliminadas, viviendaUniversitariaEliminadas, habitacionViviendaEliminadas, apartamentoEliminados, habitacionHotelEliminadas, 
+			hostalEliminados, viviendaTemporalEliminadas, miembroActivoEliminados, miembroSecundarioEliminados, clienteEliminados, alojamientoEliminados, 
+			operadorEliminados, servicioEliminados};
 	}
 
 }

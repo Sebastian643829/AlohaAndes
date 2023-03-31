@@ -66,7 +66,7 @@ class SQLApartamento {
 	 */
 	public long eliminarApartamentoPorId (PersistenceManager pm, long idAlojamiento)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaApartamento () + " WHERE id = ?");
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaApartamento () + " WHERE idalojamiento = ?");
         q.setParameters(idAlojamiento);
         return (long) q.executeUnique();
 	}
@@ -80,7 +80,7 @@ class SQLApartamento {
 	 */
 	public Apartamento darApartamentoPorId (PersistenceManager pm, long idAlojamiento) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaApartamento () + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaApartamento () + " WHERE idalojamiento = ?");
 		q.setResultClass(Apartamento.class);
 		q.setParameters(idAlojamiento);
 		return (Apartamento) q.executeUnique();
