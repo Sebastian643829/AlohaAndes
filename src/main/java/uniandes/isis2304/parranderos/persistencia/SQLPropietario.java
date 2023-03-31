@@ -90,7 +90,7 @@ class SQLPropietario {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos PROPIETARIO
 	 */
-	public List<Propietario> darViviendasUniversitarias (PersistenceManager pm)
+	public List<Propietario> darPropietarios (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaPropietario ());
 		q.setResultClass(Propietario.class);

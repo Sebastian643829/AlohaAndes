@@ -7,6 +7,10 @@ public class Reserva implements VOReserva {
 	 * 			Atributos
 	 *****************************************************************/
 	/**
+	 * El id de la reserva
+	 */
+	private long idReserva;
+	/**
 	 * El identificador del bebedor que realiza la visita
 	 */
 	private long idAlojamiento;
@@ -34,7 +38,7 @@ public class Reserva implements VOReserva {
     /**
 	 * El costo total de la reserva
 	 */
-	private int costoTotal;
+	private long costoTotal;
 	
 	/**
 	 * El estado de la reserva
@@ -54,6 +58,7 @@ public class Reserva implements VOReserva {
 	 */
 	public Reserva() 
 	{
+		this.idReserva = 0 ;
 		this.idAlojamiento = 0;
 		this.idCliente = 0;
 		this.duracion = 0;
@@ -66,6 +71,7 @@ public class Reserva implements VOReserva {
 
 	/**
 	 * Constructor con valores
+	 * @param idReserva - El id de la reserva
 	 * @param idAlojamiento - El id del alojamiento
 	 * @param idCliente - El id del cliente
 	 * @param duracion - La duracion de la reserva
@@ -75,8 +81,9 @@ public class Reserva implements VOReserva {
 	 * @param estado - El estado de la reserva
 	 * @param numPersonas - El numero de personas de la reserva
 	 */
-	public Reserva(long idAlojamiento, long idCliente, int duracion, Timestamp fechaInicio, Timestamp fechaFinal, int costoTotal, String estado, int numPersonas) 
+	public Reserva(long idReserva,long idAlojamiento, long idCliente, int duracion, Timestamp fechaInicio, Timestamp fechaFinal, long costoTotal, String estado, int numPersonas) 
 	{
+		this.idReserva = idReserva;
 		this.idAlojamiento = idAlojamiento;
 		this.idCliente = idCliente;
 		this.duracion = duracion;
@@ -85,6 +92,21 @@ public class Reserva implements VOReserva {
 		this.costoTotal = costoTotal;
 		this.estado = estado;
 		this.numPersonas = numPersonas;
+	}
+	/**
+	 * @return El id de la reserva
+	 */
+	public long getIdReserva() 
+	{
+		return idReserva;
+	}
+
+	/**
+	 * @param idReserva - El nuevo id de la reserva
+	 */
+	public void setIdReserva(long idReserva) 
+	{
+		this.idReserva = idReserva;
 	}
 
 	/**
@@ -170,7 +192,7 @@ public class Reserva implements VOReserva {
      /**
 	 * @return El costo total de la reserva
 	 */
-	public int getCostoTotal() 
+	public long getCostoTotal() 
 	{
 		return costoTotal;
 	}

@@ -38,7 +38,7 @@ public class MiembroActivo implements VOMiembroActivo {
 	 * @param carnet - El carnet del miembro activo
 	 * @param tipo - El tipo del miembro activo
 	 */
-    public MiembroActivo(long idMiembroActivo, String carnet){
+    public MiembroActivo(long idMiembroActivo, String carnet, String tipo){
     	this.idMiembroActivo = idMiembroActivo;
 		this.carnet = carnet;
 		this.tipo = "";

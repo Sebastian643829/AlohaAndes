@@ -6,6 +6,11 @@ public interface VOReserva {
     /* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
+
+	/**
+	 * @return El id de la reserva
+	 */
+	public long getIdReserva();
 	/**
 	 * @return El id del alojamiento
 	 */
@@ -34,7 +39,7 @@ public interface VOReserva {
     /**
 	 * @return El costo total de la reserva
 	 */
-	public int getCostoTotal();
+	public long getCostoTotal();
 
 	/**
 	 * @return El estado de la reserva

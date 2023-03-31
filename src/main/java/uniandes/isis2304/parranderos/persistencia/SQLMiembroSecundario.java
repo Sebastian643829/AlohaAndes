@@ -85,7 +85,7 @@ class SQLMiembroSecundario {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos MIEMBROSECUNDARIO
 	 */
-	public List<MiembroSecundario> darViviendasUniversitarias (PersistenceManager pm)
+	public List<MiembroSecundario> darMiembrosSecundarios (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaMiembroSecundario ());
 		q.setResultClass(MiembroSecundario.class);

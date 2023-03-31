@@ -455,17 +455,280 @@ public class PersistenciaParranderos
 	/* ****************************************************************
 	 * 			Métodos para manejar los OPERADORES
 	 *****************************************************************/
-
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla Operador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idOperador - El id del operador
+	 * @param nombre - El nombre del alojamiento
+	 * @param capacidad - La capacidad del alojamiento
+     * @param ubicacion - La ubicacion del alojamiento
+	 * @param tamano - El tamaño del alojamiento
+	 * @param precioNoche - El precio de la noche del alojamiento
+     * @param ocupacionTotal - La ocupacion total actual del alojamiento
+	 * @param numReservas - El numero de reservas del alojamiento
+	 * @param idOperador - El id del operador
+	 * @return El objeto Alojamiento adicionado. null si ocurre alguna Excepción
+	 */
+	public Operador adicionarOperador(String telefono, String tipoVinculacion)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idOperador = nextval ();
+            long tuplasInsertadas = sqlOperador.adicionarOperador(pm, idOperador, telefono, tipoVinculacion);
+            tx.commit();
+            
+            log.trace ("Inserción de operador: " + idOperador + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Operador (idOperador, telefono, tipoVinculacion);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla Operador, dado el identificador del mismo
+	 * Adiciona entradas al log de la aplicación
+	 * @param idOperador - El id del operador
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarOperadorPorId (long idOperador) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlOperador.eliminarOperadorPorId(pm, idOperador);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla Operador
+	 * @return La lista de objetos Operador, construidos con base en las tuplas de la tabla OPERADOR
+	 */
+	public List<Operador> darOperadores ()
+	{
+		return sqlOperador.darOperadores(pmf.getPersistenceManager());
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla Operador con un identificador dado
+	 * @param idOperador - El id del alojamiento
+	 * @return El objeto Operador, construido con base en las tuplas de la tabla Operador con el identificador dado
+	 */
+	public Operador darOperadorPorId (long idOperador)
+	{
+		return sqlOperador.darOperadorPorId (pmf.getPersistenceManager(), idOperador);
+	}
 
 	 /* ****************************************************************
 	 * 			Métodos para manejar los PROPIETARIOS
 	 *****************************************************************/
-
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla Propietario
+	 * Adiciona entradas al log de la aplicación
+	 * @param idOperador - El id del propietario
+	 * @param identificacion - Número de identificación del propietario
+     * @param tipoIdentificacion - Tipo de identificación del propietario
+     * @param nombrePropietario - Nombre del propietario
+	 * @return El objeto Propietario adicionado. null si ocurre alguna Excepción
+	 */
+	public Propietario adicionarPropietario(long idOperador, String identificacion, String tipoIdentificacion, String nombrePropietario)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlPropietario.adicionarPropietario(pm, idOperador, identificacion,tipoIdentificacion,nombrePropietario);
+            tx.commit();
+            
+            log.trace ("Inserción de Propietario: " + nombrePropietario + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Propietario (idOperador, identificacion,tipoIdentificacion,nombrePropietario);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla Propietario, dado el identificador del Operador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idOperador - El id del propietario
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarPropietarioPorId (long idOperador) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlPropietario.eliminarPropietarioPorId(pm, idOperador);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla Propietario
+	 * @return La lista de objetos Propietario, construidos con base en las tuplas de la tabla PROPIETARIO
+	 */
+	public List<Propietario> darPropietarios ()
+	{
+		return sqlPropietario.darPropietarios (pmf.getPersistenceManager());
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla Propietario con un identificador dado
+	 * @param idOperador - El id del operador
+	 * @return El objeto Propietario, construido con base en las tuplas de la tabla Propietario con el identificador dado
+	 */
+	public Propietario darPropietarioPorId (long idOperador)
+	{
+		return sqlPropietario.darPropietarioPorId (pmf.getPersistenceManager(), idOperador);
+	}
 
 	 /* ****************************************************************
 	 * 			Métodos para manejar las EMPRESAS
 	 *****************************************************************/
-
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla Empresa
+	 * Adiciona entradas al log de la aplicación
+	 * @param idOperador - El id del empresa
+	 * @param nit - Número de NIT del empresa
+     * @param nombreEmpresa - Nombre del empresa
+	 * @return El objeto Empresa adicionado. null si ocurre alguna Excepción
+	 */
+	public Empresa adicionarEmpresa(long idOperador, String nit, String nombreEmpresa)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlEmpresa.adicionarEmpresa(pm, idOperador, nit,nombreEmpresa);
+            tx.commit();
+            
+            log.trace ("Inserción de Empresa: " + nombreEmpresa + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Empresa (idOperador, nit, nombreEmpresa);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla Empresa, dado el identificador del Operador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idOperador - El id del propietario
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarEmpresaPorId (long idOperador) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlEmpresa.eliminarEmpresaPorId(pm, idOperador);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla Empresa
+	 * @return La lista de objetos Empresa, construidos con base en las tuplas de la tabla EMPRESA
+	 */
+	public List<Empresa> darEmpresas ()
+	{
+		return sqlEmpresa.darEmpresas (pmf.getPersistenceManager());
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla Empresa con un identificador dado
+	 * @param idOperador - El id del operador
+	 * @return El objeto Empresa, construido con base en las tuplas de la tabla Empresa con el identificador dado
+	 */
+	public Empresa darEmpresaPorId (long idOperador)
+	{
+		return sqlEmpresa.darEmpresaPorId (pmf.getPersistenceManager(), idOperador);
+	}
 
 	 /* ****************************************************************
 	 * 			Métodos para manejar los ALOJAMIENTOS
@@ -1207,17 +1470,272 @@ public class PersistenciaParranderos
 	 /* ****************************************************************
 	 * 			Métodos para manejar los CLIENTES
 	 *****************************************************************/
-
+	 /**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla Cliente
+	 * Adiciona entradas al log de la aplicación
+	 * @param idCliente - El id del cliente
+	 * @param tipoIdentificacion - El tipo de identificación del cliente
+	 * @param nombreCliente - El nombre del cliente
+     * @param fechaNacimiento - La fecha de nacimiento del cliente
+	 * @return El objeto Cliente adicionado. null si ocurre alguna Excepción
+	 */
+	public Cliente adicionarCliente(long idCliente, String tipoIdentificacion, String nombreCliente , Timestamp fechaNacimiento)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlCliente.adicionarCliente(pm, idCliente, tipoIdentificacion, nombreCliente, fechaNacimiento );
+            tx.commit();
+            
+            log.trace ("Inserción de cliente: " + nombreCliente + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Cliente (idCliente, tipoIdentificacion, nombreCliente, fechaNacimiento);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla Cliente, dado el identificador del Cliente
+	 * Adiciona entradas al log de la aplicación
+	 * @param idCliente - El id del servicio
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarClientePorId (long idCliente) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlCliente.eliminarClientePorId(pm, idCliente);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla Cliente
+	 * @return La lista de objetos Cliente, construidos con base en las tuplas de la tabla SERVICIO
+	 */
+	public List<Cliente> darClientes ()
+	{
+		return sqlCliente.darClientes (pmf.getPersistenceManager());
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla Cliente con un identificador dado
+	 * @param idCliente - El id del cliente
+	 * @return El objeto Cliente, construido con base en las tuplas de la tabla Cliente con el identificador dado
+	 */
+	public Cliente  darClientePorId (long idCliente )
+	{
+		return sqlCliente.darClientePorId (pmf.getPersistenceManager(), idCliente );
+	}
 
 	 /* ****************************************************************
 	 * 			Métodos para manejar los MIEMBROS ACTIVOS
 	 *****************************************************************/
-
-
+	 /**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla MiembroActivo
+	 * Adiciona entradas al log de la aplicación
+	 * @param idMiembroActivo - El id del Miembro Activo
+	 * @param carnet - Número de carnet del Miembro Activo
+     * @param tipo - Nombre del Miembro Activo
+	 * @return El objeto MiembroActivo adicionado. null si ocurre alguna Excepción
+	 */
+	public MiembroActivo adicionarMiembroActivo(long idMiembroActivo, String carnet, String tipo)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlMiembroActivo.adicionarMiembroActivo(pm, idMiembroActivo, carnet, tipo);
+            tx.commit();
+            
+            log.trace ("Inserción de Miembro Activo: " + idMiembroActivo + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new MiembroActivo (idMiembroActivo, carnet, tipo);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla MiembroActivo, dado el identificador del MiembroActivo
+	 * Adiciona entradas al log de la aplicación
+	 * @param idMiembroActivo - El id del miembro activo
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarMiembroActivoPorId (long idMiembroActivo) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlMiembroActivo.eliminarMiembroActivoPorId(pm, idMiembroActivo);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla MiembroActivo
+	 * @return La lista de objetos MiembroActivo, construidos con base en las tuplas de la tabla MIEMBRO ACTIVO
+	 */
+	public List<MiembroActivo> darMiembrosActivos ()
+	{
+		return sqlMiembroActivo.darMiembrosActivos (pmf.getPersistenceManager());
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla MiembroActivo con un identificador dado
+	 * @param idMiembroActivo - El id del MiembroActivo
+	 * @return El objeto MiembroActivo, construido con base en las tuplas de la tabla MiembroActivo con el identificador dado
+	 */
+	public MiembroActivo  darMiembroActivoPorId (long idMiembroActivo )
+	{
+		return sqlMiembroActivo.darMiembroActivoPorId (pmf.getPersistenceManager(), idMiembroActivo );
+	}
 	 /* ****************************************************************
 	 * 			Métodos para manejar los MIEMBROS SECUNDARIOS
 	 *****************************************************************/
-
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla MiembroSecundario
+	 * Adiciona entradas al log de la aplicación
+	 * @param idMiembroSecundario - El id del Miembro Secundario
+	 * @param carnet - Número de carnet del Miembro Secundario
+     * @param tipo - Nombre del Miembro Secundario
+	 * @return El objeto MiembroSecundario adicionado. null si ocurre alguna Excepción
+	 */
+	public MiembroSecundario adicionarMiembroSecundario(long idMiembroSecundario, String tipo)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlMiembroSecundario.adicionarMiembroSecundario(pm, idMiembroSecundario,tipo);
+            tx.commit();
+            
+            log.trace ("Inserción de Miembro Secundario: " + idMiembroSecundario + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new MiembroSecundario (idMiembroSecundario, tipo);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla MiembroSecundario, dado el identificador del MiembroSecundario
+	 * Adiciona entradas al log de la aplicación
+	 * @param idMiembroSecundario - El id del miembro Secundario
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarMiembroSecundarioPorId (long idMiembroSecundario) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlMiembroSecundario.eliminarMiembroSecundarioPorId(pm, idMiembroSecundario);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla MiembroSecundario
+	 * @return La lista de objetos MiembroSecundario, construidos con base en las tuplas de la tabla MIEMBRO Secundario
+	 */
+	public List<MiembroSecundario> darMiembrosSecundarios ()
+	{
+		return sqlMiembroSecundario.darMiembrosSecundarios (pmf.getPersistenceManager());
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla MiembroSecundario con un identificador dado
+	 * @param idMiembroSecundario - El id del MiembroSecundario
+	 * @return El objeto MiembroSecundario, construido con base en las tuplas de la tabla MiembroSecundario con el identificador dado
+	 */
+	public MiembroSecundario  darMiembroSecundarioPorId (long idMiembroSecundario )
+	{
+		return sqlMiembroSecundario.darMiembroSecundarioPorId (pmf.getPersistenceManager(), idMiembroSecundario );
+	}
 
 	 /* ****************************************************************
 	 * 			Métodos para manejar los SERVICIOS
@@ -1404,6 +1922,99 @@ public class PersistenciaParranderos
 	 /* ****************************************************************
 	 * 			Métodos para manejar las RESERVAS
 	 *****************************************************************/
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla Reserva
+	 * Adiciona entradas al log de la aplicación
+	 * @param idReserva - El ide de la reserva
+	 * @param idAlojamiento - El id del alojamiento
+	 * @param idCliente - El id del cliente
+     * @param duracion - Duracion de la reserva
+	 * @param fechaInicio - La fecha de inicio de la reserva
+     * @param fechaFinal - La fecha final de la reserva
+     * @param costoTotal - El costo total de la reserva
+     * @param estado - El estado de la reserva
+     * @param numPersonas - Numero de personas en la reserva
+	 * @return El objeto Reserva adicionado. null si ocurre alguna Excepción
+	 */
+	public Reserva adicionarReserva(long idAlojamiento, long idCliente, int duracion , Timestamp fechaInicio, Timestamp fechaFinal, long costoTotal, String estado, int numPersonas)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idReserva = nextval ();
+            long tuplasInsertadas = sqlReserva.adicionarReserva(pm, idReserva, idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas );
+            tx.commit();
+            
+            log.trace ("Inserción de reserva: " + idReserva + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Reserva (idReserva, idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla Reserva, dado el identificador del tipo de bebida
+	 * Adiciona entradas al log de la aplicación
+	 * @param idReserva - El id del Reserva
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarReservaPorId (long idReserva) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlReserva.eliminarReservaPorId(pm, idReserva);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla Reserva
+	 * @return La lista de objetos Reserva, construidos con base en las tuplas de la tabla RESERVA
+	 */
+	public List<Reserva> darReservas ()
+	{
+		return sqlReserva.darReservas (pmf.getPersistenceManager());
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla Reserva con un identificador dado
+	 * @param idReserva - El id del Reserva
+	 * @return El objeto Reserva, construido con base en las tuplas de la tabla Reserva con el identificador dado
+	 */
+	public Reserva darReservaPorId (long idReserva)
+	{
+		return sqlReserva.darReservaPorId (pmf.getPersistenceManager(), idReserva);
+	}
 
 
 

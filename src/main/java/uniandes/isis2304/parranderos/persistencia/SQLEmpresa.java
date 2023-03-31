@@ -86,7 +86,7 @@ class SQLEmpresa {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos EMPRESA
 	 */
-	public List<Empresa> darViviendasUniversitarias (PersistenceManager pm)
+	public List<Empresa> darEmpresas (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaEmpresa ());
 		q.setResultClass(Empresa.class);

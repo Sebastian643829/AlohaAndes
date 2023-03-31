@@ -1,6 +1,7 @@
 package uniandes.isis2304.parranderos.persistencia;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -56,7 +57,7 @@ class SQLReserva {
      * @param estado - El estado de la reserva
      * @param numPersonas - Numero de personas en la reserva
 	 */
-	public long adicionarReserva (PersistenceManager pm, long idReserva,long idAlojamiento, long idCliente, int duracion , Date fechaInicio, Date fechaFinal, long costoTotal, String estado, int numPersonas) 
+	public long adicionarReserva (PersistenceManager pm, long idReserva,long idAlojamiento, long idCliente, int duracion , Timestamp fechaInicio, Timestamp fechaFinal, long costoTotal, String estado, int numPersonas) 
 	{
 		SQLAlojamiento sqlAlojamiento = new SQLAlojamiento(pp);
         Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(idreserva, idalojamiento, idcliente, duracion , fechainicio, fechafinal, costototal, estado, numpersonas) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
