@@ -109,6 +109,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
      */
     private JMenuBar menuBar;
 
+
 	// indica si ya el usuario se registro
 	boolean sesionEnCurso = false;
 
@@ -337,14 +338,14 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	 {
 		try 
     	{
-    		String nombre = JOptionPane.showInputDialog (this, "Nombre del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
-			String capacidad = JOptionPane.showInputDialog (this, "Capacidad del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
-			String ubicacion = JOptionPane.showInputDialog (this, "Ubicacion del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
-			String tamano = JOptionPane.showInputDialog (this, "Tamaño del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
-			String precioNoche = JOptionPane.showInputDialog (this, "Precio por noche del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+    		String nombre = JOptionPane.showInputDialog (this, "Nombre?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+			String capacidad = JOptionPane.showInputDialog (this, "Capacidad (Numero natural)?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+			String ubicacion = JOptionPane.showInputDialog (this, "Ubicacion?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+			String tamano = JOptionPane.showInputDialog (this, "Tamaño?", "Adicionar nuevo alojamiento (Numero natural)", JOptionPane.QUESTION_MESSAGE);
+			String precioNoche = JOptionPane.showInputDialog (this, "Precio por noche (Numero natural)?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
 			int ocupacionTotal = 0;
 			int numReservas = 0;
-			String idOperador = JOptionPane.showInputDialog (this, "Id del operador a cargo del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+			String idOperador = JOptionPane.showInputDialog (this, "Id del operador a cargo del alojamiento (Ya existente)?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
 
     		if (nombre != null && capacidad != null && ubicacion != null && tamano != null && precioNoche != null && idOperador != null && sesionEnCurso)
     		{
@@ -395,7 +396,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		try 
     	{
     		String idAlojamiento = JOptionPane.showInputDialog (this, "Id de la vivienda universitaria (debe ser de un alojamiento ya existente)?", "Adicionar nueva vivienda universitaria", JOptionPane.QUESTION_MESSAGE);
-			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion de la vivienda universitaria?", "Adicionar nueva vivienda universitaria", JOptionPane.QUESTION_MESSAGE);
+			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion ('Compartida' o 'Individual')?", "Adicionar nueva vivienda universitaria", JOptionPane.QUESTION_MESSAGE);
 
     		if (idAlojamiento != null && tipoHabitacion != null && sesionEnCurso)
     		{
@@ -441,8 +442,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		try 
     	{
     		String idAlojamiento = JOptionPane.showInputDialog (this, "Id de la habitacion de vivienda (debe ser de un alojamiento ya existente)?", "Adicionar nueva habitacion de vivienda", JOptionPane.QUESTION_MESSAGE);
-			String tipoBano = JOptionPane.showInputDialog (this, "Tipo de baño de la habitacion de vivienda?", "Adicionar nueva habitacion de vivienda", JOptionPane.QUESTION_MESSAGE);
-			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion habitacion de vivienda?", "Adicionar nueva habitacion de vivienda", JOptionPane.QUESTION_MESSAGE);
+			String tipoBano = JOptionPane.showInputDialog (this, "Tipo de baño ('Privado' o 'Publico')?", "Adicionar nueva habitacion de vivienda", JOptionPane.QUESTION_MESSAGE);
+			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion (Compartida o 'Individual')?", "Adicionar nueva habitacion de vivienda", JOptionPane.QUESTION_MESSAGE);
 
     		if (idAlojamiento != null && tipoHabitacion != null && tipoBano != null && sesionEnCurso)
     		{
@@ -533,7 +534,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		try 
     	{
     		String idAlojamiento = JOptionPane.showInputDialog (this, "Id de la habitacion de hotel (debe ser de un alojamiento ya existente)?", "Adicionar nueva habitacion de hotel", JOptionPane.QUESTION_MESSAGE);
-			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion habitacion de hotel?", "Adicionar nueva habitacion de hotel", JOptionPane.QUESTION_MESSAGE);
+			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion ('Estandar', 'Semisuites' o 'Suites')?", "Adicionar nueva habitacion de hotel", JOptionPane.QUESTION_MESSAGE);
 
     		if (idAlojamiento != null && tipoHabitacion != null && sesionEnCurso)
     		{
@@ -579,8 +580,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		try 
     	{
     		String idAlojamiento = JOptionPane.showInputDialog (this, "Id del hostal (debe ser de un alojamiento ya existente)?", "Adicionar nuevo hostal", JOptionPane.QUESTION_MESSAGE);
-			String horarioApertura = JOptionPane.showInputDialog (this, "Hora de apertura del hostal (HH:MM)?", "Adicionar nuevo hostal", JOptionPane.QUESTION_MESSAGE);
-			String horarioCierre = JOptionPane.showInputDialog (this, "Hora de cierre del hostal (HH:MM)?", "Adicionar nuevo hostal", JOptionPane.QUESTION_MESSAGE);
+			String horarioApertura = JOptionPane.showInputDialog (this, "Hora de apertura en formato 24H (HH:MM)?", "Adicionar nuevo hostal", JOptionPane.QUESTION_MESSAGE);
+			String horarioCierre = JOptionPane.showInputDialog (this, "Hora de cierre en formato 24H (HH:MM)?", "Adicionar nuevo hostal", JOptionPane.QUESTION_MESSAGE);
 
     		if (idAlojamiento != null && horarioApertura != null && horarioCierre != null && sesionEnCurso)
     		{
@@ -626,7 +627,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		try 
     	{
     		String idAlojamiento = JOptionPane.showInputDialog (this, "Id de la vivienda temporal (debe ser de un alojamiento ya existente)?", "Adicionar nueva vivienda temporal", JOptionPane.QUESTION_MESSAGE);
-			String numHabitaciones = JOptionPane.showInputDialog (this, "Numero de habitaciones de la vivienda temporal?", "Adicionar nueva vivienda temporal", JOptionPane.QUESTION_MESSAGE);
+			String numHabitaciones = JOptionPane.showInputDialog (this, "Numero de habitaciones (Numero natural)?", "Adicionar nueva vivienda temporal", JOptionPane.QUESTION_MESSAGE);
 
     		if (idAlojamiento != null && numHabitaciones != null && sesionEnCurso)
     		{
@@ -714,7 +715,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		try 
     	{
 			String nombre = JOptionPane.showInputDialog (this, "Nombre del servicio?", "Adicionar nuevo servicio", JOptionPane.QUESTION_MESSAGE);
-			String costo = JOptionPane.showInputDialog (this, "Costo del servicio?", "Adicionar nuevo servicio", JOptionPane.QUESTION_MESSAGE);
+			String costo = JOptionPane.showInputDialog (this, "Costo (Numero natural)?", "Adicionar nuevo servicio", JOptionPane.QUESTION_MESSAGE);
 
     		if (nombre != null && costo != null && sesionEnCurso)
     		{
