@@ -5,6 +5,19 @@
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
+		{ "menuTitle": "Sesion",
+		  "options":
+			[
+				{
+					"label": "Iniciar sesion",
+					"event": "iniciarSesion"
+				},
+				{
+					"label": "Cerrar sesion",
+					"event": "cerrarSesion"
+				}
+			]
+		},
 		{ "menuTitle": "RF",
 		  "options":
 			[

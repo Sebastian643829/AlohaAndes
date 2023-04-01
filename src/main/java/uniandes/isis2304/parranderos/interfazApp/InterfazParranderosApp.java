@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 import javax.jdo.JDODataStoreException;
 import javax.swing.ImageIcon;
@@ -24,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
+import org.datanucleus.enhancer.methods.NewInstance1;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -32,6 +34,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.parranderos.negocio.Parranderos;
+import uniandes.isis2304.parranderos.negocio.Credenciales;
 import uniandes.isis2304.parranderos.negocio.VOAlojamiento;
 import uniandes.isis2304.parranderos.negocio.VOViviendaUniversitaria;
 import uniandes.isis2304.parranderos.negocio.VOOperador;
@@ -105,6 +108,9 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
      * Menú de la aplicación
      */
     private JMenuBar menuBar;
+
+	// indica si ya el usuario se registro
+	boolean sesionEnCurso = false;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -237,6 +243,48 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     }
 
 	/* ****************************************************************
+	 * 			Funciones de SESION
+	 *****************************************************************/
+	public void iniciarSesion( )
+    {
+		String usuario = JOptionPane.showInputDialog (this, "Usuario: ", "Inicio de sesion", JOptionPane.QUESTION_MESSAGE);
+		String contrasena = JOptionPane.showInputDialog (this, "Contraseña: ", "Inicio de sesion", JOptionPane.QUESTION_MESSAGE);
+		String resultado = "";
+
+		Credenciales credenciales = new Credenciales();
+		Map<String, String> credencialesActuales = credenciales.getCredenciales();
+
+		for (String key : credencialesActuales.keySet()) {
+			if (sesionEnCurso){
+				resultado = "Ya hay una sesion iniciada \n";
+				resultado += "Si quiere iniciar sesion con otra cuenta primero cierre sesion";
+				panelDatos.actualizarInterfaz(resultado);
+			}
+			else if (usuario.equals(key) && contrasena.equals(credencialesActuales.get(key))){
+				sesionEnCurso = true;
+				resultado = "Se inicio sesion de manera EXITOSA \n";
+				resultado += "Ahora si cuenta con los permisos para el uso del sistema";
+				panelDatos.actualizarInterfaz(resultado);
+				break;
+			}
+		}
+		if (sesionEnCurso == false){
+			resultado = "No se pudo iniciar sesion \n\n";
+			resultado += "Vuelva a intentar de nuevo";
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	}
+
+	public void cerrarSesion( )
+    {
+		sesionEnCurso = false;
+		String resultado = "Se ha cerrado la sesion correctamente \n";
+		panelDatos.actualizarInterfaz(resultado);
+	}
+
+	
+
+	/* ****************************************************************
 	 * 			CRUD de Operador
 	 *****************************************************************/
     /**
@@ -298,7 +346,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			int numReservas = 0;
 			String idOperador = JOptionPane.showInputDialog (this, "Id del operador a cargo del alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
 
-    		if (nombre != null && capacidad != null && ubicacion != null && tamano != null && precioNoche != null && idOperador != null)
+    		if (nombre != null && capacidad != null && ubicacion != null && tamano != null && precioNoche != null && idOperador != null && sesionEnCurso)
     		{
         		VOAlojamiento tb = parranderos.adicionarAlojamiento (nombre, Integer.parseInt(capacidad), ubicacion, Integer.parseInt(tamano), Integer.parseInt(precioNoche), ocupacionTotal, numReservas, Long.parseLong(idOperador));
         		if (tb == null)
@@ -310,6 +358,11 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
     		else
     		{
     			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
@@ -344,7 +397,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     		String idAlojamiento = JOptionPane.showInputDialog (this, "Id de la vivienda universitaria (debe ser de un alojamiento ya existente)?", "Adicionar nueva vivienda universitaria", JOptionPane.QUESTION_MESSAGE);
 			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion de la vivienda universitaria?", "Adicionar nueva vivienda universitaria", JOptionPane.QUESTION_MESSAGE);
 
-    		if (idAlojamiento != null && tipoHabitacion != null)
+    		if (idAlojamiento != null && tipoHabitacion != null && sesionEnCurso)
     		{
         		VOViviendaUniversitaria tb = parranderos.adicionarViviendaUniversitaria (Long.parseLong(idAlojamiento), tipoHabitacion);
         		if (tb == null)
@@ -356,6 +409,11 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
     		else
     		{
     			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
@@ -386,7 +444,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String tipoBano = JOptionPane.showInputDialog (this, "Tipo de baño de la habitacion de vivienda?", "Adicionar nueva habitacion de vivienda", JOptionPane.QUESTION_MESSAGE);
 			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion habitacion de vivienda?", "Adicionar nueva habitacion de vivienda", JOptionPane.QUESTION_MESSAGE);
 
-    		if (idAlojamiento != null && tipoHabitacion != null && tipoBano != null)
+    		if (idAlojamiento != null && tipoHabitacion != null && tipoBano != null && sesionEnCurso)
     		{
         		VOHabitacionVivienda tb = parranderos.adicionarHabitacionVivienda (Long.parseLong(idAlojamiento),tipoBano, tipoHabitacion);
         		if (tb == null)
@@ -398,6 +456,11 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
     		else
     		{
     			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
@@ -426,7 +489,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     	{
     		String idAlojamiento = JOptionPane.showInputDialog (this, "Id del apartamento (debe ser de un alojamiento ya existente)?", "Adicionar nuevo apartamento", JOptionPane.QUESTION_MESSAGE);
 
-    		if (idAlojamiento != null)
+    		if (idAlojamiento != null && sesionEnCurso)
     		{
         		VOApartamento tb = parranderos.adicionarApartamento (Long.parseLong(idAlojamiento));
         		if (tb == null)
@@ -438,6 +501,11 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
     		else
     		{
     			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
@@ -467,7 +535,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     		String idAlojamiento = JOptionPane.showInputDialog (this, "Id de la habitacion de hotel (debe ser de un alojamiento ya existente)?", "Adicionar nueva habitacion de hotel", JOptionPane.QUESTION_MESSAGE);
 			String tipoHabitacion = JOptionPane.showInputDialog (this, "Tipo de habitacion habitacion de hotel?", "Adicionar nueva habitacion de hotel", JOptionPane.QUESTION_MESSAGE);
 
-    		if (idAlojamiento != null && tipoHabitacion != null)
+    		if (idAlojamiento != null && tipoHabitacion != null && sesionEnCurso)
     		{
         		VOHabitacionHotel tb = parranderos.adicionarHabitacionHotel (Long.parseLong(idAlojamiento), tipoHabitacion);
         		if (tb == null)
@@ -479,6 +547,11 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
     		else
     		{
     			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
@@ -509,7 +582,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String horarioApertura = JOptionPane.showInputDialog (this, "Hora de apertura del hostal (HH:MM)?", "Adicionar nuevo hostal", JOptionPane.QUESTION_MESSAGE);
 			String horarioCierre = JOptionPane.showInputDialog (this, "Hora de cierre del hostal (HH:MM)?", "Adicionar nuevo hostal", JOptionPane.QUESTION_MESSAGE);
 
-    		if (idAlojamiento != null && horarioApertura != null && horarioCierre != null)
+    		if (idAlojamiento != null && horarioApertura != null && horarioCierre != null && sesionEnCurso)
     		{
         		VOHostal tb = parranderos.adicionarHostal (Long.parseLong(idAlojamiento), horarioApertura, horarioCierre );
         		if (tb == null)
@@ -521,6 +594,11 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
     		else
     		{
     			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
@@ -550,7 +628,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     		String idAlojamiento = JOptionPane.showInputDialog (this, "Id de la vivienda temporal (debe ser de un alojamiento ya existente)?", "Adicionar nueva vivienda temporal", JOptionPane.QUESTION_MESSAGE);
 			String numHabitaciones = JOptionPane.showInputDialog (this, "Numero de habitaciones de la vivienda temporal?", "Adicionar nueva vivienda temporal", JOptionPane.QUESTION_MESSAGE);
 
-    		if (idAlojamiento != null && numHabitaciones != null)
+    		if (idAlojamiento != null && numHabitaciones != null && sesionEnCurso)
     		{
         		VOViviendaTemporal tb = parranderos.adicionarViviendaTemporal (Long.parseLong(idAlojamiento), Integer.parseInt(numHabitaciones) );
         		if (tb == null)
@@ -562,6 +640,11 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
     		else
     		{
     			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
@@ -633,7 +716,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String nombre = JOptionPane.showInputDialog (this, "Nombre del servicio?", "Adicionar nuevo servicio", JOptionPane.QUESTION_MESSAGE);
 			String costo = JOptionPane.showInputDialog (this, "Costo del servicio?", "Adicionar nuevo servicio", JOptionPane.QUESTION_MESSAGE);
 
-    		if (nombre != null && costo != null)
+    		if (nombre != null && costo != null && sesionEnCurso)
     		{
         		VOServicio tb = parranderos.adicionarServicio (nombre, Integer.parseInt(costo) );
         		if (tb == null)
@@ -645,6 +728,11 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
     		else
     		{
     			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
@@ -674,7 +762,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String idServicio = JOptionPane.showInputDialog (this, "Id del servicio (ya existente)?", "Adicionar nueva relacion de dispone", JOptionPane.QUESTION_MESSAGE);
     		String idAlojamiento = JOptionPane.showInputDialog (this, "Id del alojamiento (ya existente)?", "Adicionar nueva nueva relacion de dispone", JOptionPane.QUESTION_MESSAGE);
 
-    		if (idAlojamiento != null && idServicio != null)
+    		if (idAlojamiento != null && idServicio != null && sesionEnCurso)
     		{
         		VODispone tb = parranderos.adicionarDispone (Long.parseLong(idServicio), Long.parseLong(idAlojamiento) );
         		if (tb == null)
@@ -686,6 +774,11 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
     		else
     		{
     			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
