@@ -1,0 +1,7 @@
+-- RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
+
+SELECT *
+FROM (SELECT *
+      FROM A_Alojamiento
+      ORDER BY numReservas DESC)
+WHERE rownum <= 20;

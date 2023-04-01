@@ -259,7 +259,7 @@ CREATE TABLE A_SERVICIO
 
 ALTER TABLE A_SERVICIO
 	ADD CONSTRAINT CK_S_COSTO
-	CHECK (COSTO > 0)
+	CHECK (COSTO >= 0)
 ENABLE;
 
 -- Creacion de la tabla DISPONE y especificacion de sus restricciones
