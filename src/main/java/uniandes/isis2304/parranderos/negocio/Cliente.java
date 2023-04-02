@@ -1,4 +1,5 @@
 package uniandes.isis2304.parranderos.negocio;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Cliente implements VOCliente {
@@ -23,7 +24,7 @@ public class Cliente implements VOCliente {
 	/**
 	 * La fecha de nacimiento del cliente
 	 */
-	private Timestamp fechaNacimiento;
+	private Date fechaNacimiento;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -36,7 +37,7 @@ public class Cliente implements VOCliente {
 		this.idCliente = 0;
 		this.tipoIdentificacion = "";
         this.nombreCliente = "";
-		this.fechaNacimiento = new Timestamp (0);
+		this.fechaNacimiento = new java.sql.Date(0);
 	}
 
 	/**
@@ -46,7 +47,7 @@ public class Cliente implements VOCliente {
 	 * @param nombreCliente - El nombre del cliente
 	 * @param fechaNacimiento - La fecha de nacimiento del cliente
 	 */
-	public Cliente(long idCliente, String tipoIdentificacion, String nombreCliente,  Timestamp fechaNacimiento) 
+	public Cliente(long idCliente, String tipoIdentificacion, String nombreCliente,  Date fechaNacimiento) 
 	{
 		this.idCliente = idCliente;
 		this.tipoIdentificacion = tipoIdentificacion;
@@ -105,7 +106,7 @@ public class Cliente implements VOCliente {
 	/**
 	 * @return La fecha de nacimiento del cliente
 	 */
-	public Timestamp getFechaNacimiento() 
+	public Date getFechaNacimiento() 
 	{
 		return fechaNacimiento;
 	}
@@ -113,7 +114,7 @@ public class Cliente implements VOCliente {
 	/**
 	 * @param fechaNacimiento - La nueva fecha de nacimiento del cliente
 	 */
-	public void setFechaNacimiento(Timestamp fechaNacimiento) 
+	public void setFechaNacimiento(Date fechaNacimiento) 
 	{
 		this.fechaNacimiento = fechaNacimiento;
 	}

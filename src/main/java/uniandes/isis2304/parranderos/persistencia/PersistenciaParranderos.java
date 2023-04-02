@@ -1524,7 +1524,7 @@ public class PersistenciaParranderos
      * @param fechaNacimiento - La fecha de nacimiento del cliente
 	 * @return El objeto Cliente adicionado. null si ocurre alguna Excepción
 	 */
-	public Cliente adicionarCliente(long idCliente, String tipoIdentificacion, String nombreCliente , Timestamp fechaNacimiento)
+	public Cliente adicionarCliente(long idCliente, String tipoIdentificacion, String nombreCliente , Date fechaNacimiento)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -1981,7 +1981,7 @@ public class PersistenciaParranderos
      * @param numPersonas - Numero de personas en la reserva
 	 * @return El objeto Reserva adicionado. null si ocurre alguna Excepción
 	 */
-	public Reserva adicionarReserva(long idAlojamiento, long idCliente, int duracion , Timestamp fechaInicio, Timestamp fechaFinal, long costoTotal, String estado, int numPersonas)
+	public Reserva adicionarReserva(long idAlojamiento, long idCliente, int duracion , Date fechaInicio, Date fechaFinal, long costoTotal, String estado, int numPersonas)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
