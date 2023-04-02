@@ -296,7 +296,39 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 	public void adicionarOperador( )
     {
+		try 
+    	{
+    		String telefono = JOptionPane.showInputDialog (this, "Teléfono?", "Adicionar nuevo operador", JOptionPane.QUESTION_MESSAGE);
+			String tipoVinculacion = JOptionPane.showInputDialog (this, "Capacidad (Numero natural)?", "Adicionar nuevo operador", JOptionPane.QUESTION_MESSAGE);
 
+    		if (telefono != null && tipoVinculacion != null)
+    		{
+        		VOOperador tb = parranderos.adicionarOperador (telefono,tipoVinculacion);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear el operador ");
+        		}
+        		String resultado = "En adicionarOperador\n\n";
+        		resultado += "Operador adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
 	}
 
 

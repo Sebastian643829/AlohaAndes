@@ -2,7 +2,6 @@ package uniandes.isis2304.parranderos.persistencia;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -1692,7 +1691,6 @@ public class PersistenciaParranderos
 	 * Método que inserta, de manera transaccional, una tupla en la tabla MiembroSecundario
 	 * Adiciona entradas al log de la aplicación
 	 * @param idMiembroSecundario - El id del Miembro Secundario
-	 * @param carnet - Número de carnet del Miembro Secundario
      * @param tipo - Nombre del Miembro Secundario
 	 * @return El objeto MiembroSecundario adicionado. null si ocurre alguna Excepción
 	 */
@@ -1963,7 +1961,7 @@ public class PersistenciaParranderos
 	/**
 	 * Método que inserta, de manera transaccional, una tupla en la tabla Reserva
 	 * Adiciona entradas al log de la aplicación
-	 * @param idReserva - El ide de la reserva
+	 * @param idReserva - El id de la reserva
 	 * @param idAlojamiento - El id del alojamiento
 	 * @param idCliente - El id del cliente
      * @param duracion - Duracion de la reserva

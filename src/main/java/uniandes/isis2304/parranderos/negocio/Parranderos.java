@@ -1,7 +1,6 @@
 package uniandes.isis2304.parranderos.negocio;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.LinkedList; 
 import java.util.List;
 
@@ -13,7 +12,7 @@ import uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos;
  * Clase principal del negocio
  * Sarisface todos los requerimientos funcionales del negocio
  *
- * @author Juan Sebastian Sanchez
+ * @author Juan Sebastian Sanchez y Santiago Vargas Prada
  */
 public class Parranderos 
 {
@@ -65,17 +64,222 @@ public class Parranderos
 	/* ****************************************************************
 	 * 			Métodos para manejar los OPERADORES
 	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente un operador
+	 * Adiciona entradas al log de la aplicación
+	 * @param telefono - El nombre del operador
+	 * @param tipoVinculación - La capacidad del operador
+	 * @return El objeto Operador adicionado. null si ocurre alguna Excepción
+	 */
+	public Operador adicionarOperador(String telefono, String tipoVinculacion)
+	{
+        log.info ("Adicionando Operador: " );
+        Operador operador = pp.adicionarOperador(telefono, tipoVinculacion);		
+        log.info ("Adicionando Operador: " + operador);
+        return operador;
+	}
+	/**
+	 * Elimina un operador por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idOperador - El id del alojamiento
+	 * @return El número de tuplas eliminadas
+	 */
+	public long eliminarOperadorPorId (long idOperador)
+	{
+		log.info ("Eliminando Operador por id: " + idOperador);
+        long resp = pp.eliminarOperadorPorId (idOperador);		
+        log.info ("Eliminando Operador por id: " + resp + " tuplas eliminadas");
+        return resp;
+	}
+	/**
+	 * Encuentra todos los operadores en Alohaandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos operador con todos los operadores que conoce la aplicación, llenos con su información básica
+	 */
+	public List<Operador> darOperadores ()
+	{
+		log.info ("Consultando Operadores");
+        List<Operador> operadores = pp.darOperadores ();	
+        log.info ("Consultando Operadors: " + operadores.size() + " existentes");
+        return operadores;
+	}
+	/**
+	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOOperador
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOOperador con todos los operadores que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOOperador> darVOOperadores ()
+	{
+		log.info ("Generando los VO de Operadores");        
+        List<VOOperador> voOperadores = new LinkedList<VOOperador> ();
+        for (Operador tb : pp.darOperadores ())
+        {
+        	voOperadores.add (tb);
+        }
+        log.info ("Generando los VO de Operadores: " + voOperadores.size() + " existentes");
+        return voOperadores;
+	}
+	/**
+	 * Encuentra un operador y su información básica, según su identificador
+	 * @param idOperador - El id del operador
+	 * @return Un objeto Operador que corresponde con el identificador buscado y lleno con su información básica
+	 * 			null, si un operador con dicho identificador no existe
+	 */
+	public Operador darOperadorPorId (long idOperador)
+	{
+        log.info ("Dar información de un operador por id: " + idOperador);
+        Operador operador = pp.darOperadorPorId (idOperador);
+        log.info ("Buscando operador por Id: " + operador != null ? operador : "NO EXISTE");
+        return operador;
+	}
 
 
 	 /* ****************************************************************
 	 * 			Métodos para manejar los PROPIETARIOS
 	 *****************************************************************/
-
+/**
+	 * Adiciona de manera persistente un propietario
+	 * Adiciona entradas al log de la aplicación
+	 * @param idOperador - El id del propietario
+	 * @param identificacion - Número de identificación del propietario
+     * @param tipoIdentificacion - Tipo de identificación del propietario
+     * @param nombrePropietario - Nombre del propietario
+	 * @return El objeto Propietario adicionado. null si ocurre alguna Excepción
+	 */
+	public Propietario adicionarPropietario(long idOperador, String identificacion, String tipoIdentificacion, String nombrePropietario)
+	{
+        log.info ("Adicionando Propietario: " + idOperador);
+        Propietario propietario = pp.adicionarPropietario(idOperador, identificacion,tipoIdentificacion,nombrePropietario);		
+        log.info ("Adicionando Propietario: " + propietario);
+        return propietario;
+	}
+	/**
+	 * Elimina un propietario por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idOperador - El id del alojamiento
+	 * @return El número de tuplas eliminadas
+	 */
+	public long eliminarPropietarioPorId (long idOperador)
+	{
+		log.info ("Eliminando Propietario por id: " + idOperador);
+        long resp = pp.eliminarPropietarioPorId (idOperador);		
+        log.info ("Eliminando Propietario por id: " + resp + " tuplas eliminadas");
+        return resp;
+	}
+	/**
+	 * Encuentra todos los propietarios en Alohaandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos propietario con todos los propietarios que conoce la aplicación, llenos con su información básica
+	 */
+	public List<Propietario> darPropietarios ()
+	{
+		log.info ("Consultando Propietarios");
+        List<Propietario> propietarios = pp.darPropietarios ();	
+        log.info ("Consultando Propietarios: " + propietarios.size() + " existentes");
+        return propietarios;
+	}
+	/**
+	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOPropietario
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOPropietario con todos los propietarios que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOPropietario> darVOPropietarios ()
+	{
+		log.info ("Generando los VO de Propietarios");        
+        List<VOPropietario> voPropietarios = new LinkedList<VOPropietario> ();
+        for (Propietario tb : pp.darPropietarios ())
+        {
+        	voPropietarios.add (tb);
+        }
+        log.info ("Generando los VO de Propietarioes: " + voPropietarios.size() + " existentes");
+        return voPropietarios;
+	}
+	/**
+	 * Encuentra un propietario y su información básica, según su identificador
+	 * @param idOperador - El id del operador
+	 * @return Un objeto Propietario que corresponde con el identificador buscado y lleno con su información básica
+	 * 			null, si un propietario con dicho identificador no existe
+	 */
+	public Propietario darPropietarioPorId (long idOperador)
+	{
+        log.info ("Dar información de un propietario por id: " + idOperador);
+        Propietario propietario = pp.darPropietarioPorId (idOperador);
+        log.info ("Buscando propietario por Id: " + propietario != null ? propietario : "NO EXISTE");
+        return propietario;
+	}
 
 	 /* ****************************************************************
 	 * 			Métodos para manejar las EMPRESAS
 	 *****************************************************************/
-
+/**
+	 * Adiciona de manera persistente un empresa
+	 * Adiciona entradas al log de la aplicación
+	 * @param idOperador - El id del empresa
+	 * @param nit - Número de NIT del empresa
+     * @param nombreEmpresa - Nombre del empresa
+	 * @return El objeto Empresa adicionado. null si ocurre alguna Excepción
+	 */
+	public Empresa adicionarEmpresa(long idOperador, String nit, String nombreEmpresa)
+	{
+        log.info ("Adicionando Empresa: " + idOperador);
+        Empresa empresa = pp.adicionarEmpresa(idOperador, nit,nombreEmpresa);		
+        log.info ("Adicionando Empresa: " + empresa);
+        return empresa;
+	}
+	/**
+	 * Elimina un empresa por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idOperador - El id del alojamiento
+	 * @return El número de tuplas eliminadas
+	 */
+	public long eliminarEmpresaPorId (long idOperador)
+	{
+		log.info ("Eliminando Empresa por id: " + idOperador);
+        long resp = pp.eliminarEmpresaPorId (idOperador);		
+        log.info ("Eliminando Empresa por id: " + resp + " tuplas eliminadas");
+        return resp;
+	}
+	/**
+	 * Encuentra todos los empresas en Alohaandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos empresa con todos los empresas que conoce la aplicación, llenos con su información básica
+	 */
+	public List<Empresa> darEmpresas ()
+	{
+		log.info ("Consultando Empresas");
+        List<Empresa> empresas = pp.darEmpresas ();	
+        log.info ("Consultando Empresas: " + empresas.size() + " existentes");
+        return empresas;
+	}
+	/**
+	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOEmpresa
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOEmpresa con todos los empresas que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOEmpresa> darVOEmpresas ()
+	{
+		log.info ("Generando los VO de Empresas");        
+        List<VOEmpresa> voEmpresas = new LinkedList<VOEmpresa> ();
+        for (Empresa tb : pp.darEmpresas ())
+        {
+        	voEmpresas.add (tb);
+        }
+        log.info ("Generando los VO de Empresaes: " + voEmpresas.size() + " existentes");
+        return voEmpresas;
+	}
+	/**
+	 * Encuentra un empresa y su información básica, según su identificador
+	 * @param idOperador - El id del operador
+	 * @return Un objeto Empresa que corresponde con el identificador buscado y lleno con su información básica
+	 * 			null, si un empresa con dicho identificador no existe
+	 */
+	public Empresa darEmpresaPorId (long idOperador)
+	{
+        log.info ("Dar información de un empresa por id: " + idOperador);
+        Empresa empresa = pp.darEmpresaPorId (idOperador);
+        log.info ("Buscando empresa por Id: " + empresa != null ? empresa : "NO EXISTE");
+        return empresa;
+	}
 
 	 /* ****************************************************************
 	 * 			Métodos para manejar los ALOJAMIENTOS
@@ -145,35 +349,6 @@ public class Parranderos
         log.info ("Generando los VO de Alojamientos: " + voAlojamientos.size() + " existentes");
         return voAlojamientos;
 	}
-
-	// RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
-	/**
-	 * Encuentra los alojamientos mas populares en Alohaandes
-	 * Adiciona entradas al log de la aplicación
-	 * @return Una lista de objetos alojamiento con todos los alojamientos mas populares dentro de la aplicación, llenos con su información básica
-	 */
-	public List<Alojamiento> darOfertasMasPopulares ()
-	{
-		log.info ("Consultando Alojamientos mas populares");
-        List<Alojamiento> alojamientosPopulares = pp.darOfertasMasPopulares ();	
-        log.info ("Consultando Alojamientos mas populares: Listo!");
-        return alojamientosPopulares ;
-	}
-
-	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
-	/**
-	 * Encuentra todos los alojamientos disponibles en el rango de fechas dado y que cumplan con ciertos servicios
-	 * Adiciona entradas al log de la aplicación
-	 * @return Una lista de los alojamientos que cumplen las condiciones dadas
-	 */
-	public List<Object []> darAlojamientosDisponibles (Date fecha1, Date fecha2, String nombreServicio)
-	{
-        log.info ("Listando Alojamientos que cumplen las condiciones dadas");
-        List<Object []> tuplas = pp.darAlojamientosDisponibles (fecha1, fecha2, nombreServicio);
-        log.info ("Listando Alojamientos que cumplen las condiciones dadas: Listo!");
-        return tuplas;
-	}
-
 
 	/**
 	 * Encuentra un alojamiento y su información básica, según su identificador
@@ -684,16 +859,233 @@ public class Parranderos
 	  /* ****************************************************************
 	 * 			Métodos para manejar los CLIENTES
 	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente un cliente
+	 * Adiciona entradas al log de la aplicación
+	 * @param idCliente - El id del cliente
+	 * @param tipoIdentificacion - El tipo de identificación del cliente
+	 * @param nombreCliente - El nombre del cliente
+     * @param fechaNacimiento - La fecha de nacimiento del cliente
+	 * @return El objeto Cliente adicionado. null si ocurre alguna Excepción
+	 */
+	public Cliente adicionarCliente (long idCliente, String tipoIdentificacion, String nombreCliente , Date fechaNacimiento)
+	{
+        log.info ("Adicionando Cliente: " + idCliente);
+        Cliente cliente = pp.adicionarCliente (idCliente, tipoIdentificacion, nombreCliente, fechaNacimiento);		
+        log.info ("Adicionando Cliente: " + cliente);
+        return cliente;
+	}
 
+	/**
+	 * Elimina un cliente por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idCliente - El id del cliente
+	 * @return El número de tuplas eliminadas
+	 */
+	public long eliminarClientePorId (long idCliente)
+	{
+		log.info ("Eliminando Cliente por id: " + idCliente);
+        long resp = pp.eliminarClientePorId (idCliente);		
+        log.info ("Eliminando Cliente por id: " + resp + " tuplas eliminadas");
+        return resp;
+	}
+	
+	/**
+	 * Encuentra todos los clientes en Alohaandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos cliente con todos los clientes que conoce la aplicación, llenos con su información básica
+	 */
+	public List<Cliente> darClientes ()
+	{
+		log.info ("Consultando Clientes");
+        List<Cliente> clientes = pp.darClientes ();	
+        log.info ("Consultando Clientes: " + clientes.size() + " existentes");
+        return clientes;
+	}
+
+	/**
+	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOCliente
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOCliente con todos los cliente que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOCliente> darVOClientes ()
+	{
+		log.info ("Generando los VO de Clientes");        
+        List<VOCliente> voClientes = new LinkedList<VOCliente> ();
+        for (Cliente tb : pp.darClientes ())
+        {
+        	voClientes.add (tb);
+        }
+        log.info ("Generando los VO de Clientes: " + voClientes.size() + " existentes");
+        return voClientes;
+	}
+
+	/**
+	 * Encuentra un cliente y su información básica, según su identificador
+	 * @param idCliente - El id del cliente
+	 * @return Un objeto Cliente que corresponde con el identificador buscado y lleno con su información básica
+	 * 			null, si un cliente con dicho identificador no existe
+	 */
+	public Cliente darClientePorId (long idCliente)
+	{
+        log.info ("Dar información de un cliente por id: " + idCliente);
+        Cliente cliente = pp.darClientePorId (idCliente);
+        log.info ("Buscando cliente por Id: " + cliente != null ? cliente : "NO EXISTE");
+        return cliente;
+	}
 
 	 /* ****************************************************************
 	 * 			Métodos para manejar los MIEMBROS ACTIVOS
 	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente un miembroactivo
+	 * Adiciona entradas al log de la aplicación
+	 * @param idMiembroActivo - El id del Miembro Activo
+	 * @param carnet - Número de carnet del Miembro Activo
+     * @param tipo - Nombre del Miembro Activo
+	 * @return El objeto MiembroActivo adicionado. null si ocurre alguna Excepción
+	 */
+	public MiembroActivo adicionarMiembroActivo (long idMiembroActivo, String carnet, String tipo)
+	{
+        log.info ("Adicionando MiembroActivo: " + idMiembroActivo);
+        MiembroActivo miembroActivo = pp.adicionarMiembroActivo (idMiembroActivo, carnet, tipo);		
+        log.info ("Adicionando MiembroActivo: " + miembroActivo);
+        return miembroActivo;
+	}
 
+	/**
+	 * Elimina un miembroactivo por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idMiembroActivo - El id del miembroactivo
+	 * @return El número de tuplas eliminadas
+	 */
+	public long eliminarMiembroActivoPorId (long idMiembroActivo)
+	{
+		log.info ("Eliminando MiembroActivo por id: " + idMiembroActivo);
+        long resp = pp.eliminarMiembroActivoPorId (idMiembroActivo);		
+        log.info ("Eliminando MiembroActivo por id: " + resp + " tuplas eliminadas");
+        return resp;
+	}
+	
+	/**
+	 * Encuentra todos los miembrosactivos en Alohaandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos miembroactivo con todos los miembrosactivos que conoce la aplicación, llenos con su información básica
+	 */
+	public List<MiembroActivo> darMiembrosActivos ()
+	{
+		log.info ("Consultando MiembroActivos");
+        List<MiembroActivo> miembroactivos = pp.darMiembrosActivos ();	
+        log.info ("Consultando MiembroActivos: " + miembroactivos.size() + " existentes");
+        return miembroactivos;
+	}
+
+	/**
+	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOMiembroActivo
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOMiembroActivo con todos los miembroactivo que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOMiembroActivo> darVOMiembrosActivos ()
+	{
+		log.info ("Generando los VO de MiembroActivos");        
+        List<VOMiembroActivo> voMiembrosActivos = new LinkedList<VOMiembroActivo> ();
+        for (MiembroActivo tb : pp.darMiembrosActivos ())
+        {
+        	voMiembrosActivos.add (tb);
+        }
+        log.info ("Generando los VO de Miembros Activos: " + voMiembrosActivos.size() + " existentes");
+        return voMiembrosActivos;
+	}
+
+	/**
+	 * Encuentra un miembroactivo y su información básica, según su identificador
+	 * @param idMiembroActivo - El id del miembroactivo
+	 * @return Un objeto MiembroActivo que corresponde con el identificador buscado y lleno con su información básica
+	 * 			null, si un miembroactivo con dicho identificador no existe
+	 */
+	public MiembroActivo darMiembroActivoPorId (long idMiembroActivo)
+	{
+        log.info ("Dar información de un miembroactivo por id: " + idMiembroActivo);
+        MiembroActivo miembroActivo = pp.darMiembroActivoPorId (idMiembroActivo);
+        log.info ("Buscando miembro activo por Id: " + miembroActivo != null ? miembroActivo : "NO EXISTE");
+        return miembroActivo;
+	}
 
 	 /* ****************************************************************
 	 * 			Métodos para manejar los MIEMBROS SECUNDARIOS
 	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente un miembro secundario
+	 * Adiciona entradas al log de la aplicación
+	 * @param idMiembroSecundario - El id del Miembro Secundario
+     * @param tipo - Nombre del Miembro Secundario
+	 * @return El objeto MiembroSecundario adicionado. null si ocurre alguna Excepción
+	 */
+	public MiembroSecundario adicionarMiembroSecundario (long idMiembroSecundario, String tipo)
+	{
+        log.info ("Adicionando MiembroSecundario: " + idMiembroSecundario);
+        MiembroSecundario miembroSecundario = pp.adicionarMiembroSecundario (idMiembroSecundario, tipo);		
+        log.info ("Adicionando MiembroSecundario: " + miembroSecundario);
+        return miembroSecundario;
+	}
+
+	/**
+	 * Elimina un miembrosecundario por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idMiembroSecundario - El id del miembrosecundario
+	 * @return El número de tuplas eliminadas
+	 */
+	public long eliminarMiembroSecundarioPorId (long idMiembroSecundario)
+	{
+		log.info ("Eliminando MiembroSecundario por id: " + idMiembroSecundario);
+        long resp = pp.eliminarMiembroSecundarioPorId (idMiembroSecundario);		
+        log.info ("Eliminando MiembroSecundario por id: " + resp + " tuplas eliminadas");
+        return resp;
+	}
+	
+	/**
+	 * Encuentra todos los miembrossecundarios en Alohaandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos miembrosecundario con todos los miembrossecundarios que conoce la aplicación, llenos con su información básica
+	 */
+	public List<MiembroSecundario> darMiembrosSecundarios ()
+	{
+		log.info ("Consultando MiembroSecundarios");
+        List<MiembroSecundario> miembrosecundarios = pp.darMiembrosSecundarios ();	
+        log.info ("Consultando MiembroSecundarios: " + miembrosecundarios.size() + " existentes");
+        return miembrosecundarios;
+	}
+
+	/**
+	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOMiembroSecundario
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOMiembroSecundario con todos los miembrosecundario que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOMiembroSecundario> darVOMiembrosSecundarios ()
+	{
+		log.info ("Generando los VO de MiembroSecundarios");        
+        List<VOMiembroSecundario> voMiembrosSecundarios = new LinkedList<VOMiembroSecundario> ();
+        for (MiembroSecundario tb : pp.darMiembrosSecundarios ())
+        {
+        	voMiembrosSecundarios.add (tb);
+        }
+        log.info ("Generando los VO de Miembros Secundarios: " + voMiembrosSecundarios.size() + " existentes");
+        return voMiembrosSecundarios;
+	}
+
+	/**
+	 * Encuentra un miembrosecundario y su información básica, según su identificador
+	 * @param idMiembroSecundario - El id del miembrosecundario
+	 * @return Un objeto MiembroSecundario que corresponde con el identificador buscado y lleno con su información básica
+	 * 			null, si un miembrosecundario con dicho identificador no existe
+	 */
+	public MiembroSecundario darMiembroSecundarioPorId (long idMiembroSecundario)
+	{
+        log.info ("Dar información de un miembrosecundario por id: " + idMiembroSecundario);
+        MiembroSecundario miembroSecundario = pp.darMiembroSecundarioPorId (idMiembroSecundario);
+        log.info ("Buscando miembro secundario por Id: " + miembroSecundario != null ? miembroSecundario : "NO EXISTE");
+        return miembroSecundario;
+	}
 
 
 	 /* ****************************************************************
@@ -843,6 +1235,81 @@ public class Parranderos
 	/* ****************************************************************
 	 * 			Métodos para manejar las RESERVAS
 	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente un reserva
+	 * Adiciona entradas al log de la aplicación
+	 * @param idReserva - El id de la reserva
+	 * @param idAlojamiento - El id del alojamiento
+	 * @param idCliente - El id del cliente
+     * @param duracion - Duracion de la reserva
+	 * @param fechaInicio - La fecha de inicio de la reserva
+     * @param fechaFinal - La fecha final de la reserva
+     * @param costoTotal - El costo total de la reserva
+     * @param estado - El estado de la reserva
+     * @param numPersonas - Numero de personas en la reserva
+	 * @return El objeto Reserva adicionado. null si ocurre alguna Excepción
+	 */
+	public Reserva adicionarReserva(long idAlojamiento, long idCliente, int duracion , Date fechaInicio, Date fechaFinal, long costoTotal, String estado, int numPersonas)
+	{
+        log.info ("Adicionando Reserva: " );
+        Reserva reserva = pp.adicionarReserva(idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas);		
+        log.info ("Adicionando Reserva: " + reserva);
+        return reserva;
+	}
+	/**
+	 * Elimina un reserva por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idReserva - El id del alojamiento
+	 * @return El número de tuplas eliminadas
+	 */
+	public long eliminarReservaPorId (long idReserva)
+	{
+		log.info ("Eliminando Reserva por id: " + idReserva);
+        long resp = pp.eliminarReservaPorId (idReserva);		
+        log.info ("Eliminando Reserva por id: " + resp + " tuplas eliminadas");
+        return resp;
+	}
+	/**
+	 * Encuentra todos los reservas en Alohaandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos reserva con todos los reservas que conoce la aplicación, llenos con su información básica
+	 */
+	public List<Reserva> darReservas ()
+	{
+		log.info ("Consultando Reservas");
+        List<Reserva> reservas = pp.darReservas ();	
+        log.info ("Consultando Reservas: " + reservas.size() + " existentes");
+        return reservas;
+	}
+	/**
+	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOReserva
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOReserva con todos los reservas que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOReserva> darVOReservas ()
+	{
+		log.info ("Generando los VO de Reservas");        
+        List<VOReserva> voReservas = new LinkedList<VOReserva> ();
+        for (Reserva tb : pp.darReservas ())
+        {
+        	voReservas.add (tb);
+        }
+        log.info ("Generando los VO de Reservas: " + voReservas.size() + " existentes");
+        return voReservas;
+	}
+	/**
+	 * Encuentra un reserva y su información básica, según su identificador
+	 * @param idReserva - El id del reserva
+	 * @return Un objeto Reserva que corresponde con el identificador buscado y lleno con su información básica
+	 * 			null, si un reserva con dicho identificador no existe
+	 */
+	public Reserva darReservaPorId (long idReserva)
+	{
+        log.info ("Dar información de un reserva por id: " + idReserva);
+        Reserva reserva = pp.darReservaPorId (idReserva);
+        log.info ("Buscando reserva por Id: " + reserva != null ? reserva : "NO EXISTE");
+        return reserva;
+	}
 
 
 	/* ****************************************************************
