@@ -91,7 +91,7 @@
 				},
 				{
 					"label": "Retirar una oferta de alojamiento ",
-					"event": "retirarOfertaAlojamiento"
+					"event": "eliminarAlojamientoPorId"
 				}
 			]
 		},

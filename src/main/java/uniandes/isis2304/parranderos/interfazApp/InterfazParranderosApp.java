@@ -389,8 +389,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			if (sesionEnCurso){
 			String resultado = "Listando alojamientos mas populares";
 			resultado +=  "\n" + parranderos.darOfertasMasPopulares ();
-			panelDatos.actualizarInterfaz(resultado);
 			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
 			}
 			else{
 				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
@@ -423,8 +423,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     		{
 				String resultado = "Listando alojamientos que cumplen las condiciones dadas";
         		resultado +=  "\n" + parranderos.darAlojamientosDisponibles (Date.valueOf(fecha1), Date.valueOf(fecha2), nombreServicio);
-				panelDatos.actualizarInterfaz(resultado);
 				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);
     		}
 			else if (!sesionEnCurso){
 				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
@@ -446,9 +446,51 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 
 	 // RF6: RETIRAR UNA OFERTA DE ALOJAMIENTO
-	 public void retirarOfertaAlojamiento( )
+	 /**
+     * Borra de la base de datos el alojamiento con el identificador dado por el usuario
+     * Cuando dicho Alojamiento no existe, se indica que se borraron 0 registros de la base de datos
+	 * Si quedan reservas vigentes pendientes, entonces no se podrá eliminar el alojamiento
+     */
+	 public void eliminarAlojamientoPorId( )
 	 {
- 
+		try 
+    	{
+    		String idAlojamientoStr = JOptionPane.showInputDialog (this, "Id del Alojamiento?", "Borrar Alojamiento por Id", JOptionPane.QUESTION_MESSAGE);
+    		if (idAlojamientoStr != null && sesionEnCurso)
+    		{
+    			long idAlojamiento = Long.valueOf (idAlojamientoStr);
+    			long AlojamientosEliminados = parranderos.eliminarAlojamientoPorId (idAlojamiento);
+
+				if(AlojamientosEliminados != -1){
+					String resultado = "En eliminar Alojamiento\n\n";
+    				resultado += AlojamientosEliminados + "Alojamientos eliminados\n";
+    				resultado += "\n Operación terminada";
+    				panelDatos.actualizarInterfaz(resultado);
+				}
+				else{
+					String resultado = "No se puedo retirar el alojamiento especificado por el id\n\n";
+    				resultado += "Esto se debe a que aun existen reservas vigentes pendientes en el sistema \n";
+    				resultado += "\n Intente ejecutar la accion en otra fecha";
+    				panelDatos.actualizarInterfaz(resultado);
+				}
+
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
 	 }
 
 
