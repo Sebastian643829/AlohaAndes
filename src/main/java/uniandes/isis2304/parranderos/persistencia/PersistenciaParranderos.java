@@ -457,15 +457,8 @@ public class PersistenciaParranderos
 	/**
 	 * Método que inserta, de manera transaccional, una tupla en la tabla Operador
 	 * Adiciona entradas al log de la aplicación
-	 * @param idOperador - El id del operador
-	 * @param nombre - El nombre del alojamiento
-	 * @param capacidad - La capacidad del alojamiento
-     * @param ubicacion - La ubicacion del alojamiento
-	 * @param tamano - El tamaño del alojamiento
-	 * @param precioNoche - El precio de la noche del alojamiento
-     * @param ocupacionTotal - La ocupacion total actual del alojamiento
-	 * @param numReservas - El numero de reservas del alojamiento
-	 * @param idOperador - El id del operador
+	 * @param telefono - El nombre del operador
+	 * @param tipoVinculación - La capacidad del operador
 	 * @return El objeto Alojamiento adicionado. null si ocurre alguna Excepción
 	 */
 	public Operador adicionarOperador(String telefono, String tipoVinculacion)
