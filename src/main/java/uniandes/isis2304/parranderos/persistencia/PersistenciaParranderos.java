@@ -835,7 +835,7 @@ public class PersistenciaParranderos
 	public List<Object []> darAlojamientosDisponibles (Date fecha1, Date fecha2, String nombreServicio)
 	{
 		List<Object []> respuesta = new LinkedList <Object []> ();
-		List<Object> tuplas = sqlAlojamiento.darAlojamientosDisponibles (pmf.getPersistenceManager(), fecha1, fecha2, nombreServicio);
+		List<Object []> tuplas = sqlAlojamiento.darAlojamientosDisponibles (pmf.getPersistenceManager(), fecha1, fecha2, nombreServicio);
         for ( Object tupla : tuplas)
         {
 			Object [] datos = (Object []) tupla;

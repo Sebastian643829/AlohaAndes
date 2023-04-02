@@ -67,6 +67,7 @@ class SQLAlojamiento {
         return (long) q.executeUnique();
 	}
 
+	// RF6: RETIRAR UNA OFERTA DE ALOJAMIENTO
     /**
 	 * Crea y ejecuta la sentencia SQL para eliminar UN ALOJAMIENTO de la base de datos de Alohaandes, por su identificador
 	 * @param pm - El manejador de persistencia
@@ -139,15 +140,15 @@ class SQLAlojamiento {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de arreglos de objetos. Los elementos del arreglo corresponden a los datos del aloojamientos disponibless.
 	 */
-	public List<Object> darAlojamientosDisponibles (PersistenceManager pm, Date fecha1, Date fecha2, String nombreServicio)
+	public List<Object []> darAlojamientosDisponibles (PersistenceManager pm, Date fecha1, Date fecha2, String nombreServicio)
 	{
 	    String sql = "SELECT A_Alojamiento.*";
 	    sql += " FROM " + pp.darTablaAlojamiento ();
-	    sql += " LEFT OUTER JOIN " + pp.darTablaDispone () + " ON iA_Alojamiento.idAlojamiento = A_Dispone.idAlojamiento";
-		sql += " LEFT OUTER JOIN " + pp.darTablaServicio () + " ON A_Servicio.idServicio = A_Dispone.idServicio";
-		sql += " LEFT OUTER JOIN " + pp.darTablaReserva () + " ON A_Reserva.idAlojamiento = A_Alojamiento.idAlojamiento";
-	    sql	+= " WHERE (((A_Reserva.fechaInicio NOT BETWEEN ? AND ?) AND  (A_Reserva.fechaFinal NOT BETWEEN ? AND ?))";
-	    sql	+= " OR ((A_Reserva.fechaInicio BETWEEN ? AND ?) AND  (A_Reserva.fechaFinal BETWEEN ? AND ?)";
+	    sql += " LEFT OUTER JOIN " + pp.darTablaDispone () + " ON iA_Alojamiento.idalojamiento = A_Dispone.idalojamiento";
+		sql += " LEFT OUTER JOIN " + pp.darTablaServicio () + " ON A_Servicio.idservicio = A_Dispone.idservicio";
+		sql += " LEFT OUTER JOIN " + pp.darTablaReserva () + " ON A_Reserva.idalojamiento = A_Alojamiento.idalojamiento";
+	    sql	+= " WHERE (((A_Reserva.fechaInicio NOT BETWEEN ? AND ?) AND (A_Reserva.fechaFinal NOT BETWEEN ? AND ?))";
+	    sql	+= " OR ((A_Reserva.fechaInicio BETWEEN ? AND ?) AND (A_Reserva.fechaFinal BETWEEN ? AND ?)";
 		sql	+= " AND A_Reserva.estado = 'Cancelada'))";
 	    sql	+= " AND A_Servicio.nombre = ?";
 		
