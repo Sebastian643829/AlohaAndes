@@ -342,6 +342,42 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 	 public void adicionarPropietario( )
 	 {
+		try 
+    	{
+			String idOperador = JOptionPane.showInputDialog (this, "ID del operador (ya existente)?", "Adicionar nuevo propietario", JOptionPane.QUESTION_MESSAGE);
+    		String identificación = JOptionPane.showInputDialog (this, "Identificación del propietario?", "Adicionar nuevo propietario", JOptionPane.QUESTION_MESSAGE);
+			String tipoVinculacion = JOptionPane.showInputDialog (this, "Tipo de vinculación?", "Adicionar nuevo propietario", JOptionPane.QUESTION_MESSAGE);
+			String nombrePropietario = JOptionPane.showInputDialog (this, "Nombre Propietario?", "Adicionar nuevo propietario", JOptionPane.QUESTION_MESSAGE);
+			
+
+    		if (idOperador != null && tipoVinculacion != null && identificación != null && nombrePropietario != null)
+    		{
+        		VOPropietario tb = parranderos.adicionarPropietario (Long.parseLong(idOperador),identificación,tipoVinculacion,nombrePropietario);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear el propietario ");
+        		}
+        		String resultado = "En adicionarPropietario\n\n";
+        		resultado += "Propietario adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
  
 	 }
 
@@ -356,6 +392,41 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 	 public void adicionarEmpresa( )
 	 {
+		try 
+    	{
+			String idOperador = JOptionPane.showInputDialog (this, "ID del operador (ya existente)?", "Adicionar nueva empresa", JOptionPane.QUESTION_MESSAGE);
+    		String nit = JOptionPane.showInputDialog (this, "Nit de la empresa?", "Adicionar nueva empresa", JOptionPane.QUESTION_MESSAGE);
+			String nombreEmpresa = JOptionPane.showInputDialog (this, "Nombre Empresa?", "Adicionar nueva empresa", JOptionPane.QUESTION_MESSAGE);
+			
+
+    		if (idOperador != null && nit != null && nombreEmpresa != null)
+    		{
+        		VOEmpresa tb = parranderos.adicionarEmpresa (Long.parseLong(idOperador),nit,nombreEmpresa);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear la empresa ");
+        		}
+        		String resultado = "En adicionarEmpresa\n\n";
+        		resultado += "Empresa adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
  
 	 }
 
@@ -813,7 +884,42 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 	 public void adicionarCliente( )
 	 {
- 
+		try 
+    	{
+			String idCliente = JOptionPane.showInputDialog (this, "ID del cliente?", "Adicionar nuevo cliente", JOptionPane.QUESTION_MESSAGE);
+			String tipoIdentificacion = JOptionPane.showInputDialog (this, "Tipo de identificación?", "Adicionar nuevo cliente", JOptionPane.QUESTION_MESSAGE);
+			String nombreCliente = JOptionPane.showInputDialog (this, "Nombre Cliente?", "Adicionar nuevo cliente", JOptionPane.QUESTION_MESSAGE);
+			String fechaNacimiento = JOptionPane.showInputDialog (this, "Fecha de nacimiento del cliente ('aaaa-mm-dd')?", "Adicionar nuevo cliente", JOptionPane.QUESTION_MESSAGE);
+			
+
+    		if (idCliente != null && tipoIdentificacion != null && nombreCliente != null && fechaNacimiento != null)
+    		{
+        		VOCliente tb = parranderos.adicionarCliente (Long.parseLong(idCliente),tipoIdentificacion,nombreCliente,java.sql.Date.valueOf(fechaNacimiento));
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear el cliente ");
+        		}
+        		String resultado = "En adicionarCliente\n\n";
+        		resultado += "Cliente adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
 	 }
 
 
@@ -827,7 +933,41 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 	 public void adicionarMiembroActivo( )
 	 {
- 
+		try 
+    	{
+			String idMiembroActivo = JOptionPane.showInputDialog (this, "Número de identificación del cliente (ya existente)?", "Adicionar nuevo MiembroActivo", JOptionPane.QUESTION_MESSAGE);
+			String carnet = JOptionPane.showInputDialog (this, "Tipo de identificación?", "Adicionar nuevo MiembroActivo", JOptionPane.QUESTION_MESSAGE);
+			String tipo = JOptionPane.showInputDialog (this, "Nombre MiembroActivo?", "Adicionar nuevo MiembroActivo", JOptionPane.QUESTION_MESSAGE);
+			
+
+    		if (idMiembroActivo != null && carnet != null && tipo != null)
+    		{
+        		VOMiembroActivo tb = parranderos.adicionarMiembroActivo (Long.parseLong(idMiembroActivo),carnet,tipo);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear el MiembroActivo");
+        		}
+        		String resultado = "En adicionarMiembroActivo\n\n";
+        		resultado += "MiembroActivo adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
 	 }
 
 
@@ -841,7 +981,40 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 	 public void adicionarMiembroSecundario( )
 	 {
- 
+		try 
+    	{
+			String idMiembroSecundario = JOptionPane.showInputDialog (this, "Número de identificación del cliente (ya existente)?", "Adicionar nuevo MiembroSecundario", JOptionPane.QUESTION_MESSAGE);
+			String tipo = JOptionPane.showInputDialog (this, "Tipo de MiembroSecundario?", "Adicionar nuevo MiembroSecundario", JOptionPane.QUESTION_MESSAGE);
+			
+
+    		if (idMiembroSecundario != null && tipo!= null)
+			{
+        		VOMiembroSecundario tb = parranderos.adicionarMiembroSecundario (Long.parseLong(idMiembroSecundario),tipo);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear el MiembroSecundario");
+        		}
+        		String resultado = "En adicionarMiembroSecundario\n\n";
+        		resultado += "MiembroSecundario adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
 	 }
 
 
@@ -947,7 +1120,45 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 	 public void adicionarReserva( )
 	 {
- 
+		try 
+    	{
+			String idAlojamiento = JOptionPane.showInputDialog (this, "ID del alojamiento (ya existente)?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
+			String idCliente = JOptionPane.showInputDialog (this, "ID del cliente (ya existente)?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
+			String duracion = JOptionPane.showInputDialog (this, "Duración de la reserva en días (número natural)?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
+			String fechaInicio = JOptionPane.showInputDialog (this, "Fecha de inicio de la reserva ('aaaa-mm-dd')?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
+			String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final de la reserva ('aaaa-mm-dd')?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
+			String costoTotal = JOptionPane.showInputDialog (this, "Costo total de la reserva (número)?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
+			String estado = JOptionPane.showInputDialog (this, "Estado de la reserva?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
+    		String numPersonas = JOptionPane.showInputDialog (this, "Número de personas en la reserva (número natural)?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
+
+			if (idAlojamiento != null && idCliente != null && duracion != null && fechaInicio != null && fechaFinal != null&& costoTotal != null&& estado != null&& numPersonas != null)
+    		{
+        		VOReserva tb = parranderos.adicionarReserva (Long.parseLong(idAlojamiento),Long.parseLong(idCliente),Integer.parseInt(duracion),java.sql.Date.valueOf(fechaInicio),java.sql.Date.valueOf(fechaFinal),Long.parseLong(costoTotal), estado,Integer.parseInt(numPersonas));
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear el reserva ");
+        		}
+        		String resultado = "En adicionarReserva\n\n";
+        		resultado += "Reserva adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		} 
 	 }
 
 	 public void cancelarReserva( )
