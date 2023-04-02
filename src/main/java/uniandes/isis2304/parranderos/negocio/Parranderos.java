@@ -1,5 +1,6 @@
 package uniandes.isis2304.parranderos.negocio;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.LinkedList; 
 import java.util.List;
@@ -144,6 +145,35 @@ public class Parranderos
         log.info ("Generando los VO de Alojamientos: " + voAlojamientos.size() + " existentes");
         return voAlojamientos;
 	}
+
+	// RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
+	/**
+	 * Encuentra los alojamientos mas populares en Alohaandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos alojamiento con todos los alojamientos mas populares dentro de la aplicación, llenos con su información básica
+	 */
+	public List<Alojamiento> darOfertasMasPopulares ()
+	{
+		log.info ("Consultando Alojamientos mas populares");
+        List<Alojamiento> alojamientosPopulares = pp.darOfertasMasPopulares ();	
+        log.info ("Consultando Alojamientos mas populares: Listo!");
+        return alojamientosPopulares ;
+	}
+
+	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
+	/**
+	 * Encuentra todos los alojamientos disponibles en el rango de fechas dado y que cumplan con ciertos servicios
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de los alojamientos que cumplen las condiciones dadas
+	 */
+	public List<Object []> darAlojamientosDisponibles (Date fecha1, Date fecha2, String nombreServicio)
+	{
+        log.info ("Listando Alojamientos que cumplen las condiciones dadas");
+        List<Object []> tuplas = pp.darAlojamientosDisponibles (fecha1, fecha2, nombreServicio);
+        log.info ("Listando Alojamientos que cumplen las condiciones dadas: Listo!");
+        return tuplas;
+	}
+
 
 	/**
 	 * Encuentra un alojamiento y su información básica, según su identificador

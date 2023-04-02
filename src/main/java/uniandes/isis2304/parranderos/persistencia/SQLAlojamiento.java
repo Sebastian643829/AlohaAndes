@@ -1,5 +1,7 @@
 package uniandes.isis2304.parranderos.persistencia;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -106,7 +108,53 @@ class SQLAlojamiento {
 		return (List<Alojamiento>) q.executeList();
 	}
 
-    // PENDIENTE: Verificar los siguientes metodos
+// RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
+
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar las 20 ofertas de alojamientos mas populares 
+	 * base de datos de Alohaandes
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de alojamientos, de tamaño 20. Los elementos del arreglo corresponden a los datos de 
+	 * los alojamientos que tienen mas reservas asociadas
+	 */
+	public List<Alojamiento> darOfertasMasPopulares (PersistenceManager pm)
+	{
+        String sql = "SELECT *";
+		sql += " FROM ";
+		sql = "(SELECT *";
+        sql += " FROM " + pp.darTablaAlojamiento();
+       	sql	+= " ORDER BY numreservas DESC)";
+       	sql += " WHERE ";
+       	sql += "rownum <= 20";
+		Query q = pm.newQuery(SQL, sql);
+		q.setResultClass(Alojamiento.class);
+		return (List<Alojamiento>) q.executeList();
+	}
+	
+// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
+
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la informacion de los Alojamientos disponibles en un rango de fechas que cuenten con
+	 * ciertos servicios de la base de datos de AlohaAndes.  
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de arreglos de objetos. Los elementos del arreglo corresponden a los datos del aloojamientos disponibless.
+	 */
+	public List<Object> darAlojamientosDisponibles (PersistenceManager pm, Date fecha1, Date fecha2, String nombreServicio)
+	{
+	    String sql = "SELECT A_Alojamiento.*";
+	    sql += " FROM " + pp.darTablaAlojamiento ();
+	    sql += " LEFT OUTER JOIN " + pp.darTablaDispone () + " ON iA_Alojamiento.idAlojamiento = A_Dispone.idAlojamiento";
+		sql += " LEFT OUTER JOIN " + pp.darTablaServicio () + " ON A_Servicio.idServicio = A_Dispone.idServicio";
+		sql += " LEFT OUTER JOIN " + pp.darTablaReserva () + " ON A_Reserva.idAlojamiento = A_Alojamiento.idAlojamiento";
+	    sql	+= " WHERE (((A_Reserva.fechaInicio NOT BETWEEN ? AND ?) AND  (A_Reserva.fechaFinal NOT BETWEEN ? AND ?))";
+	    sql	+= " OR ((A_Reserva.fechaInicio BETWEEN ? AND ?) AND  (A_Reserva.fechaFinal BETWEEN ? AND ?)";
+		sql	+= " AND A_Reserva.estado = 'Cancelada'))";
+	    sql	+= " AND A_Servicio.nombre = ?";
+		
+	    Query q = pm.newQuery(SQL, sql);
+		q.setParameters(fecha1, fecha2, fecha1, fecha2, fecha1, fecha2, fecha1, fecha2, nombreServicio);
+		return q.executeList();
+	}
 
 	/**
 	 * Crea y ejecuta la sentencia SQL para aumentar en uno la ocupacion actual de los alojamientos de la 

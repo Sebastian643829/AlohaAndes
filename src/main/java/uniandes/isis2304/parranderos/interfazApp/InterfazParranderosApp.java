@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -377,6 +378,74 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		}
 	 }
 
+	// RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
+	/**
+     * Consulta en la base de datos las 20 ofertas de alojamiento mas populares
+     */
+    public void darOfertasMasPopulares( )
+    {
+    	try 
+    	{
+			if (sesionEnCurso){
+			String resultado = "Listando alojamientos mas populares";
+			resultado +=  "\n" + parranderos.darOfertasMasPopulares ();
+			panelDatos.actualizarInterfaz(resultado);
+			resultado += "\n Operación terminada";
+			}
+			else{
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
+	 /**
+     * Adiciona un Alojamiento con la información dada por el usuario
+     * Se crea una nueva tupla de Alojamiento en la base de datos, si un Alojamiento con ese nombre no existía
+     */
+	 public void darAlojamientosDisponibles( )
+	 {
+		try 
+    	{
+    		String fecha1 = JOptionPane.showInputDialog (this, "Fechas inicial (DD-MM-YY)?", "Dar alojamientos disponibles", JOptionPane.QUESTION_MESSAGE);
+			String fecha2 = JOptionPane.showInputDialog (this, "Fecha final (DD-MM-YY)?", "Dar alojamientos disponibles", JOptionPane.QUESTION_MESSAGE);
+			String nombreServicio = JOptionPane.showInputDialog (this, "Nombre del servicio?", "Dar alojamientos disponibles", JOptionPane.QUESTION_MESSAGE);
+
+    		if (fecha1 != null && fecha2 != null && nombreServicio  != null && sesionEnCurso)
+    		{
+				String resultado = "Listando alojamientos que cumplen las condiciones dadas";
+        		resultado +=  "\n" + parranderos.darAlojamientosDisponibles (Date.valueOf(fecha1), Date.valueOf(fecha2), nombreServicio);
+				panelDatos.actualizarInterfaz(resultado);
+				resultado += "\n Operación terminada";
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	 }
+
+
+	 // RF6: RETIRAR UNA OFERTA DE ALOJAMIENTO
 	 public void retirarOfertaAlojamiento( )
 	 {
  
