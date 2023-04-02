@@ -1,6 +1,7 @@
 package uniandes.isis2304.parranderos.persistencia;
 
-
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -525,12 +526,14 @@ public class PersistenciaParranderos
 	}
 	/**
 	 * Método que consulta todas las tuplas en la tabla Operador
-	 * @return La lista de objetos Operador, construidos con base en las tuplas de la tabla OPERADOR
+	 * @return La lista de objetos Operador, construidos con base en las tuplas de la tabla ALOJAMIENTO
 	 */
 	public List<Operador> darOperadores ()
 	{
 		return sqlOperador.darOperadores(pmf.getPersistenceManager());
 	}
+
+
 	/**
 	 * Método que consulta todas las tuplas en la tabla Operador con un identificador dado
 	 * @param idOperador - El id del alojamiento
@@ -812,6 +815,49 @@ public class PersistenciaParranderos
 		return sqlAlojamiento.darAlojamientos (pmf.getPersistenceManager());
 	}
 
+	// RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
+	/**
+	 * Método que consultar los 20 alojamientos mas populares
+	 * @return La lista de objetos alojamientos, construidos con base en las tuplas de la tabla ALOJAMIENTO
+	 */
+	public List<Alojamiento> darOfertasMasPopulares ()
+	{
+		return sqlAlojamiento.darOfertasMasPopulares(pmf.getPersistenceManager());
+	}
+
+
+	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
+	/**
+	 * Método que consulta los alojamientos disponibles en un rango de fechas que cuentan con cierto servicio
+	 * @return La lista de parejas de objetos, construidos con base en las tuplas de la tabla ALOJAMIENTO, RESERVA, DISPONE, SERVICIO. 
+	 * El primer elemento de la pareja es un bebedor; 
+	 * el segundo elemento es el número de visitas de ese bebedor (0 en el caso que no haya realizado visitas)
+	 */
+	public List<Object []> darAlojamientosDisponibles (Date fecha1, Date fecha2, String nombreServicio)
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlAlojamiento.darAlojamientosDisponibles (pmf.getPersistenceManager(), fecha1, fecha2, nombreServicio);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idAlojamiento = ((BigDecimal) datos [0]).longValue ();
+			String nombre = (String) datos [1];
+			int capacidad = ((BigDecimal) datos [2]).intValue ();
+			String ubicacion = (String) datos [3];
+			int tamano = ((BigDecimal) datos [4]).intValue ();
+			int precioNoche = ((BigDecimal) datos [5]).intValue ();
+			int ocupacionTotal = ((BigDecimal) datos [6]).intValue ();
+			int numReservas = ((BigDecimal) datos [7]).intValue ();
+			long idOperador = ((BigDecimal) datos [8]).longValue ();
+
+			Object [] resp = new Object [1];
+			resp [0] = new Alojamiento (idAlojamiento, nombre, capacidad, ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador);	
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
 
 	/**
 	 * Método que consulta todas las tuplas en la tabla Alojamiento con un identificador dado
@@ -1471,7 +1517,7 @@ public class PersistenciaParranderos
      * @param fechaNacimiento - La fecha de nacimiento del cliente
 	 * @return El objeto Cliente adicionado. null si ocurre alguna Excepción
 	 */
-	public Cliente adicionarCliente(long idCliente, String tipoIdentificacion, String nombreCliente , Timestamp fechaNacimiento)
+	public Cliente adicionarCliente(long idCliente, String tipoIdentificacion, String nombreCliente , Date fechaNacimiento)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -1928,7 +1974,7 @@ public class PersistenciaParranderos
      * @param numPersonas - Numero de personas en la reserva
 	 * @return El objeto Reserva adicionado. null si ocurre alguna Excepción
 	 */
-	public Reserva adicionarReserva(long idAlojamiento, long idCliente, int duracion , Timestamp fechaInicio, Timestamp fechaFinal, long costoTotal, String estado, int numPersonas)
+	public Reserva adicionarReserva(long idAlojamiento, long idCliente, int duracion , Date fechaInicio, Date fechaFinal, long costoTotal, String estado, int numPersonas)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();

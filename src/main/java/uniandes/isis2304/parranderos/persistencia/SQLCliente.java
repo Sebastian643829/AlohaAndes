@@ -1,6 +1,7 @@
 package uniandes.isis2304.parranderos.persistencia;
 
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -52,7 +53,7 @@ class SQLCliente {
 	 * @param nombreCliente - El nombre del cliente
      * @param fechaNacimiento - La fecha de nacimiento del cliente
 	 */
-	public long adicionarCliente (PersistenceManager pm, long idCliente, String tipoIdentificacion, String nombreCliente , Timestamp fechaNacimiento) 
+	public long adicionarCliente (PersistenceManager pm, long idCliente, String tipoIdentificacion, String nombreCliente , Date fechaNacimiento) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaCliente() + "(idcliente, tipoidentificacion, nombrecliente , fechanacimiento) values (?, ?, ?, ?)");
         q.setParameters(idCliente, tipoIdentificacion, nombreCliente , fechaNacimiento);

@@ -104,7 +104,7 @@
 				},
 				{
 					"label": "RFC2",
-					"event": ""
+					"event": "darOfertasMasPopulares"
 				},
 				{
 					"label": "RFC3",
@@ -112,7 +112,7 @@
 				},
 				{
 					"label": "RFC4",
-					"event": ""
+					"event": "darAlojamientosDisponibles"
 				}
 			]
 		},

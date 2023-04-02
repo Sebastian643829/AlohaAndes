@@ -1,5 +1,6 @@
 package uniandes.isis2304.parranderos.negocio;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Reserva implements VOReserva {
@@ -28,12 +29,12 @@ public class Reserva implements VOReserva {
 	/**
 	 * La fecha de inicio de la reserva
 	 */
-	private Timestamp fechaInicio;
+	private Date fechaInicio;
 
     /**
 	 * La fecha de la final de la reserva
 	 */
-	private Timestamp fechaFinal;
+	private Date fechaFinal;
 
     /**
 	 * El costo total de la reserva
@@ -62,8 +63,8 @@ public class Reserva implements VOReserva {
 		this.idAlojamiento = 0;
 		this.idCliente = 0;
 		this.duracion = 0;
-		this.fechaInicio = new Timestamp (0);
-        this.fechaFinal = new Timestamp (0);
+		this.fechaInicio = new java.sql.Date(0);
+        this.fechaFinal = new java.sql.Date(0);
         this.costoTotal = 0;
         this.estado = "";
         this.numPersonas = 0;
@@ -81,7 +82,7 @@ public class Reserva implements VOReserva {
 	 * @param estado - El estado de la reserva
 	 * @param numPersonas - El numero de personas de la reserva
 	 */
-	public Reserva(long idReserva,long idAlojamiento, long idCliente, int duracion, Timestamp fechaInicio, Timestamp fechaFinal, long costoTotal, String estado, int numPersonas) 
+	public Reserva(long idReserva,long idAlojamiento, long idCliente, int duracion, Date fechaInicio, Date fechaFinal, long costoTotal, String estado, int numPersonas) 
 	{
 		this.idReserva = idReserva;
 		this.idAlojamiento = idAlojamiento;
@@ -160,7 +161,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * @return La fecha de inicio de la reserva
 	 */
-	public Timestamp getFechaInicio() 
+	public Date getFechaInicio() 
 	{
 		return fechaInicio;
 	}
@@ -168,7 +169,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * @param fechaInicio - La nueva fecha de inicio de la reserva
 	 */
-	public void setFechaInicio(Timestamp fechaInicio) 
+	public void setFechaInicio(Date fechaInicio) 
 	{
 		this.fechaInicio = fechaInicio;
 	}
@@ -176,7 +177,7 @@ public class Reserva implements VOReserva {
     /**
 	 * @return La fecha de la final de la reserva
 	 */
-	public Timestamp getFechaFinal() 
+	public Date getFechaFinal() 
 	{
 		return fechaFinal;
 	}
@@ -184,7 +185,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * @param fechaVisita - La nueva fecha de la final de la reserva
 	 */
-	public void setFechaFinal(Timestamp fechaFinal) 
+	public void setFechaFinal(Date fechaFinal) 
 	{
 		this.fechaFinal = fechaFinal;
 	}

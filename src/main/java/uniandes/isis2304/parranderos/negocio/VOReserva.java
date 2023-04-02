@@ -1,5 +1,6 @@
 package uniandes.isis2304.parranderos.negocio;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public interface VOReserva {
@@ -29,12 +30,12 @@ public interface VOReserva {
 	/**
 	 * @return La fecha inicial de la reserva
 	 */
-	public Timestamp getFechaInicio();
+	public Date getFechaInicio();
 
     /**
 	 * @return La fecha final de la reserva
 	 */
-	public Timestamp getFechaFinal();
+	public Date getFechaFinal();
 
     /**
 	 * @return El costo total de la reserva

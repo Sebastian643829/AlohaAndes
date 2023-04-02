@@ -1,4 +1,5 @@
 package uniandes.isis2304.parranderos.negocio;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public interface VOCliente {
@@ -23,7 +24,7 @@ public interface VOCliente {
         /**
        * @return La fecha de nacimiento del cliente
        */
-      public Timestamp getFechaNacimiento();
+      public Date getFechaNacimiento();
 
       @Override
       /**
