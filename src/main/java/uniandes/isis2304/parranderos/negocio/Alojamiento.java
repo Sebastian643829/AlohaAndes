@@ -37,7 +37,7 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * La ocupacion total actual del alojamiento
 	 */
-	private int ocupacionTotal;
+	private int ocupacionActual;
 
     /**
 	 * El numero de reservas del alojamiento
@@ -63,7 +63,7 @@ public class Alojamiento implements VOAlojamiento {
         this.ubicacion = "";
 		this.tamano = 0;
 		this.precioNoche = 0;
-        this.ocupacionTotal = 0;
+        this.ocupacionActual = 0;
 		this.numReservas = 0;
 		this.idOperador = 0;
 	}
@@ -76,11 +76,11 @@ public class Alojamiento implements VOAlojamiento {
      * @param ubicacion - La ubicacion del alojamiento
 	 * @param tamano - El tamaño del alojamiento
 	 * @param precioNoche - El precio de la noche del alojamiento
-     * @param ocupacionTotal - La ocupacion total actual del alojamiento
+     * @param ocupacionActual - La ocupacion total actual del alojamiento
 	 * @param numReservas - El numero de reservas del alojamiento
 	 * @param idOperador - El id del operador
 	 */
-    public Alojamiento(long idAlojamiento, String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionTotal, int numReservas, long idOperador) 
+    public Alojamiento(long idAlojamiento, String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionActual, int numReservas, long idOperador) 
     {
     	this.idAlojamiento = idAlojamiento;
 		this.nombre = nombre;
@@ -88,7 +88,7 @@ public class Alojamiento implements VOAlojamiento {
         this.ubicacion = ubicacion;
 		this.tamano = tamano;
 		this.precioNoche = precioNoche;
-        this.ocupacionTotal = ocupacionTotal;
+        this.ocupacionActual = ocupacionActual;
 		this.numReservas = numReservas;
 		this.idOperador = idOperador;
 	}
@@ -192,17 +192,17 @@ public class Alojamiento implements VOAlojamiento {
     /**
 	 * @return La ocupacion total actual del alojamiento
 	 */
-	public int getOcupacionTotal() 
+	public int getOcupacionActual() 
 	{
-		return ocupacionTotal;
+		return ocupacionActual;
 	}
 	
 	/**
-	 * @param ocupacionTotal - La nueva ocupacion total actual del alojamiento
+	 * @param ocupacionActual - La nueva ocupacion total actual del alojamiento
 	 */
-	public void setOcupacionTotal(int ocupacionTotal) 
+	public void setOcupacionActual(int ocupacionActual) 
 	{
-		this.ocupacionTotal = ocupacionTotal;
+		this.ocupacionActual = ocupacionActual;
 	}
 
     /**
@@ -245,6 +245,6 @@ public class Alojamiento implements VOAlojamiento {
 	{
 		return "Alojamiento [idAlojamiento=" + idAlojamiento + ", nombre=" + nombre + ", capacidad=" + capacidad + 
         ", ubicacion=" + ubicacion + ", tamano=" + tamano + ", precioNoche=" + precioNoche 
-        + ", ocupacionTotal=" + ocupacionTotal + ", numReservas=" + numReservas + ", idOperador=" + idOperador + "]";
+        + ", ocupacionActual=" + ocupacionActual + ", numReservas=" + numReservas + ", idOperador=" + idOperador + "]";
 	}
 }

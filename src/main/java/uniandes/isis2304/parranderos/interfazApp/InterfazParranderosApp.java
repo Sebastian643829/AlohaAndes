@@ -35,6 +35,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.parranderos.negocio.Parranderos;
+import uniandes.isis2304.parranderos.negocio.Alojamiento;
 import uniandes.isis2304.parranderos.negocio.Credenciales;
 import uniandes.isis2304.parranderos.negocio.VOAlojamiento;
 import uniandes.isis2304.parranderos.negocio.VOViviendaUniversitaria;
@@ -418,9 +419,11 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     {
     	try 
     	{
+			List <VOAlojamiento> lista = parranderos.darVOAlojamientos();
+
 			if (sesionEnCurso){
 			String resultado = "Listando alojamientos mas populares";
-			resultado +=  "\n" + parranderos.darOfertasMasPopulares ();
+			resultado +=  "\n" + listarOfertasPopulares (lista);
 			resultado += "\n Operación terminada";
 			panelDatos.actualizarInterfaz(resultado);
 			}
@@ -437,6 +440,22 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
+
+	/**
+     * Genera una cadena de caracteres con la lista de los alojamientos mas populares recibida: una línea por cada alojamiento
+     * @param lista - La lista con los alojamientos
+     * @return La cadena con una línea para cada alojamiento recibido
+     */
+    private String listarOfertasPopulares(List<VOAlojamiento> lista) 
+    {
+    	String resp = "Los alojamientos mas populares son:\n";
+    	int i = 1;
+        for (VOAlojamiento aloj : lista)
+        {
+        	resp += i++ + ". " + aloj.toString() + "\n";
+        }
+		return resp;
+	} 
 
 	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
 	 /**
@@ -483,29 +502,30 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
      * Cuando dicho Alojamiento no existe, se indica que se borraron 0 registros de la base de datos
 	 * Si quedan reservas vigentes pendientes, entonces no se podrá eliminar el alojamiento
      */
-	 public void eliminarAlojamientoPorId( )
+	 public void retirarOfertaAlojamiento( )
 	 {
 		try 
     	{
-    		String idAlojamientoStr = JOptionPane.showInputDialog (this, "Id del Alojamiento?", "Borrar Alojamiento por Id", JOptionPane.QUESTION_MESSAGE);
+    		String idAlojamientoStr = JOptionPane.showInputDialog (this, "Id del alojamiento?", "Retirar alojamiento por Id", JOptionPane.QUESTION_MESSAGE);
     		if (idAlojamientoStr != null && sesionEnCurso)
     		{
     			long idAlojamiento = Long.valueOf (idAlojamientoStr);
-    			long AlojamientosEliminados = parranderos.eliminarAlojamientoPorId (idAlojamiento);
 
-				if(AlojamientosEliminados != -1){
-					String resultado = "En eliminar Alojamiento\n\n";
-    				resultado += AlojamientosEliminados + "Alojamientos eliminados\n";
-    				resultado += "\n Operación terminada";
-    				panelDatos.actualizarInterfaz(resultado);
+				long reservasEliminadas = parranderos.retirarOfertaAlojamiento (idAlojamiento); 
+
+				if (reservasEliminadas != -1){
+    			long alojamientosEliminados = parranderos.eliminarAlojamientoPorId (idAlojamiento);
+    			String resultado = "En eliminar Alojamiento\n\n";
+    			resultado += "Se elimino el alojamiento con exito\n";
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
 				}
 				else{
-					String resultado = "No se puedo retirar el alojamiento especificado por el id\n\n";
-    				resultado += "Esto se debe a que aun existen reservas vigentes pendientes en el sistema \n";
-    				resultado += "\n Intente ejecutar la accion en otra fecha";
-    				panelDatos.actualizarInterfaz(resultado);
+					String resultado = "En eliminar Alojamiento\n\n";
+					resultado += "No se pudo eliminar el alojamiento con exito\n";
+					resultado += "\n Verifique que el alojamiento exista y que no quede pendiente ninguna reserva vigente";
+					panelDatos.actualizarInterfaz(resultado);
 				}
-
     		}
 			else if (!sesionEnCurso){
 				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";

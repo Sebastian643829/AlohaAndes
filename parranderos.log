@@ -104,3 +104,100 @@ ORA-02289: no existe la secuencia
 16:33:49,876 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
 16:33:49,877 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
 16:33:49,886 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+12:59:38,635 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+12:59:38,636 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+12:59:38,670 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+13:00:00,165 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares
+13:02:32,665 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+13:02:32,665 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+13:02:32,674 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+13:03:19,348 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares
+13:04:43,804 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Servicio: masajes
+13:04:44,079 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Servicio: Servicio  [idServicio=41, nombre=masajes, costo=100000]
+13:05:01,763 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+13:05:01,763 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+13:05:01,773 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+13:05:20,334 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares
+13:05:20,386 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares: Listo!
+13:05:33,809 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares
+13:05:33,842 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares: Listo!
+13:06:18,889 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares
+13:06:18,930 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares: Listo!
+13:06:28,785 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares
+13:06:28,809 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares: Listo!
+13:08:16,982 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares
+13:08:17,010 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares: Listo!
+13:08:58,709 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+13:08:58,709 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+13:08:58,719 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+13:09:14,842 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares
+13:09:14,908 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares: Listo!
+13:30:11,649 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+13:30:11,649 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+13:30:11,666 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+13:30:25,510 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares
+13:30:25,568 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares: Listo!
+13:35:45,945 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares
+13:35:45,969 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando Alojamientos mas populares: Listo!
+13:46:03,629 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+13:46:03,629 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+13:46:03,638 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+13:47:52,623 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando ofertas de Alojamiento por id: 4
+13:47:52,798 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : Error con la ejecucion de Query de SQL "DELETE FROM A_RESERVA WHERE idalojamiento = ? AND current_date > ALL(SELECT fechafinal FROM A_RESERVA LEFT OUTER JOIN A_ALOJAMIENTO ON A_Reserva.idAlojamiento = A_Alojamiento.idAlojamiento WHERE idalojamiento = ? AND estado = 'Activa'".
+ORA-00907: falta el paréntesis derecho
+
+13:47:52,811 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando ofertas de Alojamiento por id: -1 tuplas eliminadas
+13:48:36,689 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando ofertas de Alojamiento por id: 2
+13:48:36,710 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : Error con la ejecucion de Query de SQL "DELETE FROM A_RESERVA WHERE idalojamiento = ? AND current_date > ALL(SELECT fechafinal FROM A_RESERVA LEFT OUTER JOIN A_ALOJAMIENTO ON A_Reserva.idAlojamiento = A_Alojamiento.idAlojamiento WHERE idalojamiento = ? AND estado = 'Activa'".
+ORA-00907: falta el paréntesis derecho
+
+13:48:36,726 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando ofertas de Alojamiento por id: -1 tuplas eliminadas
+13:49:56,247 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando ofertas de Alojamiento por id: 11
+13:49:56,270 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : Error con la ejecucion de Query de SQL "DELETE FROM A_RESERVA WHERE idalojamiento = ? AND current_date > ALL(SELECT fechafinal FROM A_RESERVA LEFT OUTER JOIN A_ALOJAMIENTO ON A_Reserva.idAlojamiento = A_Alojamiento.idAlojamiento WHERE idalojamiento = ? AND estado = 'Activa'".
+ORA-00907: falta el paréntesis derecho
+
+13:49:56,280 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando ofertas de Alojamiento por id: -1 tuplas eliminadas
+14:00:53,097 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+14:00:53,098 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+14:00:53,111 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+14:01:57,247 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos
+14:04:01,738 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Operador: 
+14:04:01,945 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Operador: Operador [idOperador=42, telefono=3901230, tipoVinculacion=2]
+14:07:20,210 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Alojamiento: La colina
+14:07:20,263 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Alojamiento: Alojamiento [idAlojamiento=43, nombre=La colina, capacidad=10, ubicacion=Norte, tamano=100, precioNoche=100000, ocupacionTotal=0, numReservas=0, idOperador=42]
+14:07:44,963 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando ofertas de Alojamiento por id: 43
+14:07:44,991 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : Error con la ejecucion de Query de SQL "DELETE FROM A_RESERVA WHERE idalojamiento = ? AND current_date > ALL(SELECT fechafinal FROM A_RESERVA LEFT OUTER JOIN A_ALOJAMIENTO ON A_Reserva.idAlojamiento = A_Alojamiento.idAlojamiento WHERE idalojamiento = ? AND estado = 'Activa'".
+ORA-00907: falta el paréntesis derecho
+
+14:07:45,007 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando ofertas de Alojamiento por id: -1 tuplas eliminadas
+14:10:23,234 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+14:10:23,234 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+14:10:23,244 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+14:11:02,874 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Operador: 
+14:11:03,100 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Operador: Operador [idOperador=44, telefono=3849203, tipoVinculacion=10]
+14:13:33,231 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Alojamiento: La colina
+14:13:33,284 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Alojamiento: Alojamiento [idAlojamiento=45, nombre=La colina, capacidad=10, ubicacion=Norte, tamano=100, precioNoche=100000, ocupacionTotal=0, numReservas=0, idOperador=44]
+14:13:38,706 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos
+14:18:46,081 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+14:18:46,081 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+14:18:46,091 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+14:19:08,975 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos
+14:27:20,869 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+14:27:20,870 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+14:27:20,880 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+14:27:36,843 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos
+14:27:36,904 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos: 1 existentes
+14:28:57,854 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos
+14:28:57,881 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos: 1 existentes
+14:29:33,292 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+14:29:33,292 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+14:29:33,301 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+14:29:48,059 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos
+14:29:48,129 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos: 1 existentes
+14:30:46,477 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos
+14:30:46,512 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos: 1 existentes
+14:31:54,178 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando ofertas de Alojamiento por id: 45
+14:31:54,323 (AWT-EventQueue-0) ERROR [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Exception : Error con la ejecucion de Query de SQL "DELETE FROM A_RESERVA WHERE idalojamiento = ? AND current_date > ALL(SELECT fechafinal FROM A_RESERVA LEFT OUTER JOIN A_ALOJAMIENTO ON A_Reserva.idAlojamiento = A_Alojamiento.idAlojamiento WHERE idalojamiento = ? AND estado = 'Activa'".
+ORA-00907: falta el paréntesis derecho
+
+14:31:54,335 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Eliminando ofertas de Alojamiento por id: -1 tuplas eliminadas

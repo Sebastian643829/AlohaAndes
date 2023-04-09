@@ -67,7 +67,7 @@ class SQLAlojamiento {
         return (long) q.executeUnique();
 	}
 
-	// RF6: RETIRAR UNA OFERTA DE ALOJAMIENTO
+
     /**
 	 * Crea y ejecuta la sentencia SQL para eliminar UN ALOJAMIENTO de la base de datos de Alohaandes, por su identificador
 	 * @param pm - El manejador de persistencia
@@ -120,13 +120,9 @@ class SQLAlojamiento {
 	 */
 	public List<Alojamiento> darOfertasMasPopulares (PersistenceManager pm)
 	{
-        String sql = "SELECT *";
-		sql += " FROM ";
-		sql = "(SELECT *";
+		String sql = "SELECT *";
         sql += " FROM " + pp.darTablaAlojamiento();
-       	sql	+= " ORDER BY numreservas DESC)";
-       	sql += " WHERE ";
-       	sql += "rownum <= 20";
+       	sql	+= " ORDER BY numreservas DESC";
 		Query q = pm.newQuery(SQL, sql);
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();
@@ -147,8 +143,8 @@ class SQLAlojamiento {
 	    sql += " LEFT OUTER JOIN " + pp.darTablaDispone () + " ON iA_Alojamiento.idalojamiento = A_Dispone.idalojamiento";
 		sql += " LEFT OUTER JOIN " + pp.darTablaServicio () + " ON A_Servicio.idservicio = A_Dispone.idservicio";
 		sql += " LEFT OUTER JOIN " + pp.darTablaReserva () + " ON A_Reserva.idalojamiento = A_Alojamiento.idalojamiento";
-	    sql	+= " WHERE (((A_Reserva.fechaInicio NOT BETWEEN ? AND ?) AND (A_Reserva.fechaFinal NOT BETWEEN ? AND ?))";
-	    sql	+= " OR ((A_Reserva.fechaInicio BETWEEN ? AND ?) AND (A_Reserva.fechaFinal BETWEEN ? AND ?)";
+	    sql	+= " WHERE (((A_Reserva.fechainicio NOT BETWEEN ? AND ?) AND (A_Reserva.fechafinal NOT BETWEEN ? AND ?))";
+	    sql	+= " OR ((A_Reserva.fechainicio BETWEEN ? AND ?) AND (A_Reserva.fechafinal BETWEEN ? AND ?)";
 		sql	+= " AND A_Reserva.estado = 'Cancelada'))";
 	    sql	+= " AND A_Servicio.nombre = ?";
 		
@@ -185,4 +181,24 @@ class SQLAlojamiento {
         return (long) q.executeUnique();
 	}
 
+
+	// RF6: RETIRAR UNA OFERTA DE ALOJAMIENTO
+	 /**
+	 * Crea y ejecuta la sentencia SQL para eliminar UN ALOJAMIENTO de la base de datos de Alohaandes, por su identificador
+	 * @param pm - El manejador de persistencia
+	 * @param idAlojamiento - El id del alojamiento
+	 * @return EL número de tuplas eliminadas
+	 */
+	public long retirarOfertaAlojamiento (PersistenceManager pm, long idAlojamiento)
+	{
+		String sql = "DELETE FROM " + pp.darTablaReserva() + " WHERE idalojamiento = ?";
+		sql	+= " AND current_date > ALL(SELECT fechafinal";
+	    sql	+= " FROM " + pp.darTablaReserva() ;
+		sql	+= " LEFT OUTER JOIN "  + pp.darTablaAlojamiento() + " ON A_Reserva.idAlojamiento = A_Alojamiento.idAlojamiento";
+	    sql	+= " WHERE idalojamiento = ? AND estado = 'Activa'";
+        Query q = pm.newQuery(SQL, sql);
+        q.setParameters(idAlojamiento, idAlojamiento);
+        return (long) q.executeUnique();
+	}
 }
+

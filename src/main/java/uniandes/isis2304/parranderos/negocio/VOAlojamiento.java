@@ -37,7 +37,7 @@ public interface VOAlojamiento {
       /**
        * @return la ocupacion total actual del alojamiento
        */
-      public int getOcupacionTotal();
+      public int getOcupacionActual();
 
       /**
        * @return el numero de reservas del alojamiento

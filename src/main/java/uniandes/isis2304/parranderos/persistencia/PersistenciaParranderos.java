@@ -935,6 +935,39 @@ public class PersistenciaParranderos
         }
 	}
 
+	// RF6: RETIRAR UNA OFERTA DE ALOJAMIENTO
+	/**
+	 * Método que elimina, de manera transaccional, las tuplas de reservas, dado el identificador de un alojamiento
+	 * Adiciona entradas al log de la aplicación
+	 * @param idAlojamiento - El id del alojamiento
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long retirarOfertaAlojamiento (long idAlojamiento) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlAlojamiento.retirarOfertaAlojamiento(pm, idAlojamiento);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 
 
 	 /* ****************************************************************

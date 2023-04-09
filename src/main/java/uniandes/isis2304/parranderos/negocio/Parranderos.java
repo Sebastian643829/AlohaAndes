@@ -333,22 +333,6 @@ public class Parranderos
         return alojamientos;
 	}
 
-	/**
-	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOAlojamiento
-	 * Adiciona entradas al log de la aplicación
-	 * @return Una lista de objetos VOAlojamiento con todos los alojamiento que conoce la aplicación, llenos con su información básica
-	 */
-	public List<VOAlojamiento> darVOAlojamientos ()
-	{
-		log.info ("Generando los VO de Alojamientos");        
-        List<VOAlojamiento> voAlojamientos = new LinkedList<VOAlojamiento> ();
-        for (Alojamiento tb : pp.darAlojamientos ())
-        {
-        	voAlojamientos.add (tb);
-        }
-        log.info ("Generando los VO de Alojamientos: " + voAlojamientos.size() + " existentes");
-        return voAlojamientos;
-	}
 
 	/**
 	 * Encuentra un alojamiento y su información básica, según su identificador
@@ -364,7 +348,7 @@ public class Parranderos
         return alojamiento;
 	}
 
-		// RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
+	// RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
 	/**
 	 * Encuentra los alojamientos mas populares en Alohaandes
 	 * Adiciona entradas al log de la aplicación
@@ -376,6 +360,23 @@ public class Parranderos
         List<Alojamiento> alojamientosPopulares = pp.darOfertasMasPopulares ();	
         log.info ("Consultando Alojamientos mas populares: Listo!");
         return alojamientosPopulares ;
+	}
+
+	/**
+	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOAlojamiento
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOAlojamiento con todos los alojamiento que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOAlojamiento> darVOAlojamientos ()
+	{
+		log.info ("Generando los VO de Alojamientos");        
+        List<VOAlojamiento> voAlojamientos = new LinkedList<VOAlojamiento> ();
+        for (Alojamiento tb : pp.darOfertasMasPopulares ())
+        {
+        	voAlojamientos.add (tb);
+        }
+        log.info ("Generando los VO de Alojamientos: " + voAlojamientos.size() + " existentes");
+        return voAlojamientos;
 	}
 
 	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
@@ -417,6 +418,21 @@ public class Parranderos
         log.info ("Aumentando número de reservas de un alojamiento: " + idAlojamiento);
         long resp = pp.aumentarNumeroReservasAlojamiento (idAlojamiento);
         log.info ("Aumentando número de reservas de un alojamiento: " + resp + " tuplas actualizadas");
+        return resp;
+	}
+
+	// RF6: RETIRAR UNA OFERTA DE ALOJAMIENTO
+	/**
+	 * Retirar la ofertas de un alojamiento un alojamiento por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idAlojamiento - El id del alojamiento
+	 * @return El número de tuplas eliminadas
+	 */
+	public long retirarOfertaAlojamiento (long idAlojamiento)
+	{
+		log.info ("Eliminando ofertas de Alojamiento por id: " + idAlojamiento);
+        long resp = pp.retirarOfertaAlojamiento (idAlojamiento);		
+        log.info ("Eliminando ofertas de Alojamiento por id: " + resp + " tuplas eliminadas");
         return resp;
 	}
 
