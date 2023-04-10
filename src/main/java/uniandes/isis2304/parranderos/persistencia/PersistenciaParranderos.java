@@ -2068,6 +2068,38 @@ public class PersistenciaParranderos
         }
 	}
 	/**
+	 * Método que cancela, de manera transaccional, una tupla en la tabla Reserva, dado el identificador del tipo de bebida
+	 * Adiciona entradas al log de la aplicación
+	 * @param idReserva - El id del Reserva
+	 * @return El número de tuplas modificadas. -1 si ocurre alguna Excepción
+	 */
+	public long cancelarReservaPorId (long idReserva) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlReserva.cancelarReservaPorId(pm, idReserva);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
 	 * Método que consulta todas las tuplas en la tabla Reserva
 	 * @return La lista de objetos Reserva, construidos con base en las tuplas de la tabla RESERVA
 	 */

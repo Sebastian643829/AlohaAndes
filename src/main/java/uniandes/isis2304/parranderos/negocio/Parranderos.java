@@ -1303,7 +1303,20 @@ public class Parranderos
 	/**
 	 * Elimina un reserva por su identificador
 	 * Adiciona entradas al log de la aplicación
-	 * @param idReserva - El id del alojamiento
+	 * @param idReserva - El id de la reserva
+	 * @return El número de tuplas modificadas
+	 */
+	public long cancelarReservaPorId (long idReserva)
+	{
+		log.info ("Cancelar Reserva por id: " + idReserva);
+        long resp = pp.cancelarReservaPorId (idReserva);		
+        log.info ("Cancelando Reserva por id: " + resp + " tuplas modificadas");
+        return resp;
+	}
+	/**
+	 * Elimina un reserva por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idReserva - El id de la reserva
 	 * @return El número de tuplas eliminadas
 	 */
 	public long eliminarReservaPorId (long idReserva)

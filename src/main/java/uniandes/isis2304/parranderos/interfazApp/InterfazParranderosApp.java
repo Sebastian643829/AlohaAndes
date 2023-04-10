@@ -300,7 +300,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		try 
     	{
     		String telefono = JOptionPane.showInputDialog (this, "Teléfono?", "Adicionar nuevo operador", JOptionPane.QUESTION_MESSAGE);
-			String tipoVinculacion = JOptionPane.showInputDialog (this, "Capacidad (Numero natural)?", "Adicionar nuevo operador", JOptionPane.QUESTION_MESSAGE);
+			String tipoVinculacion = JOptionPane.showInputDialog (this, "Tipo de vinculación?", "Adicionar nuevo operador", JOptionPane.QUESTION_MESSAGE);
 
     		if (telefono != null && tipoVinculacion != null)
     		{
@@ -956,8 +956,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		try 
     	{
 			String idMiembroActivo = JOptionPane.showInputDialog (this, "Número de identificación del cliente (ya existente)?", "Adicionar nuevo MiembroActivo", JOptionPane.QUESTION_MESSAGE);
-			String carnet = JOptionPane.showInputDialog (this, "Tipo de identificación?", "Adicionar nuevo MiembroActivo", JOptionPane.QUESTION_MESSAGE);
-			String tipo = JOptionPane.showInputDialog (this, "Nombre MiembroActivo?", "Adicionar nuevo MiembroActivo", JOptionPane.QUESTION_MESSAGE);
+			String carnet = JOptionPane.showInputDialog (this, "Número de carnet?", "Adicionar nuevo MiembroActivo", JOptionPane.QUESTION_MESSAGE);
+			String tipo = JOptionPane.showInputDialog (this, "Tipo de MiembroActivo?", "Adicionar nuevo MiembroActivo", JOptionPane.QUESTION_MESSAGE);
 			
 
     		if (idMiembroActivo != null && carnet != null && tipo != null)
@@ -1183,7 +1183,38 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 	 public void cancelarReserva( )
 	 {
- 
+		try 
+    	{
+			String idReserva = JOptionPane.showInputDialog (this, "ID de la Reserva (ya existente)?", "Cancelar reserva", JOptionPane.QUESTION_MESSAGE);
+
+			if (idReserva != null)
+    		{
+        		long tb = parranderos.cancelarReservaPorId(Long.parseLong(idReserva));
+        		if (tb == -1)
+        		{
+        			throw new Exception ("No se pudo cancelar la reserva");
+        		}
+        		String resultado = "En cancelarReserva\n\n";
+        		resultado += "Reserva cancelada exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		} 
 	 }
 
 	/* ****************************************************************
