@@ -380,17 +380,22 @@ public class Parranderos
 	}
 
 	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
+
 	/**
-	 * Encuentra todos los alojamientos disponibles en el rango de fechas dado y que cumplan con ciertos servicios
+	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOAlojamiento
 	 * Adiciona entradas al log de la aplicación
-	 * @return Una lista de los alojamientos que cumplen las condiciones dadas
+	 * @return Una lista de objetos VOAlojamiento con todos los alojamiento que conoce la aplicación, llenos con su información básica
 	 */
-	public List<Object []> darAlojamientosDisponibles (Date fecha1, Date fecha2, String nombreServicio)
+	public List<VOAlojamiento> darVOAlojamientosDisponibles (Date fecha1, Date fecha2, String nombreServicio)
 	{
-        log.info ("Listando Alojamientos que cumplen las condiciones dadas");
-        List<Object []> tuplas = pp.darAlojamientosDisponibles (fecha1, fecha2, nombreServicio);
-        log.info ("Listando Alojamientos que cumplen las condiciones dadas: Listo!");
-        return tuplas;
+		log.info ("Generando los VO de Alojamientos");        
+        List<VOAlojamiento> voAlojamientos = new LinkedList<VOAlojamiento> ();
+        for (Alojamiento tb : pp.darAlojamientosDisponibles (fecha1, fecha2, nombreServicio))
+        {
+        	voAlojamientos.add (tb);
+        }
+        log.info ("Generando los VO de Alojamientos: " + voAlojamientos.size() + " existentes");
+        return voAlojamientos;
 	}
 
 	/**

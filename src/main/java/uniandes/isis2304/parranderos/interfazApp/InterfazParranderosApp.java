@@ -300,9 +300,9 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		try 
     	{
     		String telefono = JOptionPane.showInputDialog (this, "Teléfono?", "Adicionar nuevo operador", JOptionPane.QUESTION_MESSAGE);
-			String tipoVinculacion = JOptionPane.showInputDialog (this, "Capacidad (Numero natural)?", "Adicionar nuevo operador", JOptionPane.QUESTION_MESSAGE);
+			String tipoVinculacion = JOptionPane.showInputDialog (this, "Cual es el tipo de vinculacion?", "Adicionar nuevo operador", JOptionPane.QUESTION_MESSAGE);
 
-    		if (telefono != null && tipoVinculacion != null)
+    		if (telefono != null && tipoVinculacion != null && sesionEnCurso)
     		{
         		VOOperador tb = parranderos.adicionarOperador (telefono,tipoVinculacion);
         		if (tb == null)
@@ -351,7 +351,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String nombrePropietario = JOptionPane.showInputDialog (this, "Nombre Propietario?", "Adicionar nuevo propietario", JOptionPane.QUESTION_MESSAGE);
 			
 
-    		if (idOperador != null && tipoVinculacion != null && identificación != null && nombrePropietario != null)
+    		if (idOperador != null && tipoVinculacion != null && identificación != null && nombrePropietario != null && sesionEnCurso)
     		{
         		VOPropietario tb = parranderos.adicionarPropietario (Long.parseLong(idOperador),identificación,tipoVinculacion,nombrePropietario);
         		if (tb == null)
@@ -400,7 +400,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String nombreEmpresa = JOptionPane.showInputDialog (this, "Nombre Empresa?", "Adicionar nueva empresa", JOptionPane.QUESTION_MESSAGE);
 			
 
-    		if (idOperador != null && nit != null && nombreEmpresa != null)
+    		if (idOperador != null && nit != null && nombreEmpresa != null && sesionEnCurso)
     		{
         		VOEmpresa tb = parranderos.adicionarEmpresa (Long.parseLong(idOperador),nit,nombreEmpresa);
         		if (tb == null)
@@ -541,10 +541,12 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String fecha2 = JOptionPane.showInputDialog (this, "Fecha final (DD-MM-YY)?", "Dar alojamientos disponibles", JOptionPane.QUESTION_MESSAGE);
 			String nombreServicio = JOptionPane.showInputDialog (this, "Nombre del servicio?", "Dar alojamientos disponibles", JOptionPane.QUESTION_MESSAGE);
 
+			List <VOAlojamiento> lista = parranderos.darVOAlojamientosDisponibles(Date.valueOf(fecha1), Date.valueOf(fecha2), nombreServicio);
+
     		if (fecha1 != null && fecha2 != null && nombreServicio  != null && sesionEnCurso)
     		{
 				String resultado = "Listando alojamientos que cumplen las condiciones dadas";
-        		resultado +=  "\n" + parranderos.darAlojamientosDisponibles (Date.valueOf(fecha1), Date.valueOf(fecha2), nombreServicio);
+        		resultado +=  "\n" + listarAlojamientosDisponibles (lista);;
 				resultado += "\n Operación terminada";
 				panelDatos.actualizarInterfaz(resultado);
     		}
@@ -566,6 +568,22 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		}
 	 }
 
+	 /**
+     * Genera una cadena de caracteres con la lista de los alojamientos disponibles recibida: una línea por cada alojamiento
+     * @param lista - La lista con los alojamientos
+     * @return La cadena con una línea para cada alojamiento recibido
+     */
+    private String listarAlojamientosDisponibles(List<VOAlojamiento> lista) 
+    {
+    	String resp = "Los alojamientos disponibles que cumplen las condiciones dadas son:\n";
+    	int i = 1;
+        for (VOAlojamiento aloj : lista)
+        {
+        	resp += i++ + ". " + aloj.toString() + "\n";
+        }
+		return resp;
+	} 
+
 
 	 // RF6: RETIRAR UNA OFERTA DE ALOJAMIENTO
 	 /**
@@ -584,7 +602,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 				long reservasEliminadas = parranderos.retirarOfertaAlojamiento (idAlojamiento); 
 
-				if (reservasEliminadas != -1){
+				if (reservasEliminadas != 0){
     			long alojamientosEliminados = parranderos.eliminarAlojamientoPorId (idAlojamiento);
     			String resultado = "En eliminar Alojamiento\n\n";
     			resultado += "Se elimino el alojamiento con exito\n";
@@ -912,7 +930,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String fechaNacimiento = JOptionPane.showInputDialog (this, "Fecha de nacimiento del cliente ('aaaa-mm-dd')?", "Adicionar nuevo cliente", JOptionPane.QUESTION_MESSAGE);
 			
 
-    		if (idCliente != null && tipoIdentificacion != null && nombreCliente != null && fechaNacimiento != null)
+    		if (idCliente != null && tipoIdentificacion != null && nombreCliente != null && fechaNacimiento != null && sesionEnCurso)
     		{
         		VOCliente tb = parranderos.adicionarCliente (Long.parseLong(idCliente),tipoIdentificacion,nombreCliente,java.sql.Date.valueOf(fechaNacimiento));
         		if (tb == null)
@@ -1007,7 +1025,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String tipo = JOptionPane.showInputDialog (this, "Tipo de MiembroSecundario?", "Adicionar nuevo MiembroSecundario", JOptionPane.QUESTION_MESSAGE);
 			
 
-    		if (idMiembroSecundario != null && tipo!= null)
+    		if (idMiembroSecundario != null && tipo!= null && sesionEnCurso)
 			{
         		VOMiembroSecundario tb = parranderos.adicionarMiembroSecundario (Long.parseLong(idMiembroSecundario),tipo);
         		if (tb == null)
@@ -1151,7 +1169,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String estado = JOptionPane.showInputDialog (this, "Estado de la reserva?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
     		String numPersonas = JOptionPane.showInputDialog (this, "Número de personas en la reserva (número natural)?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
 
-			if (idAlojamiento != null && idCliente != null && duracion != null && fechaInicio != null && fechaFinal != null&& costoTotal != null&& estado != null&& numPersonas != null)
+			if (idAlojamiento != null && idCliente != null && duracion != null && fechaInicio != null && fechaFinal != null&& costoTotal != null&& estado != null&& numPersonas != null && sesionEnCurso)
     		{
         		VOReserva tb = parranderos.adicionarReserva (Long.parseLong(idAlojamiento),Long.parseLong(idCliente),Integer.parseInt(duracion),java.sql.Date.valueOf(fechaInicio),java.sql.Date.valueOf(fechaFinal),Long.parseLong(costoTotal), estado,Integer.parseInt(numPersonas));
         		if (tb == null)

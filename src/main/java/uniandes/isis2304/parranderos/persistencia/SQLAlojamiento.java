@@ -136,21 +136,22 @@ class SQLAlojamiento {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de arreglos de objetos. Los elementos del arreglo corresponden a los datos del aloojamientos disponibless.
 	 */
-	public List<Object []> darAlojamientosDisponibles (PersistenceManager pm, Date fecha1, Date fecha2, String nombreServicio)
+	public List<Alojamiento> darAlojamientosDisponibles (PersistenceManager pm, Date fecha1, Date fecha2, String nombreServicio)
 	{
 	    String sql = "SELECT A_Alojamiento.*";
 	    sql += " FROM " + pp.darTablaAlojamiento ();
-	    sql += " LEFT OUTER JOIN " + pp.darTablaDispone () + " ON iA_Alojamiento.idalojamiento = A_Dispone.idalojamiento";
+	    sql += " LEFT OUTER JOIN " + pp.darTablaDispone () + " ON A_Alojamiento.idalojamiento = A_Dispone.idalojamiento";
 		sql += " LEFT OUTER JOIN " + pp.darTablaServicio () + " ON A_Servicio.idservicio = A_Dispone.idservicio";
 		sql += " LEFT OUTER JOIN " + pp.darTablaReserva () + " ON A_Reserva.idalojamiento = A_Alojamiento.idalojamiento";
 	    sql	+= " WHERE (((A_Reserva.fechainicio NOT BETWEEN ? AND ?) AND (A_Reserva.fechafinal NOT BETWEEN ? AND ?))";
-	    sql	+= " OR ((A_Reserva.fechainicio BETWEEN ? AND ?) AND (A_Reserva.fechafinal BETWEEN ? AND ?)";
+	    sql	+= " OR ((A_Reserva.fechainicio BETWEEN ? AND ?) OR (A_Reserva.fechafinal BETWEEN ? AND ?)";
 		sql	+= " AND A_Reserva.estado = 'Cancelada'))";
 	    sql	+= " AND A_Servicio.nombre = ?";
 		
 	    Query q = pm.newQuery(SQL, sql);
 		q.setParameters(fecha1, fecha2, fecha1, fecha2, fecha1, fecha2, fecha1, fecha2, nombreServicio);
-		return q.executeList();
+		q.setResultClass(Alojamiento.class);
+		return (List<Alojamiento>) q.executeList();
 	}
 
 	/**

@@ -827,36 +827,14 @@ public class PersistenciaParranderos
 
 	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
 	/**
-	 * Método que consulta los alojamientos disponibles en un rango de fechas que cuentan con cierto servicio
-	 * @return La lista de parejas de objetos, construidos con base en las tuplas de la tabla ALOJAMIENTO, RESERVA, DISPONE, SERVICIO. 
-	 * El primer elemento de la pareja es un bebedor; 
-	 * el segundo elemento es el número de visitas de ese bebedor (0 en el caso que no haya realizado visitas)
+	 * Método que consultar los alojamientos disponibles en cierto rango de fechas que cumplen con un conjunto de servicios
+	 * @return La lista de objetos alojamientos, construidos con base en las tuplas de la tabla ALOJAMIENTO
 	 */
-	public List<Object []> darAlojamientosDisponibles (Date fecha1, Date fecha2, String nombreServicio)
+	public List<Alojamiento> darAlojamientosDisponibles (Date fecha1, Date fecha2, String nombreServicio)
 	{
-		List<Object []> respuesta = new LinkedList <Object []> ();
-		List<Object []> tuplas = sqlAlojamiento.darAlojamientosDisponibles (pmf.getPersistenceManager(), fecha1, fecha2, nombreServicio);
-        for ( Object tupla : tuplas)
-        {
-			Object [] datos = (Object []) tupla;
-			long idAlojamiento = ((BigDecimal) datos [0]).longValue ();
-			String nombre = (String) datos [1];
-			int capacidad = ((BigDecimal) datos [2]).intValue ();
-			String ubicacion = (String) datos [3];
-			int tamano = ((BigDecimal) datos [4]).intValue ();
-			int precioNoche = ((BigDecimal) datos [5]).intValue ();
-			int ocupacionTotal = ((BigDecimal) datos [6]).intValue ();
-			int numReservas = ((BigDecimal) datos [7]).intValue ();
-			long idOperador = ((BigDecimal) datos [8]).longValue ();
-
-			Object [] resp = new Object [1];
-			resp [0] = new Alojamiento (idAlojamiento, nombre, capacidad, ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador);	
-			
-			respuesta.add(resp);
-        }
-
-		return respuesta;
+		return sqlAlojamiento.darAlojamientosDisponibles(pmf.getPersistenceManager(), fecha1, fecha2, nombreServicio);
 	}
+
 
 	/**
 	 * Método que consulta todas las tuplas en la tabla Alojamiento con un identificador dado
