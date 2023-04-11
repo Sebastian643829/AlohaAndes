@@ -215,3 +215,6 @@ ORA-00907: falta el paréntesis derecho
 22:46:14,282 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
 22:46:14,283 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
 22:46:14,301 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+18:41:21,995 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+18:41:21,996 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+18:41:22,015 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
