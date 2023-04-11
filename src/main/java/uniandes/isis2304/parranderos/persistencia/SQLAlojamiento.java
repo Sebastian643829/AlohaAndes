@@ -158,13 +158,12 @@ class SQLAlojamiento {
 	 * @return Una lista de alojamientos, de tamaño 20. Los elementos del arreglo corresponden a los datos de 
 	 * los alojamientos que tienen mas reservas asociadas
 	 */
-	public List<Alojamiento> darIndiceDeOcupacion (PersistenceManager pm)
+	public List<Object> darIndiceDeOcupacion (PersistenceManager pm)
 	{
-		String sql = "SELECT IDALOJAMIENTO, NOMBRE,(OCUPACIONACTUAL / CAPACIDAD)*100 AS INDICEOCUPACION FROM ";
+		String sql = "SELECT IDALOJAMIENTO, NOMBRE,(OCUPACIONACTUAL / CAPACIDAD)*100 FROM ";
 		sql+=pp.darTablaAlojamiento();
 		Query q = pm.newQuery(SQL, sql);
-		q.setResultClass(Alojamiento.class);
-		return (List<Alojamiento>) q.executeList();
+		return q.executeList();
 	}
 	
 // RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS

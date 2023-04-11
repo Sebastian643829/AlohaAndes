@@ -535,7 +535,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     {
     	try 
     	{
-			List <VOAlojamiento> lista = parranderos.darVOIndices();
+			List <Object[]> lista = parranderos.darIndiceDeOcupacion();
 
 			if (sesionEnCurso){
 			String resultado = "Listando indices de ocupación de los alojamientos";
@@ -562,13 +562,19 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
      * @param lista - La lista con los alojamientos
      * @return La cadena con una línea para cada alojamiento recibido
      */
-    private String listarIndicesOcupacion(List<VOAlojamiento> lista) 
+    private String listarIndicesOcupacion(List<Object[]> lista) 
     {
     	String resp = "Los indices de ocupación de los alojamientos son:\n";
     	int i = 1;
-        for (VOAlojamiento aloj : lista)
+        for (Object [] aloj : lista)
         {
-        	resp += i++ + ". " + aloj.toString() + "\n";
+			long idAlojamiento=(long) aloj[0];
+			String nombre=(String) aloj[1];
+			long indiceOcupacion=(long) aloj[2];
+        	resp += i++ + ". " + aloj.toString() + "[";
+			resp += "ID del Alojamiento: "+idAlojamiento;
+			resp += ", Nombre del Alojamiento: "+nombre;
+			resp += ", Indice de ocupación del Alojamiento: "+indiceOcupacion+"%\n";
         }
 		return resp;
 	} 
