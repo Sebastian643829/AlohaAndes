@@ -66,14 +66,26 @@ class SQLReserva {
         return (long) q.executeUnique();
 	}
 	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar UN ALOJAMIENTO de la base de datos de Alohaandes, por su identificador
+	 * Crea y ejecuta la sentencia SQL para eliminar UNA RESERVA de la base de datos de Alohaandes, por su identificador
 	 * @param pm - El manejador de persistencia
-	 * @param idReserva - El id del alojamiento
+	 * @param idReserva - El id de la reserva
 	 * @return EL número de tuplas eliminadas
 	 */
 	public long eliminarReservaPorId (PersistenceManager pm, long idReserva)
 	{
         Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaReserva() + " WHERE idreserva = ?");
+        q.setParameters(idReserva);
+        return (long) q.executeUnique();
+	}
+	/**
+	 * Crea y ejecuta la sentencia SQL para cancelar UNA RESERVA de la base de datos de Alohaandes, por su identificador
+	 * @param pm - El manejador de persistencia
+	 * @param idReserva - El id de la reserva
+	 * @return EL número de tuplas modificadas
+	 */
+	public long cancelarReservaPorId (PersistenceManager pm, long idReserva)
+	{
+        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaReserva() + " SET Estado='Cancelada' WHERE idreserva = ?");
         q.setParameters(idReserva);
         return (long) q.executeUnique();
 	}
