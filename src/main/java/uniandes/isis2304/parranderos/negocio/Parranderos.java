@@ -367,10 +367,10 @@ public class Parranderos
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos alojamiento con todos los alojamientos mas populares dentro de la aplicación, llenos con su información básica
 	 */
-	public List<Alojamiento> darIndiceDeOcupacion ()
+	public List<Object[]> darIndiceDeOcupacion ()
 	{
 		log.info ("Consultando indice de ocupación de los Alojamientos");
-        List<Alojamiento> indicesOcupacion = pp.darIndiceDeOcupacion ();	
+        List<Object[]> indicesOcupacion = pp.darIndiceDeOcupacion ();	
         log.info ("Consultando indice de ocupación de los Alojamientos: Listo!");
         return indicesOcupacion ;
 	}
@@ -378,7 +378,7 @@ public class Parranderos
 	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOAlojamiento
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOAlojamiento con todos los alojamiento que conoce la aplicación, llenos con su información básica
-	 */
+	 
 	public List<VOAlojamiento> darVOIndices ()
 	{
 		log.info ("Generando los VO de Alojamientos");        
@@ -390,7 +390,7 @@ public class Parranderos
         log.info ("Generando los VO de Alojamientos: " + voAlojamientos.size() + " existentes");
         return voAlojamientos;
 	}
-
+	*/
 	/**
 	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOAlojamiento
 	 * Adiciona entradas al log de la aplicación

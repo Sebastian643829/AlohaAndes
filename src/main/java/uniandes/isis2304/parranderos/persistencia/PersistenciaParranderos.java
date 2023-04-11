@@ -828,9 +828,26 @@ public class PersistenciaParranderos
 	 * Método que muestra el indice de ocupación DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
 	 * @return La lista de objetos alojamientos, construidos con base en las tuplas de la tabla ALOJAMIENTO
 	 */
-	public List<Alojamiento> darIndiceDeOcupacion ()
+	public List<Object []> darIndiceDeOcupacion ()
 	{
-		return sqlAlojamiento.darIndiceDeOcupacion(pmf.getPersistenceManager());
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlAlojamiento.darIndiceDeOcupacion (pmf.getPersistenceManager());
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idAlojamiento = ((BigDecimal) datos [0]).longValue ();
+			String nombreAlojamiento = (String) datos [1];
+			long indicesOcupacion = ((BigDecimal) datos [2]).longValue ();
+
+			Object [] resp = new Object [3];
+			resp [0] = idAlojamiento;
+			resp [1] = nombreAlojamiento;
+			resp [1] = indicesOcupacion;
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
 	}
 
 	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
