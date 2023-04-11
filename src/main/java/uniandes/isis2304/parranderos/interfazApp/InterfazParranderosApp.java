@@ -1346,21 +1346,21 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
 			String resultado = "\n\n************ Limpiando la base de datos ************ \n";
 			resultado += eliminados [0] + " Reservas eliminadas\n";
-			resultado += eliminados [1] + " Dispone eliminados\n";
-			resultado += eliminados [2] + " Alojamientos eliminados\n";
-			resultado += eliminados [3] + " Clientes eliminados\n";
-			resultado += eliminados [4] + " Operadores eliminados\n";
-			resultado += eliminados [5] + " Propietarios eliminados\n";
-			resultado += eliminados [6] + " Empresas eliminadas\n";
-			resultado += eliminados [7] + " ViviendasUniversitarias eliminadas\n";
-			resultado += eliminados [8] + " HabitacionesViviendas eliminadas\n";
-			resultado += eliminados [9] + " Apartamentos eliminados\n";
-			resultado += eliminados [10] + " HabitacionesHoteles eliminadas\n";
-			resultado += eliminados [11] + " Hostales eliminados\n";
-			resultado += eliminados [12] + " ViviendasTemporales eliminadas\n";
-			resultado += eliminados [13] + " MiembrosActivos eliminados\n";
-			resultado += eliminados [14] + " MiembroSecundarios eliminados\n";
-			resultado += eliminados [15] + " Servicio eliminados\n";
+			resultado += eliminados [1] + " Tuplas de Dispone eliminadas\n";
+			resultado += eliminados [2] + " Propietarios eliminados\n";
+			resultado += eliminados [3] + " Empresas eliminadas\n";
+			resultado += eliminados [4] + " ViviendasUniversitarias eliminadas\n";
+			resultado += eliminados [5] + " HabitacionesViviendas eliminadas\n";
+			resultado += eliminados [6] + " Apartamentos eliminados\n";
+			resultado += eliminados [7] + " HabitacionesHoteles eliminadas\n";
+			resultado += eliminados [8] + " Hostales eliminadas\n";
+			resultado += eliminados [9] + " ViviendasTemporales eliminadas\n";
+			resultado += eliminados [10] + " MiembrosActivos eliminados\n";
+			resultado += eliminados [11] + " MiembroSecundarios eliminados\n";
+			resultado += eliminados [12] + " Clientes eliminados\n";
+			resultado += eliminados [13] + " Alojamientos eliminados\n";
+			resultado += eliminados [14] + " Operadores eliminados\n";
+			resultado += eliminados [15] + " Servicios eliminados\n";
 			resultado += "\nLimpieza terminada";
    
 			panelDatos.actualizarInterfaz(resultado);
