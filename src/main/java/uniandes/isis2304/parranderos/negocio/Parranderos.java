@@ -332,7 +332,19 @@ public class Parranderos
         log.info ("Consultando Alojamientos: " + alojamientos.size() + " existentes");
         return alojamientos;
 	}
-
+	// RFC1: MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
+	/**
+	 * Encuentra los alojamientos mas populares en Alohaandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos alojamiento con todos los alojamientos mas populares dentro de la aplicación, llenos con su información básica
+	 */
+	public List<Object[]> darDinero ()
+	{
+		log.info ("Consultando indice de ocupación de los Alojamientos");
+        List<Object[]> dinero = pp.darDinero ();	
+        log.info ("Consultando indice de ocupación de los Alojamientos: Listo!");
+        return dinero;
+	}
 
 	/**
 	 * Encuentra un alojamiento y su información básica, según su identificador

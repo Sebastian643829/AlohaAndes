@@ -481,7 +481,55 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
 	 }
+	 // RFC1: MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
+	/**
+     * Consulta en la base de datos las 20 ofertas de alojamiento mas populares
+     */
+    public void darDinero( )
+    {
+    	try 
+    	{
+			List <Object[]> lista = parranderos.darDinero();
 
+			if (sesionEnCurso){
+			String resultado = "Listando el dinero de cada proveedor en el año corrido y actual";
+			resultado +=  "\n" + listarDarDinero(lista);
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			}
+			else{
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+	/**
+     * Genera una cadena de caracteres con la lista de los alojamientos mas populares recibida: una línea por cada alojamiento
+     * @param lista - La lista con los alojamientos
+     * @return La cadena con una línea para cada alojamiento recibido
+     */
+    private String listarDarDinero(List<Object[]> lista) 
+    {
+    	String resp = "El dinero de cada proveedor se muestra a continuación:\n";
+    	int i = 1;
+        for (Object [] aloj : lista)
+        {
+			long idAlojamiento=(long) aloj[0];
+			long dinero=(long) aloj[1];
+        	resp += i++ + ". "  + "[";
+			resp += "ID del Proveedor: "+idAlojamiento;
+			resp += ", Dinero: "+dinero+" COP]"+"\n";
+        }
+		return resp;
+	} 
 	// RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
 	/**
      * Consulta en la base de datos las 20 ofertas de alojamiento mas populares
@@ -579,7 +627,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         	resp += i++ + ". "  + "[";
 			resp += "ID del Alojamiento: "+idAlojamiento;
 			resp += ", Nombre del Alojamiento: "+nombre;
-			resp += ", Indice de ocupación del Alojamiento: "+indiceOcupacion+"%\n]";
+			resp += ", Indice de ocupación del Alojamiento: "+indiceOcupacion+"%]"+"\n";
         }
 		return resp;
 	} 

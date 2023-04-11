@@ -117,7 +117,7 @@ class SQLAlojamiento {
 	 * @return Una lista de alojamientos, de tamaño 20. Los elementos del arreglo corresponden a los datos de 
 	 * los alojamientos que tienen mas reservas asociadas
 	 */
-	public List<Alojamiento> darDinero (PersistenceManager pm)
+	public List<Object> darDinero (PersistenceManager pm)
 	{
 		String sql = "SELECT op.IDOPERADOR, COALESCE(SUM(r.COSTOTOTAL), 0) as COSTO_TOTAL_RECIBIDO FROM ";
 		sql+= pp.darTablaOperador();
@@ -127,8 +127,7 @@ class SQLAlojamiento {
 		sql+= pp.darTablaReserva();
 		sql+= " r ON al.IDALOJAMIENTO = r.IDALOJAMIENTO AND r.ESTADO = 'Finalizada' AND r.FECHAINICIO <= TO_DATE('2023-01-01', 'YYYY-MM-DD') AND r.FECHAFINAL <= TO_DATE('2023-04-09', 'YYYY-MM-DD') GROUP BY op.IDOPERADOR";
 		Query q = pm.newQuery(SQL, sql);
-		q.setResultClass(Alojamiento.class);
-		return (List<Alojamiento>) q.executeList();
+		return  q.executeList();
 	}
 
 // RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES

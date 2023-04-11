@@ -813,7 +813,30 @@ public class PersistenciaParranderos
 	{
 		return sqlAlojamiento.darAlojamientos (pmf.getPersistenceManager());
 	}
+	// RFC1:MOSTRAR EL DINERO RECIBIDO POR CADA PROVEEDOR DE ALOJAMIENTO DURANTE EL AÑO ACTUAL Y EL AÑO CORRIDO
+	/**
+	 * Método que muestra el indice de ocupación DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
+	 * @return La lista de objetos alojamientos, construidos con base en las tuplas de la tabla ALOJAMIENTO
+	 */
+	public List<Object []> darDinero ()
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlAlojamiento.darDinero (pmf.getPersistenceManager());
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idAlojamiento = ((BigDecimal) datos [0]).longValue ();
+			long dinero = ((BigDecimal) datos [1]).longValue ();
 
+			Object [] resp = new Object [2];
+			resp [0] = idAlojamiento;
+			resp [1] = dinero;
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
 	// RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
 	/**
 	 * Método que consultar los 20 alojamientos mas populares
