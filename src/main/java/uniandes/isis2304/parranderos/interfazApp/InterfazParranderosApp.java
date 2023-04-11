@@ -537,8 +537,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	 {
 		try 
     	{
-    		String fecha1 = JOptionPane.showInputDialog (this, "Fechas inicial (DD-MM-YY)?", "Dar alojamientos disponibles", JOptionPane.QUESTION_MESSAGE);
-			String fecha2 = JOptionPane.showInputDialog (this, "Fecha final (DD-MM-YY)?", "Dar alojamientos disponibles", JOptionPane.QUESTION_MESSAGE);
+    		String fecha1 = JOptionPane.showInputDialog (this, "Fechas inicial ('aaaa-mm-dd')?", "Dar alojamientos disponibles", JOptionPane.QUESTION_MESSAGE);
+			String fecha2 = JOptionPane.showInputDialog (this, "Fecha final ('aaaa-mm-dd')?", "Dar alojamientos disponibles", JOptionPane.QUESTION_MESSAGE);
 			String nombreServicio = JOptionPane.showInputDialog (this, "Nombre del servicio?", "Dar alojamientos disponibles", JOptionPane.QUESTION_MESSAGE);
 
 			List <VOAlojamiento> lista = parranderos.darVOAlojamientosDisponibles(Date.valueOf(fecha1), Date.valueOf(fecha2), nombreServicio);
