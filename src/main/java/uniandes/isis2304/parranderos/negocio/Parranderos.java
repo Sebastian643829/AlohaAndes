@@ -361,6 +361,35 @@ public class Parranderos
         log.info ("Consultando Alojamientos mas populares: Listo!");
         return alojamientosPopulares ;
 	}
+	// RFC3: MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
+	/**
+	 * Encuentra los alojamientos mas populares en Alohaandes
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos alojamiento con todos los alojamientos mas populares dentro de la aplicación, llenos con su información básica
+	 */
+	public List<Alojamiento> darIndiceDeOcupacion ()
+	{
+		log.info ("Consultando indice de ocupación de los Alojamientos");
+        List<Alojamiento> indicesOcupacion = pp.darIndiceDeOcupacion ();	
+        log.info ("Consultando indice de ocupación de los Alojamientos: Listo!");
+        return indicesOcupacion ;
+	}
+	/**
+	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOAlojamiento
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOAlojamiento con todos los alojamiento que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOAlojamiento> darVOIndices ()
+	{
+		log.info ("Generando los VO de Alojamientos");        
+        List<VOAlojamiento> voAlojamientos = new LinkedList<VOAlojamiento> ();
+        for (Alojamiento tb : pp.darIndiceDeOcupacion ())
+        {
+        	voAlojamientos.add (tb);
+        }
+        log.info ("Generando los VO de Alojamientos: " + voAlojamientos.size() + " existentes");
+        return voAlojamientos;
+	}
 
 	/**
 	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOAlojamiento

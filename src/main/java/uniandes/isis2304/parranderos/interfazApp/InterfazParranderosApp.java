@@ -527,7 +527,51 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         }
 		return resp;
 	} 
+	// RFC3: MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
+	/**
+     * Consulta en la base de datos las 20 ofertas de alojamiento mas populares
+     */
+    public void darIndiceDeOcupacion( )
+    {
+    	try 
+    	{
+			List <VOAlojamiento> lista = parranderos.darVOIndices();
 
+			if (sesionEnCurso){
+			String resultado = "Listando indices de ocupación de los alojamientos";
+			resultado +=  "\n" + listarIndicesOcupacion(lista);
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			}
+			else{
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+	/**
+     * Genera una cadena de caracteres con la lista de los alojamientos mas populares recibida: una línea por cada alojamiento
+     * @param lista - La lista con los alojamientos
+     * @return La cadena con una línea para cada alojamiento recibido
+     */
+    private String listarIndicesOcupacion(List<VOAlojamiento> lista) 
+    {
+    	String resp = "Los indices de ocupación de los alojamientos son:\n";
+    	int i = 1;
+        for (VOAlojamiento aloj : lista)
+        {
+        	resp += i++ + ". " + aloj.toString() + "\n";
+        }
+		return resp;
+	} 
 	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
 	 /**
      * Adiciona un Alojamiento con la información dada por el usuario

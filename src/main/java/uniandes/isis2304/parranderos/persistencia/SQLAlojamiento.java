@@ -108,6 +108,28 @@ class SQLAlojamiento {
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();
 	}
+	// RFC1: MOSTRAR EL DINERO RECIBIDO POR CADA PROVEEDOR DE ALOJAMIENTO DURANTE EL AÑO ACTUAL Y EL AÑO CORRIDO
+
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar las 20 ofertas de alojamientos mas populares 
+	 * base de datos de Alohaandes
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de alojamientos, de tamaño 20. Los elementos del arreglo corresponden a los datos de 
+	 * los alojamientos que tienen mas reservas asociadas
+	 */
+	public List<Alojamiento> darDinero (PersistenceManager pm)
+	{
+		String sql = "SELECT op.IDOPERADOR, COALESCE(SUM(r.COSTOTOTAL), 0) as COSTO_TOTAL_RECIBIDO FROM ";
+		sql+= pp.darTablaOperador();
+		sql+=" op LEFT JOIN ";
+		sql+= pp.darTablaAlojamiento();
+		sql+=" al ON op.IDOPERADOR = al.IDOPERADOR LEFT JOIN ";
+		sql+= pp.darTablaReserva();
+		sql+= " r ON al.IDALOJAMIENTO = r.IDALOJAMIENTO AND r.ESTADO = 'Finalizada' AND r.FECHAINICIO <= TO_DATE('2023-01-01', 'YYYY-MM-DD') AND r.FECHAFINAL <= TO_DATE('2023-04-09', 'YYYY-MM-DD') GROUP BY op.IDOPERADOR";
+		Query q = pm.newQuery(SQL, sql);
+		q.setResultClass(Alojamiento.class);
+		return (List<Alojamiento>) q.executeList();
+	}
 
 // RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
 
@@ -123,6 +145,23 @@ class SQLAlojamiento {
 		String sql = "SELECT *";
         sql += " FROM " + pp.darTablaAlojamiento();
        	sql	+= " ORDER BY numreservas DESC";
+		Query q = pm.newQuery(SQL, sql);
+		q.setResultClass(Alojamiento.class);
+		return (List<Alojamiento>) q.executeList();
+	}
+	// RFC3: MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
+
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar las 20 ofertas de alojamientos mas populares 
+	 * base de datos de Alohaandes
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de alojamientos, de tamaño 20. Los elementos del arreglo corresponden a los datos de 
+	 * los alojamientos que tienen mas reservas asociadas
+	 */
+	public List<Alojamiento> darIndiceDeOcupacion (PersistenceManager pm)
+	{
+		String sql = "SELECT IDALOJAMIENTO, NOMBRE,(OCUPACIONACTUAL / CAPACIDAD)*100 AS INDICE_OCUPACION FROM ";
+		sql+=pp.darTablaAlojamiento();
 		Query q = pm.newQuery(SQL, sql);
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();

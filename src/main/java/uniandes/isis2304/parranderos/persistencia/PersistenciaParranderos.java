@@ -823,7 +823,15 @@ public class PersistenciaParranderos
 	{
 		return sqlAlojamiento.darOfertasMasPopulares(pmf.getPersistenceManager());
 	}
-
+	// RFC3: MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
+	/**
+	 * Método que muestra el indice de ocupación DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
+	 * @return La lista de objetos alojamientos, construidos con base en las tuplas de la tabla ALOJAMIENTO
+	 */
+	public List<Alojamiento> darIndiceDeOcupacion ()
+	{
+		return sqlAlojamiento.darIndiceDeOcupacion(pmf.getPersistenceManager());
+	}
 
 	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
 	/**
