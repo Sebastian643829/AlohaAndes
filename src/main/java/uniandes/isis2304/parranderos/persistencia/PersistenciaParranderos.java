@@ -842,7 +842,7 @@ public class PersistenciaParranderos
 			Object [] resp = new Object [3];
 			resp [0] = idAlojamiento;
 			resp [1] = nombreAlojamiento;
-			resp [1] = indicesOcupacion;
+			resp [2] = indicesOcupacion;
 			
 			respuesta.add(resp);
         }

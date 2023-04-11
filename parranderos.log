@@ -1,3 +1,0 @@
-13:05:29,177 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Limpiando la BD de AlohaAndes 
-13:05:29,392 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos] - Borrada la base de datos
-13:05:29,392 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Limpiando la BD de AlohaAndes: Listo!

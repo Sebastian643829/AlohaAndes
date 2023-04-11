@@ -160,7 +160,7 @@ class SQLAlojamiento {
 	 */
 	public List<Object> darIndiceDeOcupacion (PersistenceManager pm)
 	{
-		String sql = "SELECT IDALOJAMIENTO, NOMBRE,(OCUPACIONACTUAL / CAPACIDAD)*100 FROM ";
+		String sql = "SELECT IDALOJAMIENTO, NOMBRE,(OCUPACIONACTUAL / CAPACIDAD)*100 INDICEOCUPACION FROM ";
 		sql+=pp.darTablaAlojamiento();
 		Query q = pm.newQuery(SQL, sql);
 		return q.executeList();
