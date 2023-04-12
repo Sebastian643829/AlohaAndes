@@ -616,11 +616,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     	int i = 1;
         for (Object [] aloj : lista)
         {
-			System.out.println(aloj[0]);
-			System.out.println(aloj[1]);
-			System.out.println(aloj[2]);
-
-
+			
 			long idAlojamiento=(long) aloj[0];
 			String nombre=(String) aloj[1];
 			long indiceOcupacion=(long) aloj[2];
