@@ -144,6 +144,7 @@ class SQLAlojamiento {
 		String sql = "SELECT *";
         sql += " FROM " + pp.darTablaAlojamiento();
        	sql	+= " ORDER BY numreservas DESC";
+		sql	+= " FETCH FIRST 20 ROWS ONLY";
 		Query q = pm.newQuery(SQL, sql);
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();
