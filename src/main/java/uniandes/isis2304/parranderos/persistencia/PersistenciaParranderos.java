@@ -804,6 +804,7 @@ public class PersistenciaParranderos
             pm.close();
         }
 	}
+	
 
 	/**
 	 * Método que consulta todas las tuplas en la tabla Alojamiento
@@ -2051,6 +2052,40 @@ public class PersistenciaParranderos
 //        	e.printStackTrace();
         	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
         	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla Reserva
+	 * Adiciona entradas al log de la aplicación
+	 * @param idCliente - El id del cliente
+	 * @param fechaInicio - La fecha de inicio de la reserva
+     * @param fechaFinal - La fecha final de la reserva
+	 * @return El numero de reservas. null si ocurre alguna Excepción
+	 */
+	public long revisarReserva (long idCliente, Date fechaInicio, Date fechaFinal) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlReserva.revisarReserva(pm, idCliente,fechaInicio,fechaFinal);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
         }
         finally
         {

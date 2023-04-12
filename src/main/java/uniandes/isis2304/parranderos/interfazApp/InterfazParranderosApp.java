@@ -1273,7 +1273,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     		String numPersonas = JOptionPane.showInputDialog (this, "Número de personas en la reserva (número natural)?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
 
 			if (idAlojamiento != null && idCliente != null && duracion != null && fechaInicio != null && fechaFinal != null&& costoTotal != null&& estado != null&& numPersonas != null && sesionEnCurso)
-    		{
+    		{	long centinela=parranderos.revisarReserva(Long.parseLong(idCliente), java.sql.Date.valueOf(fechaInicio),java.sql.Date.valueOf(fechaFinal));
+				if (centinela==0){
         		VOReserva tb = parranderos.adicionarReserva (Long.parseLong(idAlojamiento),Long.parseLong(idCliente),Integer.parseInt(duracion),java.sql.Date.valueOf(fechaInicio),java.sql.Date.valueOf(fechaFinal),Long.parseLong(costoTotal), estado,Integer.parseInt(numPersonas));
         		if (tb == null)
         		{
@@ -1283,7 +1284,11 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         		resultado += "Reserva adicionado exitosamente: " + tb;
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
-    		}
+    			}
+				else{
+				panelDatos.actualizarInterfaz("Operación No valida, el cliente ya tiene una reserva en estas fechas");
+			    }
+			}
 			else if (!sesionEnCurso){
 				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
         		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
@@ -1293,7 +1298,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     		{
     			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
     		}
-		} 
+		}
+		 
     	catch (Exception e) 
     	{
 //			e.printStackTrace();

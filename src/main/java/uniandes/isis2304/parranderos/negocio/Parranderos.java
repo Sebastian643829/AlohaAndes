@@ -1343,6 +1343,21 @@ public class Parranderos
         return resp;
 	}
 	/**
+	 * Revisa las reservas del cliente en ceirtas fechas
+	 * Adiciona entradas al log de la aplicación
+	 * @param idCliente - El id del cliente
+	 * @param fechaInicio - La fecha de inicio de la reserva
+     * @param fechaFinal - La fecha final de la reserva
+	 * @return El número de tuplas encontradas
+	 */
+	public long revisarReserva (long idCliente, Date fechaInicio, Date fechaFinal) 
+	{
+		log.info ("Revisando reservas del cliente: " + idCliente);
+        long resp = pp.revisarReserva (idCliente,fechaInicio,fechaFinal);		
+        log.info ("Reservas encontradas: " + resp );
+        return resp;
+	}
+	/**
 	 * Elimina un reserva por su identificador
 	 * Adiciona entradas al log de la aplicación
 	 * @param idReserva - El id de la reserva
