@@ -59,10 +59,18 @@ class SQLReserva {
 	 */
 	public long adicionarReserva (PersistenceManager pm, long idReserva,long idAlojamiento, long idCliente, int duracion , Date fechaInicio, Date fechaFinal, long costoTotal, String estado, int numPersonas) 
 	{
+		
 		SQLAlojamiento sqlAlojamiento = new SQLAlojamiento(pp);
         Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(idreserva, idalojamiento, idcliente, duracion , fechainicio, fechafinal, costototal, estado, numpersonas) values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
         q.setParameters(idReserva, idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas);
 		sqlAlojamiento.aumentarNumeroReservasAlojamiento(pm, idAlojamiento);
+        return (long) q.executeUnique();
+		
+	}
+	public long revisarReserva (PersistenceManager pm, long idCliente, Date fechaInicio, Date fechaFinal) 
+	{
+        Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva() + "WHERE idcliente=? AND ((? BETWEEN fechainicio AND fechafinal) OR (? BETWEEN fechainicio AND fechafinal))");
+        q.setParameters(idCliente, fechaInicio, fechaFinal);
         return (long) q.executeUnique();
 	}
 	/**
