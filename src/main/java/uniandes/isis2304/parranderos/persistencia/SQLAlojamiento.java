@@ -235,7 +235,7 @@ class SQLAlojamiento {
 		sql	+= " AND current_date > ALL(SELECT fechafinal";
 	    sql	+= " FROM " + pp.darTablaReserva() ;
 		sql	+= " LEFT OUTER JOIN "  + pp.darTablaAlojamiento() + " ON A_Reserva.idAlojamiento = A_Alojamiento.idAlojamiento";
-	    sql	+= " WHERE idalojamiento = ? AND estado = 'Activa'";
+	    sql	+= " WHERE A_Alojamiento.idalojamiento = ? AND A_Reserva.estado = 'Activa')";
         Query q = pm.newQuery(SQL, sql);
         q.setParameters(idAlojamiento, idAlojamiento);
         return (long) q.executeUnique();

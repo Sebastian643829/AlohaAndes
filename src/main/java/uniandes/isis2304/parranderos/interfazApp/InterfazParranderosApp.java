@@ -704,7 +704,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     			long idAlojamiento = Long.valueOf (idAlojamientoStr);
 
 				long reservasEliminadas = parranderos.retirarOfertaAlojamiento (idAlojamiento); 
-
+				System.out.println(reservasEliminadas);
 				if (reservasEliminadas != 0){
     			long alojamientosEliminados = parranderos.eliminarAlojamientoPorId (idAlojamiento);
     			String resultado = "En eliminar Alojamiento\n\n";
@@ -1269,12 +1269,12 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String fechaInicio = JOptionPane.showInputDialog (this, "Fecha de inicio de la reserva ('aaaa-mm-dd')?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
 			String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final de la reserva ('aaaa-mm-dd')?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
 			String costoTotal = JOptionPane.showInputDialog (this, "Costo total de la reserva (número)?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
-			String estado = JOptionPane.showInputDialog (this, "Estado de la reserva?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
+			String estado = "Activa";
     		String numPersonas = JOptionPane.showInputDialog (this, "Número de personas en la reserva (número natural)?", "Adicionar nueva reserva", JOptionPane.QUESTION_MESSAGE);
 
 			if (idAlojamiento != null && idCliente != null && duracion != null && fechaInicio != null && fechaFinal != null&& costoTotal != null&& estado != null&& numPersonas != null && sesionEnCurso)
     		{	long centinela=parranderos.revisarReserva(Long.parseLong(idCliente), java.sql.Date.valueOf(fechaInicio),java.sql.Date.valueOf(fechaFinal));
-				if (centinela==0){
+				if (centinela == 0){
         		VOReserva tb = parranderos.adicionarReserva (Long.parseLong(idAlojamiento),Long.parseLong(idCliente),Integer.parseInt(duracion),java.sql.Date.valueOf(fechaInicio),java.sql.Date.valueOf(fechaFinal),Long.parseLong(costoTotal), estado,Integer.parseInt(numPersonas));
         		if (tb == null)
         		{

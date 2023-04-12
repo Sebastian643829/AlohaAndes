@@ -69,9 +69,15 @@ class SQLReserva {
 	}
 	public long revisarReserva (PersistenceManager pm, long idCliente, Date fechaInicio, Date fechaFinal) 
 	{
-        Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva() + "WHERE idcliente=? AND ((? BETWEEN fechainicio AND fechafinal) OR (? BETWEEN fechainicio AND fechafinal))");
+        Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva() + " WHERE idcliente=? AND ((? BETWEEN fechainicio AND fechafinal) OR (? BETWEEN fechainicio AND fechafinal))");
         q.setParameters(idCliente, fechaInicio, fechaFinal);
-        return (long) q.executeUnique();
+		if (q.executeUnique() == null)
+		{
+			return 0;
+		}
+		else{
+			return (long) q.executeUnique();
+		}
 	}
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar UNA RESERVA de la base de datos de Alohaandes, por su identificador
