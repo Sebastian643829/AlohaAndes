@@ -48,6 +48,16 @@ public interface VOAlojamiento {
       * @return El id del operador
       */
       public long getIdOperador();
+
+      /**
+      * @return El estado del alojamiento
+      */
+      public String getEstado();
+
+      /**
+      * @return El estado del tipo de alojamiento
+      */
+      public String getTipo();
   
       @Override
       /**

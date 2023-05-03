@@ -741,7 +741,7 @@ public class PersistenciaParranderos
 	 * @param idOperador - El id del operador
 	 * @return El objeto Alojamiento adicionado. null si ocurre alguna Excepción
 	 */
-	public Alojamiento adicionarAlojamiento(String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionTotal, int numReservas, long idOperador)
+	public Alojamiento adicionarAlojamiento(String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionTotal, int numReservas, long idOperador, String estado, String tipo)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -749,12 +749,12 @@ public class PersistenciaParranderos
         {
             tx.begin();
             long idAlojamiento = nextval ();
-            long tuplasInsertadas = sqlAlojamiento.adicionarAlojamiento(pm, idAlojamiento, nombre, capacidad, ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador );
+            long tuplasInsertadas = sqlAlojamiento.adicionarAlojamiento(pm, idAlojamiento, nombre, capacidad, ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador, estado, tipo);
             tx.commit();
             
             log.trace ("Inserción de alojamiento: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
             
-            return new Alojamiento (idAlojamiento, nombre, capacidad, ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador );
+            return new Alojamiento (idAlojamiento, nombre, capacidad, ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador, estado, tipo );
         }
         catch (Exception e)
         {
@@ -2040,12 +2040,13 @@ public class PersistenciaParranderos
         {
             tx.begin();
             long idReserva = nextval ();
-            long tuplasInsertadas = sqlReserva.adicionarReserva(pm, idReserva, idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas );
+			long idReservaColectiva = 0;
+            long tuplasInsertadas = sqlReserva.adicionarReserva(pm, idReserva, idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas, idReservaColectiva);
             tx.commit();
             
             log.trace ("Inserción de reserva: " + idReserva + ": " + tuplasInsertadas + " tuplas insertadas");
             
-            return new Reserva (idReserva, idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas);
+            return new Reserva (idReserva, idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas, idReservaColectiva);
         }
         catch (Exception e)
         {

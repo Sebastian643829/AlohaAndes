@@ -49,6 +49,16 @@ public class Alojamiento implements VOAlojamiento {
 	 */
 	private long idOperador; 
 
+	/**
+	 *  El estado del alojamiento
+	 */
+	private String estado;
+
+	/**
+	 * El estado del tipo de alojamiento
+	 */
+	private String tipo;
+
 	/* ****************************************************************
 	 * 			Métodos 
 	 *****************************************************************/
@@ -66,6 +76,8 @@ public class Alojamiento implements VOAlojamiento {
         this.ocupacionActual = 0;
 		this.numReservas = 0;
 		this.idOperador = 0;
+		this.estado = "";
+		this.tipo = "";
 	}
 
 	/**
@@ -79,8 +91,10 @@ public class Alojamiento implements VOAlojamiento {
      * @param ocupacionActual - La ocupacion total actual del alojamiento
 	 * @param numReservas - El numero de reservas del alojamiento
 	 * @param idOperador - El id del operador
+	 * @param estado - El estado del alojamiento
+	 * @param tipo - El estado del tipo de alojamiento
 	 */
-    public Alojamiento(long idAlojamiento, String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionActual, int numReservas, long idOperador) 
+    public Alojamiento(long idAlojamiento, String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionActual, int numReservas, long idOperador, String estado, String tipo) 
     {
     	this.idAlojamiento = idAlojamiento;
 		this.nombre = nombre;
@@ -91,6 +105,8 @@ public class Alojamiento implements VOAlojamiento {
         this.ocupacionActual = ocupacionActual;
 		this.numReservas = numReservas;
 		this.idOperador = idOperador;
+		this.estado = estado;
+		this.tipo = tipo;
 	}
 
     /**
@@ -236,6 +252,38 @@ public class Alojamiento implements VOAlojamiento {
 	{
 		this.idOperador = idOperador;
 	}
+
+	/**
+	 * @return El estado del alojamiento
+	 */
+	public String getEstado() 
+	{
+		return estado;
+	}
+	
+	/**
+	 * @param estado El nuevo estado del alojamiento
+	 */
+	public void setEstado(String estado) 
+	{
+		this.estado = estado;
+	}
+
+	/**
+	 * @return El tipo del alojamiento
+	 */
+	public String getTipo() 
+	{
+		return tipo;
+	}
+	
+	/**
+	 * @param tipo El nuevo tipo del alojamiento
+	 */
+	public void setTipo(String tipo) 
+	{
+		this.tipo = tipo;
+	}
 	
 	@Override
 	/**
@@ -245,6 +293,6 @@ public class Alojamiento implements VOAlojamiento {
 	{
 		return "Alojamiento [idAlojamiento=" + idAlojamiento + ", nombre=" + nombre + ", capacidad=" + capacidad + 
         ", ubicacion=" + ubicacion + ", tamano=" + tamano + ", precioNoche=" + precioNoche 
-        + ", ocupacionActual=" + ocupacionActual + ", numReservas=" + numReservas + ", idOperador=" + idOperador + "]";
+        + ", ocupacionActual=" + ocupacionActual + ", numReservas=" + numReservas + ", idOperador=" + idOperador + ", estado=" + estado + ", tipo=" + tipo +  "]";
 	}
 }

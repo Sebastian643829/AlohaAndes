@@ -451,10 +451,12 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			int ocupacionTotal = 0;
 			int numReservas = 0;
 			String idOperador = JOptionPane.showInputDialog (this, "Id del operador a cargo del alojamiento (Ya existente)?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);
+			String estado = "Habilitado";
+			String tipo = JOptionPane.showInputDialog (this, "Tipo de alojamiento?", "Adicionar nuevo alojamiento", JOptionPane.QUESTION_MESSAGE);			
 
     		if (nombre != null && capacidad != null && ubicacion != null && tamano != null && precioNoche != null && idOperador != null && sesionEnCurso)
     		{
-        		VOAlojamiento tb = parranderos.adicionarAlojamiento (nombre, Integer.parseInt(capacidad), ubicacion, Integer.parseInt(tamano), Integer.parseInt(precioNoche), ocupacionTotal, numReservas, Long.parseLong(idOperador));
+        		VOAlojamiento tb = parranderos.adicionarAlojamiento (nombre, Integer.parseInt(capacidad), ubicacion, Integer.parseInt(tamano), Integer.parseInt(precioNoche), ocupacionTotal, numReservas, Long.parseLong(idOperador), estado, tipo);
         		if (tb == null)
         		{
         			throw new Exception ("No se pudo crear un alojamiento con el nombre: " + nombre);

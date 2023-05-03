@@ -1,7 +1,7 @@
 package uniandes.isis2304.parranderos.negocio;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+
 
 public class Reserva implements VOReserva {
     /* ****************************************************************
@@ -51,6 +51,11 @@ public class Reserva implements VOReserva {
 	 */
 	private int numPersonas;
 
+	 /**
+	 * El id de la reserva colectiva
+	 */
+	private long idReservaColectiva;
+
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -68,6 +73,7 @@ public class Reserva implements VOReserva {
         this.costoTotal = 0;
         this.estado = "";
         this.numPersonas = 0;
+		this.idReservaColectiva = 0;
 	}
 
 	/**
@@ -81,8 +87,9 @@ public class Reserva implements VOReserva {
 	 * @param costoTotal - El costo total de la reserva
 	 * @param estado - El estado de la reserva
 	 * @param numPersonas - El numero de personas de la reserva
+	 * @param idReservaColectiva - El id de la reserva colectiva
 	 */
-	public Reserva(long idReserva,long idAlojamiento, long idCliente, int duracion, Date fechaInicio, Date fechaFinal, long costoTotal, String estado, int numPersonas) 
+	public Reserva(long idReserva,long idAlojamiento, long idCliente, int duracion, Date fechaInicio, Date fechaFinal, long costoTotal, String estado, int numPersonas, long idReservaColectiva) 
 	{
 		this.idReserva = idReserva;
 		this.idAlojamiento = idAlojamiento;
@@ -93,6 +100,7 @@ public class Reserva implements VOReserva {
 		this.costoTotal = costoTotal;
 		this.estado = estado;
 		this.numPersonas = numPersonas;
+		this.idReservaColectiva = idReservaColectiva;
 	}
 	/**
 	 * @return El id de la reserva
@@ -239,6 +247,22 @@ public class Reserva implements VOReserva {
 
     }
 
+	  /**
+	 * @return El id de la reserva colectiva
+	 */
+	public long getIdReservaColectiva() 
+	{
+		return idReservaColectiva;
+	}
+
+	/**
+	 * @param idReservaColectiva - El nuevo id de la reserva colectiva
+	 */
+	public void setIdReservaColectiva(int idReservaColectiva) 
+	{
+		this.idReservaColectiva = idReservaColectiva;
+    }
+
 	/** 
 	 * @return Una cadena con la información básica de reserva
 	 */
@@ -247,6 +271,6 @@ public class Reserva implements VOReserva {
 	{
 		return "Reserva [idAlojamiento=" + idAlojamiento + ", idCliente=" + idCliente + ", duracion=" + duracion + ", fechaInicio="
 				+ fechaInicio + "fechaFinal=" + fechaFinal + ", costoTotal=" + costoTotal + ", estado=" + estado + ", numPersonas="
-				+ numPersonas +  "]";
+				+ numPersonas + ", idReservaColectiva=" + idReservaColectiva + "]";
 	}
 }

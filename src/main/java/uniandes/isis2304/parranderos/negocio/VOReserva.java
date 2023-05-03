@@ -57,4 +57,9 @@ public interface VOReserva {
 	 */
 	@Override
 	public String toString();
+
+	/**
+	 * @return El id de la reserva colectiva
+	 */
+	public long getIdReservaColectiva();
 }

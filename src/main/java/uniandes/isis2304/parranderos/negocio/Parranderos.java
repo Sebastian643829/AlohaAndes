@@ -298,10 +298,10 @@ public class Parranderos
 	 * @param idOperador - El id del operador
 	 * @return El objeto Alojamiento adicionado. null si ocurre alguna Excepción
 	 */
-	public Alojamiento adicionarAlojamiento (String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionTotal, int numReservas, long idOperador)
+	public Alojamiento adicionarAlojamiento (String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionTotal, int numReservas, long idOperador, String estado, String tipo)
 	{
         log.info ("Adicionando Alojamiento: " + nombre);
-        Alojamiento alojamiento = pp.adicionarAlojamiento (nombre, capacidad, ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador);		
+        Alojamiento alojamiento = pp.adicionarAlojamiento (nombre, capacidad, ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador, estado, tipo);		
         log.info ("Adicionando Alojamiento: " + alojamiento);
         return alojamiento;
 	}
