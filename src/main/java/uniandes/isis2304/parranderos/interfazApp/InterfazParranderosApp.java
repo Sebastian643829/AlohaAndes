@@ -1439,7 +1439,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	 */
 	public void mostrarModeloConceptual ()
 	{
-		mostrarArchivo ("Docs/Modelo conceptual - Iteracion 2.pdf");
+		mostrarArchivo ("Docs/Modelo conceptual.pdf");
 	}
 	
 	/**
@@ -1447,7 +1447,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	 */
 	public void mostrarEsquemaBD ()
 	{
-		mostrarArchivo ("Docs/Modelo relacional - Iteracion 2.pdf");
+		mostrarArchivo ("Docs/Modelo relacional.pdf");
 	}
 	
 	/**
@@ -1455,7 +1455,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	 */
 	public void mostrarScriptBD ()
 	{
-		mostrarArchivo ("Docs/Esquema - iteracion2.sql");
+		mostrarArchivo ("Docs/EsquemaAlohaAndes.sql");
 	}
 	
 	/**
