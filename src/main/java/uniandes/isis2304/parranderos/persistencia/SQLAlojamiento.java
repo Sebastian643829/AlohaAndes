@@ -63,7 +63,7 @@ class SQLAlojamiento {
 	public long adicionarAlojamiento (PersistenceManager pm, long idAlojamiento, String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionTotal, int numReservas, long idOperador, String estado, String tipo) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAlojamiento() + "(idalojamiento, nombre, capacidad , ubicacion, tamano, precionoche, ocupacionactual, numreservas, idoperador, estado, tipo) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        q.setParameters(idAlojamiento, nombre, capacidad , ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador);
+        q.setParameters(idAlojamiento, nombre, capacidad , ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador, estado, tipo);
         return (long) q.executeUnique();
 	}
 
@@ -185,13 +185,35 @@ class SQLAlojamiento {
 	    sql	+= " OR ((A_Reserva.fechainicio BETWEEN ? AND ?) OR (A_Reserva.fechafinal BETWEEN ? AND ?)";
 		sql	+= " AND A_Reserva.estado = 'Cancelada'))";
 	    sql	+= " AND A_Servicio.nombre = ?";
-		sql	+= " GROUP BY A_Alojamiento.idalojamiento, A_Alojamiento.nombre, A_Alojamiento.capacidad , A_Alojamiento.ubicacion, A_Alojamiento.tamano, A_Alojamiento.precionoche, A_Alojamiento.ocupacionactual, A_Alojamiento.numreservas, A_Alojamiento.idoperador";
+		sql	+= " GROUP BY A_Alojamiento.idalojamiento, A_Alojamiento.nombre, A_Alojamiento.capacidad , A_Alojamiento.ubicacion, A_Alojamiento.tamano, A_Alojamiento.precionoche, A_Alojamiento.ocupacionactual, A_Alojamiento.numreservas, A_Alojamiento.idoperador, A_Alojamiento.estado, A_Alojamiento.tipo";
 
 	    Query q = pm.newQuery(SQL, sql);
 		q.setParameters(fecha1, fecha2, fecha1, fecha2, fecha1, fecha2, fecha1, fecha2, nombreServicio);
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();
 	}
+
+	// RFC9 - ENCONTRAR LAS OFERTAS DE ALOJAMIENTO QUE NO TIENEN MUCHA DEMANDA
+
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la informacion que no tienen mucha demanda que no hayan sido reservados en el ultmos mes.  
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de arreglos de objetos. Los elementos del arreglo corresponden a los datos del alojamientos con poca demanda.
+	 */
+	public List<Alojamiento> encontrarOfertasConBajaDemanda (PersistenceManager pm)
+	{
+	    String sql = "SELECT A_Alojamiento.*";
+	    sql += " FROM " + pp.darTablaAlojamiento ();
+		sql += " LEFT OUTER JOIN " + pp.darTablaReserva () + " ON A_Reserva.idalojamiento = A_Alojamiento.idalojamiento";
+	    sql	+= " WHERE ((A_Reserva.fechaInicio IS NULL) OR ((CURRENT_DATE - 30) > A_Reserva.fechaInicio  AND  (CURRENT_DATE - 30) > A_Reserva.fechaFinal) OR (CURRENT_DATE < A_Reserva.fechaInicio  AND  CURRENT_DATE < A_Reserva.fechaFinal)) AND (A_Reserva.estado != 'Cancelada')";
+		sql	+= " GROUP BY A_Alojamiento.idalojamiento, A_Alojamiento.nombre, A_Alojamiento.capacidad , A_Alojamiento.ubicacion, A_Alojamiento.tamano, A_Alojamiento.precionoche, A_Alojamiento.ocupacionactual, A_Alojamiento.numreservas, A_Alojamiento.idoperador, A_Alojamiento.estado, A_Alojamiento.tipo";
+		sql	+= " ORDER BY A_Alojamiento.idalojamiento";
+
+	    Query q = pm.newQuery(SQL, sql);
+		q.setResultClass(Alojamiento.class);
+		return (List<Alojamiento>) q.executeList();
+	}
+	
 
 	/**
 	 * Crea y ejecuta la sentencia SQL para aumentar en uno la ocupacion actual de los alojamientos de la 

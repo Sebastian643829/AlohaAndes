@@ -301,7 +301,7 @@ public class Parranderos
 	public Alojamiento adicionarAlojamiento (String nombre, int capacidad ,String ubicacion, int tamano, int precioNoche, int ocupacionTotal, int numReservas, long idOperador, String estado, String tipo)
 	{
         log.info ("Adicionando Alojamiento: " + nombre);
-        Alojamiento alojamiento = pp.adicionarAlojamiento (nombre, capacidad, ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador, estado, tipo);		
+        Alojamiento alojamiento = pp.adicionarAlojamiento (nombre, capacidad, ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador, estado,tipo);		
         log.info ("Adicionando Alojamiento: " + alojamiento);
         return alojamiento;
 	}
@@ -406,7 +406,7 @@ public class Parranderos
 	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
 
 	/**
-	 * Encuentra todos los tipos de bebida en Alohaandes y los devuelve como una lista de VOAlojamiento
+	 * Encuentra todos alojamientos en Alohaandes y los devuelve como una lista de VOAlojamiento
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOAlojamiento con todos los alojamiento que conoce la aplicación, llenos con su información básica
 	 */
@@ -415,6 +415,25 @@ public class Parranderos
 		log.info ("Generando los VO de Alojamientos");        
         List<VOAlojamiento> voAlojamientos = new LinkedList<VOAlojamiento> ();
         for (Alojamiento tb : pp.darAlojamientosDisponibles (fecha1, fecha2, nombreServicio))
+        {
+        	voAlojamientos.add (tb);
+        }
+        log.info ("Generando los VO de Alojamientos: " + voAlojamientos.size() + " existentes");
+        return voAlojamientos;
+	}
+
+	// RFC9 - ENCONTRAR LAS OFERTAS DE ALOJAMIENTO QUE NO TIENEN MUCHA DEMANDA
+
+	/**
+	 * Encuentra todos alojamientos en Alohaandes y los devuelve como una lista de VOAlojamiento
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOAlojamiento con todos los alojamiento que conoce la aplicación, llenos con su información básica
+	 */
+	public List<VOAlojamiento> encontrarOfertasConBajaDemanda ()
+	{
+		log.info ("Generando los VO de Alojamientos");        
+        List<VOAlojamiento> voAlojamientos = new LinkedList<VOAlojamiento> ();
+        for (Alojamiento tb : pp.encontrarOfertasConBajaDemanda ())
         {
         	voAlojamientos.add (tb);
         }
@@ -1342,6 +1361,22 @@ public class Parranderos
         log.info ("Cancelando Reserva por id: " + resp + " tuplas modificadas");
         return resp;
 	}
+
+	// RF8 - CANCELAR RESERVA COLECTIVA
+	/**
+	 * Cancelar una reserva colectiva por su identificador
+	 * Adiciona entradas al log de la aplicación
+	 * @param idReservaColectiva - El id de la reserva Colectiva
+	 * @return El número de tuplas modificadas
+	 */
+	public long cancelarReservaColectivaPorId (long idReservaColectiva)
+	{
+		log.info ("Cancelar Reserva colectiva por id: " + idReservaColectiva);
+        long resp = pp.cancelarReservaColectivaPorId (idReservaColectiva);		
+        log.info ("Cancelando Reserva colectiva por id: " + resp + " tuplas modificadas");
+        return resp;
+	}
+
 	/**
 	 * Revisa las reservas del cliente en ceirtas fechas
 	 * Adiciona entradas al log de la aplicación

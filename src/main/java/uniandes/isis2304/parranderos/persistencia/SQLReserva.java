@@ -123,4 +123,19 @@ class SQLReserva {
 		q.setResultClass(Reserva.class);
 		return (List<Reserva>) q.executeList();
 	}
+
+	// RF8 - CANCELAR RESERVA COLECTIVA
+	/**
+	 * Crea y ejecuta la sentencia SQL para cancelar una reserva colectiva de la base de datos de Alohaandes, por su identificador
+	 * @param pm - El manejador de persistencia
+	 * @param idReservaColectiva - El id de la reserva colectiva
+	 * @return EL número de tuplas modificadas
+	 */
+	public long cancelarReservaColectivaPorId (PersistenceManager pm, long idReservaColectiva)
+	{
+        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaReserva() + " SET A_reserva.estado = 'Cancelada' WHERE A_reserva.idreservacolectiva = ?");
+        q.setParameters(idReservaColectiva);
+        return (long) q.executeUnique();
+	}
+
 }

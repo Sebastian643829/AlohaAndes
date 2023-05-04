@@ -884,6 +884,16 @@ public class PersistenciaParranderos
 		return sqlAlojamiento.darAlojamientosDisponibles(pmf.getPersistenceManager(), fecha1, fecha2, nombreServicio);
 	}
 
+	// RFC9 - ENCONTRAR LAS OFERTAS DE ALOJAMIENTO QUE NO TIENEN MUCHA DEMANDA
+	/**
+	 * Método que consultar los alojamientos con poca demanda que no fueron reservados en el ultimo mes
+	 * @return La lista de objetos alojamientos, construidos con base en las tuplas de la tabla ALOJAMIENTO
+	 */
+	public List<Alojamiento> encontrarOfertasConBajaDemanda ()
+	{
+		return sqlAlojamiento.encontrarOfertasConBajaDemanda(pmf.getPersistenceManager());
+	}
+
 
 	/**
 	 * Método que consulta todas las tuplas en la tabla Alojamiento con un identificador dado
@@ -2098,7 +2108,7 @@ public class PersistenciaParranderos
         }
 	}
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla Reserva, dado el identificador del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla Reserva, dado el identificador de la reserva
 	 * Adiciona entradas al log de la aplicación
 	 * @param idReserva - El id del Reserva
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
@@ -2129,6 +2139,42 @@ public class PersistenciaParranderos
             pm.close();
         }
 	}
+
+	// RF8 - CANCELAR RESERVA COLECTIVA
+	/**
+	 * Método que elimina, de manera transaccional, una serie de tuplas en la tabla Reserva, dado el identificador de la reserva colectiva
+	 * Adiciona entradas al log de la aplicación
+	 * @param idReservaColectiva - El id del Reserva colectiva
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long cancelarReservaColectivaPorId (long idReservaColectiva) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlReserva.cancelarReservaColectivaPorId(pm, idReservaColectiva);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
+
 	/**
 	 * Método que cancela, de manera transaccional, una tupla en la tabla Reserva, dado el identificador del tipo de bebida
 	 * Adiciona entradas al log de la aplicación

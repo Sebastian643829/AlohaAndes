@@ -685,6 +685,57 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		return resp;
 	} 
 
+	//  RFC9 - ENCONTRAR LAS OFERTAS DE ALOJAMIENTO QUE NO TIENEN MUCHA DEMANDA
+	 /**
+     * Retorna el listado de las alojamientos con poca demanda
+     */
+	public void encontrarOfertasConBajaDemanda( )
+	{
+	   try 
+	   {
+		   List <VOAlojamiento> lista = parranderos.encontrarOfertasConBajaDemanda();
+
+		   if (sesionEnCurso)
+		   {
+			   String resultado = "Listando alojamientos que cumplen las condiciones dadas";
+			   resultado +=  "\n" + listarAlojamientosConPocaDemanda (lista);;
+			   resultado += "\n Operación terminada";
+			   panelDatos.actualizarInterfaz(resultado);
+		   }
+		   else if (!sesionEnCurso){
+			   String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+			   resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+			   panelDatos.actualizarInterfaz(resultado);
+		   }
+		   else
+		   {
+			   panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+		   }
+	   } 
+	   catch (Exception e) 
+	   {
+//			e.printStackTrace();
+		   String resultado = generarMensajeError(e);
+		   panelDatos.actualizarInterfaz(resultado);
+	   }
+	}
+
+	/**
+	* Genera una cadena de caracteres con la lista de los alojamientos con poca demanda recibida: una línea por cada alojamiento
+	* @param lista - La lista con los alojamientos
+	* @return La cadena con una línea para cada alojamiento recibido
+	*/
+   private String listarAlojamientosConPocaDemanda(List<VOAlojamiento> lista) 
+   {
+	   String resp = "Los alojamientos con poca demanda que no han sido reservados hace mas de un mes son:\n";
+	   int i = 1;
+	   for (VOAlojamiento aloj : lista)
+	   {
+		   resp += i++ + ". " + aloj.toString() + "\n";
+	   }
+	   return resp;
+   } 
+
 
 	 // RF6: RETIRAR UNA OFERTA DE ALOJAMIENTO
 	 /**
@@ -1312,7 +1363,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     	{
 			String idReserva = JOptionPane.showInputDialog (this, "ID de la Reserva (ya existente)?", "Cancelar reserva", JOptionPane.QUESTION_MESSAGE);
 
-			if (idReserva != null)
+			if (idReserva != null && sesionEnCurso)
     		{
         		long tb = parranderos.cancelarReservaPorId(Long.parseLong(idReserva));
         		if (tb == -1)
@@ -1321,6 +1372,43 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         		}
         		String resultado = "En cancelarReserva\n\n";
         		resultado += "Reserva cancelada exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		} 
+	 }
+
+	 // RF8 - CANCELAR RESERVA COLECTIVA
+	 public void cancelarReservaColectivaPorId( )
+	 {
+		try 
+    	{
+			String idReservaColectiva = JOptionPane.showInputDialog (this, "ID de la Reserva colectiva (ya existente)?", "Cancelar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
+
+			if (idReservaColectiva != null)
+    		{
+        		long tb = parranderos.cancelarReservaColectivaPorId(Long.parseLong(idReservaColectiva));
+        		if (tb == -1)
+        		{
+        			throw new Exception ("No se pudo cancelar la reserva colectiva");
+        		}
+        		String resultado = "En cancelarReservaColectiva\n\n";
+        		resultado += "Reserva colectiva cancelada exitosamente. Numero de reservas individuales canceladas: " + tb;
     			resultado += "\n Operación terminada";
     			panelDatos.actualizarInterfaz(resultado);
     		}

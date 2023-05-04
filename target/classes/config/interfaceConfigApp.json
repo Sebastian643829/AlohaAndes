@@ -90,8 +90,24 @@
 					"event": "cancelarReserva"
 				},
 				{
-					"label": "Retirar una oferta de alojamiento ",
+					"label": "Retirar una oferta de alojamiento",
 					"event": "retirarOfertaAlojamiento"
+				},
+				{
+					"label": "Registrar una reserva colectiva",
+					"event": ""
+				},
+				{
+					"label": "Cancelar una reserva colectiva",
+					"event": "cancelarReservaColectivaPorId"
+				},
+				{
+					"label": "Deshabilitar una oferta de alojamiento",
+					"event": ""
+				},
+				{
+					"label": "Rehabilitar una oferta de alojamiento",
+					"event": ""
 				}
 			]
 		},
@@ -113,6 +129,26 @@
 				{
 					"label": "RFC4",
 					"event": "darAlojamientosDisponibles"
+				},
+				{
+					"label": "RFC5",
+					"event": ""
+				},
+				{
+					"label": "RFC6",
+					"event": ""
+				},
+				{
+					"label": "RFC7",
+					"event": ""
+				},
+				{
+					"label": "RFC8",
+					"event": ""
+				},
+				{
+					"label": "RFC9",
+					"event": "encontrarOfertasConBajaDemanda"
 				}
 			]
 		},
