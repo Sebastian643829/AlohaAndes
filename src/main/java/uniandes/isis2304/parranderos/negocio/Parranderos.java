@@ -1447,6 +1447,20 @@ public class Parranderos
         return reserva;
 	}
 
+	// RFC6 - MOSTRAR EL USO DE ALOHANDES PARA UN USUARIO DADO
+	/**
+	 * Encuentra las principales caracteristicas (coches reservadas, dinero pagado y numero de reservas)
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos reserva con las caracteristicas principales de un cliente dado
+	 */
+	public List<Object[]> mostrarUsoPorUsuario (long idcliente)
+	{
+		log.info ("Consultando informacion acerca de la reservas a nombre de ese cliente");
+        List<Object[]> caracteristicasReservasCliente = pp.mostrarUsoPorUsuario (idcliente);	
+        log.info ("Consultando informacion acerca de la reservas a nombre de ese cliente: Listo!");
+        return caracteristicasReservasCliente ;
+	}
+
 
 	/* ****************************************************************
 	 * 			Métodos para administración

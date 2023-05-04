@@ -1400,7 +1400,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     	{
 			String idReservaColectiva = JOptionPane.showInputDialog (this, "ID de la Reserva colectiva (ya existente)?", "Cancelar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
 
-			if (idReservaColectiva != null)
+			if (idReservaColectiva != null && sesionEnCurso)
     		{
         		long tb = parranderos.cancelarReservaColectivaPorId(Long.parseLong(idReservaColectiva));
         		if (tb == -1)
@@ -1429,6 +1429,62 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		} 
 	 }
+
+	 // RFC6 - MOSTRAR EL USO DE ALOHANDES PARA UN USUARIO DADO
+	 /**
+     * Consulta en la base de datos el numero de reservas, el dinero pagado, y las noches reservas por un cliente
+     */
+    public void mostrarUsoPorUsuario()
+    {
+    	try 
+    	{
+			String idCliente = JOptionPane.showInputDialog (this, "ID del cliente (ya existente)?", "Mostrar uso de AlohaAndes a un cliente", JOptionPane.QUESTION_MESSAGE);
+
+			List <Object[]> lista = parranderos.mostrarUsoPorUsuario(Long.parseLong(idCliente));
+
+			if (idCliente != null && sesionEnCurso){
+			String resultado = "Listando las principales caracteristicas de las reservas a nombre de ese cliente";
+			resultado +=  "\n" + listarmostrarUsoPorUsuario(lista);
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			}
+			else{
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+	/**
+     * Genera una cadena de caracteres con la lista de las principales caracteristicas de las resrvas asociadas a un cliente
+     * @param lista - La lista con las carcteristicas de las resrvas de un cliente
+     * @return La cadena con una línea para cada cliente recibido
+     */
+    private String listarmostrarUsoPorUsuario(List<Object[]> lista) 
+    {
+    	String resp = "La lista de las principales caracteristicas de las reservas asociadas al cliente son:\n";
+    	int i = 1;
+        for (Object [] aloj : lista)
+        {
+			long idClienteActual =(long) aloj[0];
+			long numeroReservas =(long) aloj[1];
+			long numeroNochesReservadas =(long) aloj[2];
+			long dineroPagado =(long) aloj[3];
+        	resp += i++ + ". "  + "[";
+			resp += "ID del Cliente: "+idClienteActual;
+			resp += ", Numero de reservas a su nombre: "+numeroReservas;
+			resp += ", Numero de noches reservadas: "+numeroNochesReservadas;
+			resp += ", Dinero pagado: "+dineroPagado+" COP]"+"\n";
+        }
+		return resp;
+	} 
 
 	/* ****************************************************************
 	 * 			Métodos administrativos

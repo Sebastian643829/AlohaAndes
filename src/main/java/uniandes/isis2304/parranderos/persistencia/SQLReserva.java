@@ -124,6 +124,9 @@ class SQLReserva {
 		return (List<Reserva>) q.executeList();
 	}
 
+	// RF7 - REGISTRAR RESERVA COLECTIVA
+
+
 	// RF8 - CANCELAR RESERVA COLECTIVA
 	/**
 	 * Crea y ejecuta la sentencia SQL para cancelar una reserva colectiva de la base de datos de Alohaandes, por su identificador
@@ -136,6 +139,29 @@ class SQLReserva {
         Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaReserva() + " SET A_reserva.estado = 'Cancelada' WHERE A_reserva.idreservacolectiva = ?");
         q.setParameters(idReservaColectiva);
         return (long) q.executeUnique();
+	}
+
+	// RFC5 - MOSTRAR EL USO DE ALOHANDES PARA CADA TIPO DE USUARIO DE LA COMUNIDAD
+
+
+
+	// RFC6 - MOSTRAR EL USO DE ALOHANDES PARA UN USUARIO DADO
+	/**
+	 * Crea y ejecuta la sentencia SQL para moestrar el numero de reservas, el dinero pagado y el numero de noches reservadas de un cliente
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de alojamientos, de tamaño 20. Los elementos del arreglo corresponden a los datos de 
+	 * los alojamientos que tienen mas reservas asociadas
+	 */
+	public List<Object> mostrarUsoPorUsuario (PersistenceManager pm, long idcliente)
+	{
+		String sql = "SELECT A_Reserva.idCliente, COUNT(A_Reserva.idCliente) AS Numero_reservas, SUM(A_Reserva.duracion) AS Num_nochesReservadas, SUM(A_Reserva.costoTotal) AS Dinero_pagado ";
+		sql+= " FROM " + pp.darTablaReserva();
+		sql+=" WHERE A_Reserva.idCliente = ?";
+		sql+=" GROUP BY A_Reserva.idCliente";
+		
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters(idcliente);
+		return  q.executeList();
 	}
 
 }

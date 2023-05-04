@@ -814,6 +814,7 @@ public class PersistenciaParranderos
 	{
 		return sqlAlojamiento.darAlojamientos (pmf.getPersistenceManager());
 	}
+
 	// RFC1:MOSTRAR EL DINERO RECIBIDO POR CADA PROVEEDOR DE ALOJAMIENTO DURANTE EL AÑO ACTUAL Y EL AÑO CORRIDO
 	/**
 	 * Método que muestra el indice de ocupación DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
@@ -2223,6 +2224,35 @@ public class PersistenciaParranderos
 	public Reserva darReservaPorId (long idReserva)
 	{
 		return sqlReserva.darReservaPorId (pmf.getPersistenceManager(), idReserva);
+	}
+
+	// RFC6 - MOSTRAR EL USO DE ALOHANDES PARA UN USUARIO DADO
+	/**
+	 * Método que muestra el numero de reservas, el dinero pagado, y el numero de resrvas para un cliente dado
+	 * @return La informacion de un cliente especifico, construidos con base en las tuplas de la tabla RESERVA
+	 */
+	public List<Object []> mostrarUsoPorUsuario (long idCliente)
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlReserva.mostrarUsoPorUsuario (pmf.getPersistenceManager(), idCliente);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idClienteActual = ((BigDecimal) datos [0]).longValue ();
+			long numeroReservas = ((BigDecimal) datos [1]).longValue ();
+			long numeroNochesReservadas = ((BigDecimal) datos [2]).longValue ();
+			long dineroPagado = ((BigDecimal) datos [3]).longValue ();
+
+			Object [] resp = new Object [4];
+			resp [0] = idClienteActual;
+			resp [1] = numeroReservas;
+			resp [2] = numeroNochesReservadas;
+			resp [3] = dineroPagado;
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
 	}
 
 

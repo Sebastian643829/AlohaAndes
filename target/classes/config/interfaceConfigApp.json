@@ -136,7 +136,7 @@
 				},
 				{
 					"label": "RFC6",
-					"event": ""
+					"event": "mostrarUsoPorUsuario"
 				},
 				{
 					"label": "RFC7",
