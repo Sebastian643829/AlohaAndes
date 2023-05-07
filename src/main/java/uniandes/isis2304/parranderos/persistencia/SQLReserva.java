@@ -125,6 +125,37 @@ class SQLReserva {
 	}
 
 	// RF7 - REGISTRAR RESERVA COLECTIVA
+	/**
+	 * Crea y ejecuta la sentencia SQL para obterner los alojamientos disponibles para la reserva colectiva
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de alojamientos disponibles en el rango de fechas dado y que sea del tipo de habitacion especificada.
+	 */
+	public List<Object> RevisarReservaColectiva (PersistenceManager pm, String tipoHabitacion, Date fechaInicio, Date fechaFinal)
+	{
+		String sql = "SELECT a_alojamiento.idalojamiento, a_alojamiento.precionoche";
+		sql+= " FROM " + pp.darTablaAlojamiento();
+		sql+= " LEFT OUTER JOIN " + pp.darTablaReserva() + " ON A_alojamiento.idAlojamiento = A_reserva.idAlojamiento";
+		sql+=" WHERE A_alojamiento.estado = ? AND A_alojamiento.tipo = ?";
+		sql+=" AND A_alojamiento.idAlojamiento NOT IN ( SELECT A_reserva.idAlojamiento";
+		sql+=" FROM A_reserva";
+		sql+=" WHERE NOT((A_Reserva.fechaInicio IS NULL) OR ((? > A_Reserva.fechaInicio  AND ? > A_Reserva.fechaFinal OR (A_Reserva.estado = 'Cancelada')) OR (? < A_Reserva.fechaInicio  AND  ? < A_Reserva.fechaFinal OR (A_Reserva.estado = 'Cancelada')))))";
+		sql+=" GROUP BY a_alojamiento.idalojamiento, a_alojamiento.precionoche";
+		
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters("Habilitado",tipoHabitacion, fechaInicio, fechaInicio, fechaFinal, fechaFinal);
+		return  q.executeList();
+	}                            
+                                     
+
+	public long RegistrarReservaIndividual(PersistenceManager pm, long idReserva, long idAlojamiento, long idCliente, int duracion, Date fechaInicio , Date fechaFinal, long costoTotal, String estado, int numPersonas, long idReservaColectiva)
+	{
+        SQLAlojamiento sqlAlojamiento = new SQLAlojamiento(pp);
+		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(idreserva, idalojamiento, idcliente, duracion , fechainicio, fechafinal, costototal, estado, numpersonas, idreservacolectiva) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        q.setParameters(idReserva, idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas, idReservaColectiva);
+		sqlAlojamiento.aumentarNumeroReservasAlojamiento(pm, idAlojamiento);
+        return (long) q.executeUnique();
+		
+	}
 
 
 	// RF8 - CANCELAR RESERVA COLECTIVA

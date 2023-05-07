@@ -2141,6 +2141,70 @@ public class PersistenciaParranderos
         }
 	}
 
+	// RF7 - REGISTRAR RESERVA COLECTIVA
+	/**
+	 * Método que muestra el listado de las reservas disponibles en cierto rango de fechas que sea de cierto tipo de habitacion
+	 * @return La informacion de los alojamientos que cumplen las consiciones dadas
+	 */
+	public List<Object []> RevisarReservaColectiva (String tipoHabitacion, Date fechaInicio, Date fechaFinal)
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlReserva.RevisarReservaColectiva (pmf.getPersistenceManager(), tipoHabitacion, fechaInicio, fechaFinal);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idAlojamientoActual = ((BigDecimal) datos [0]).longValue ();
+			long PrecioNocheActual = ((BigDecimal) datos [1]).longValue ();
+	
+
+			Object [] resp = new Object [2];
+			resp [0] = idAlojamientoActual;
+			resp [1] = PrecioNocheActual;
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+
+	public long obtenerIdReservaColectiva()
+	{
+			long idReservaColectiva = nextval ();      
+            return idReservaColectiva ;
+	}
+
+	public Reserva RegistrarReservaIndividual( long idAlojamiento, long idCliente, int duracion, Date fechaInicio , Date fechaFinal, long costoTotal, String estado, int numPersonas, long idReservaColectiva)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idReserva = nextval ();
+            long tuplasInsertadas = sqlReserva.RegistrarReservaIndividual(pm, idReserva, idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas, idReservaColectiva);
+            tx.commit();
+            
+            log.trace ("Inserción de reserva: " + idReserva + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Reserva (idReserva, idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas, idReservaColectiva);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
+
 	// RF8 - CANCELAR RESERVA COLECTIVA
 	/**
 	 * Método que elimina, de manera transaccional, una serie de tuplas en la tabla Reserva, dado el identificador de la reserva colectiva

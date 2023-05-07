@@ -1393,6 +1393,69 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		} 
 	 }
 
+	 // RF7 - REGISTRAR RESERVA COLECTIVA
+	 public void RegistrarReservaColectiva( )
+	 {
+		try 
+    	{
+			String TipodeAlojamiento = JOptionPane.showInputDialog (this, "Tipo de alojamiento deseado?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
+			String numeroHabitaciones = JOptionPane.showInputDialog (this, "Numero de habitaciones a reservar?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
+			String idCliente = JOptionPane.showInputDialog (this, "ID del cliente?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
+			String duracion = JOptionPane.showInputDialog (this, "duracion de las reservas?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
+			String fechaInicio = JOptionPane.showInputDialog (this, "Fecha de inicio)?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
+			String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
+
+
+			if (TipodeAlojamiento != null && sesionEnCurso && numeroHabitaciones != null && idCliente != null && fechaInicio  != null && fechaFinal != null)
+    		{
+        		List <Object[]> lista = parranderos.RevisarReservaColectiva(TipodeAlojamiento,java.sql.Date.valueOf(fechaInicio),java.sql.Date.valueOf(fechaFinal));
+				int numAlojamientosDisponibles = lista.size();
+				System.out.println(numAlojamientosDisponibles);
+        		if (numAlojamientosDisponibles < Integer.parseInt(numeroHabitaciones))
+        		{
+        			throw new Exception ("No se pudo registrar la reserva colectiva porque no hay suficente disponibilidad del tipo de habitacion deseada");
+        		}
+				else{
+						String resultado = "En RegistarReservaColectiva\n\n";
+					for(int x = 0; x < Integer.parseInt(numeroHabitaciones); x++){
+						RegistrarReservasIndividuales(lista, duracion, idCliente, fechaInicio, fechaFinal);
+					}
+					resultado += "Reserva colectiva registada exitosamente. Numero de reservas individuales registradas: " + Integer.parseInt(numeroHabitaciones);
+    				resultado += "\n Operación terminada";
+    				panelDatos.actualizarInterfaz(resultado);
+				}
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		} 
+	 }
+
+    private void RegistrarReservasIndividuales(List<Object[]> lista, String duracion, String idCliente, String fechaInicio, String fechaFinal) 
+    {
+		long idReservaColectivaActual = parranderos.obtenerIdReservaColectiva();
+        for (Object [] aloj : lista)
+        {
+			long idAlojamientoActual =(long) aloj[0];
+			long PrecioPorNocheActual =(long) aloj[1];
+			parranderos.RegistrarReservaIndividual(idAlojamientoActual,Long.parseLong(idCliente) , Integer.parseInt(duracion), java.sql.Date.valueOf(fechaInicio),java.sql.Date.valueOf(fechaFinal), PrecioPorNocheActual * Long.parseLong(duracion), "Activa", 1, idReservaColectivaActual);
+        }
+	} 
+
+
+
 	 // RF8 - CANCELAR RESERVA COLECTIVA
 	 public void cancelarReservaColectivaPorId( )
 	 {

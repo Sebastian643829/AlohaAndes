@@ -95,7 +95,7 @@
 				},
 				{
 					"label": "Registrar una reserva colectiva",
-					"event": ""
+					"event": "RegistrarReservaColectiva"
 				},
 				{
 					"label": "Cancelar una reserva colectiva",

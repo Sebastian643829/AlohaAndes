@@ -121,7 +121,7 @@ class SQLAlojamiento {
 	{
 		String sql = "SELECT op.IDOPERADOR, COALESCE(SUM(r.COSTOTOTAL), 0) as COSTO_TOTAL_RECIBIDO FROM ";
 		sql+= pp.darTablaOperador();
-		sql+=" op LEFT JOIN ";
+		sql+=" op LEFT JOIN "; 
 		sql+= pp.darTablaAlojamiento();
 		sql+=" al ON op.IDOPERADOR = al.IDOPERADOR LEFT JOIN ";
 		sql+= pp.darTablaReserva();
@@ -205,7 +205,9 @@ class SQLAlojamiento {
 	    String sql = "SELECT A_Alojamiento.*";
 	    sql += " FROM " + pp.darTablaAlojamiento ();
 		sql += " LEFT OUTER JOIN " + pp.darTablaReserva () + " ON A_Reserva.idalojamiento = A_Alojamiento.idalojamiento";
-	    sql	+= " WHERE ((A_Reserva.fechaInicio IS NULL) OR ((CURRENT_DATE - 30) > A_Reserva.fechaInicio  AND  (CURRENT_DATE - 30) > A_Reserva.fechaFinal) OR (CURRENT_DATE < A_Reserva.fechaInicio  AND  CURRENT_DATE < A_Reserva.fechaFinal)) AND (A_Reserva.estado != 'Cancelada')";
+	    sql	+= " WHERE A_alojamiento.idAlojamiento NOT IN ( SELECT A_reserva.idAlojamiento";
+		sql	+= " FROM A_reserva";
+		sql	+= " WHERE NOT((A_Reserva.fechaInicio IS NULL) OR ((CURRENT_DATE - 30) > A_Reserva.fechaInicio  AND  (CURRENT_DATE - 30) > A_Reserva.fechaFinal OR (A_Reserva.estado = 'Cancelada')) OR (CURRENT_DATE < A_Reserva.fechaInicio  AND  CURRENT_DATE < A_Reserva.fechaFinal OR (A_Reserva.estado = 'Cancelada'))))";
 		sql	+= " GROUP BY A_Alojamiento.idalojamiento, A_Alojamiento.nombre, A_Alojamiento.capacidad , A_Alojamiento.ubicacion, A_Alojamiento.tamano, A_Alojamiento.precionoche, A_Alojamiento.ocupacionactual, A_Alojamiento.numreservas, A_Alojamiento.idoperador, A_Alojamiento.estado, A_Alojamiento.tipo";
 		sql	+= " ORDER BY A_Alojamiento.idalojamiento";
 

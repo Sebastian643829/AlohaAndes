@@ -1362,6 +1362,38 @@ public class Parranderos
         return resp;
 	}
 
+	// RF7 - REGISTRAR RESERVA COLECTIVA
+	/**
+	 * Encuentra aquellas reservas del tipo de habitacion requrido que pueden ser reservadas
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista con los alojamientos disponibles de este tipo de habitacion 
+	 */
+	public List<Object[]> RevisarReservaColectiva (String TipodeAlojamiento ,Date fechaInicio, Date fechaFinal)
+	{
+		log.info ("Consultando informacion acerca de los alojamientos de este tipo de habitacion disponibles");
+        List<Object[]> alojamientosPorTipoHabitacionDisponibles = pp.RevisarReservaColectiva (TipodeAlojamiento, fechaInicio, fechaFinal);	
+        log.info ("Consultando informacion acerca de los alojamientos de este tipo de habitacion disponibles: Listo!");
+        return alojamientosPorTipoHabitacionDisponibles ;
+	}
+
+	public long obtenerIdReservaColectiva ()
+	{
+		log.info ("Consultando el id de la reserva colectiva");
+        long idReservaColectivaActual = pp.obtenerIdReservaColectiva ();	
+        log.info ("Consultando el id de la reserva colectiva: Listo!");
+        return idReservaColectivaActual ;
+	}
+
+	public Reserva RegistrarReservaIndividual( long idAlojamiento, long idCliente, int duracion, Date fechaInicio , Date fechaFinal, long costoTotal, String estado, int numPersonas, long idReservaColectiva)
+	{
+        log.info ("Adicionando Reserva individual: " );
+        Reserva reserva = pp.RegistrarReservaIndividual(idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas, idReservaColectiva);		
+        log.info ("Adicionando Reserva individual: " + reserva);
+        return reserva;
+	}
+
+
+
 	// RF8 - CANCELAR RESERVA COLECTIVA
 	/**
 	 * Cancelar una reserva colectiva por su identificador
