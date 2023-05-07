@@ -107,7 +107,7 @@
 				},
 				{
 					"label": "Rehabilitar una oferta de alojamiento",
-					"event": ""
+					"event": "rehabilitarAlojamiento"
 				}
 			]
 		},

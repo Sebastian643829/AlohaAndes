@@ -8,11 +8,3 @@ AND A_alojamiento.idAlojamiento NOT IN ( SELECT A_reserva.idAlojamiento
 GROUP BY a_alojamiento.idalojamiento, a_alojamiento.precionoche;                            
                                      
                                      
-SELECT a_alojamiento.idalojamiento, a_alojamiento.precionoche
-FROM  A_alojamiento
-LEFT OUTER " A_reserva " ON A_alojamiento.idAlojamiento = A_reserva.idAlojamiento
-WHERE A_alojamiento.estado = 'Habilitado' AND A_alojamiento.tipo = ?
-AND A_alojamiento.idAlojamiento NOT IN ( SELECT A_reserva.idAlojamiento
-FROM A_reserva
-WHERE NOT((A_Reserva.fechaInicio IS NULL) OR ((? > A_Reserva.fechaInicio  AND ? > A_Reserva.fechaFinal OR (A_Reserva.estado = 'Cancelada')) OR (? < A_Reserva.fechaInicio  AND  ? < A_Reserva.fechaFinal OR (A_Reserva.estado = 'Cancelada'))))
-GROUP BY a_alojamiento.idalojamiento, a_alojamiento.precionoche"

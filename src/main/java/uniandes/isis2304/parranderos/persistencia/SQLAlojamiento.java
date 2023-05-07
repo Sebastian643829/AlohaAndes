@@ -264,5 +264,18 @@ class SQLAlojamiento {
         q.setParameters(idAlojamiento, idAlojamiento);
         return (long) q.executeUnique();
 	}
-}
 
+	// RF10 - REHABILITAR OFERTA DE ALOJAMIENTO
+	/**
+	 * Crea y ejecuta la sentencia SQL para rehabilitar una reserva de la base de datos de Alohaandes, por su identificador
+	 * @param pm - El manejador de persistencia
+	 * @param idAlojamiento - El id del alojamiento
+	 * @return EL número de tuplas modificadas
+	 */
+	public long rehabilitarAlojamiento( PersistenceManager pm, long idAlojamiento)
+	{
+        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaAlojamiento() + " SET A_alojamiento.estado = 'Habilitado' WHERE A_alojamiento.idAlojamiento = 1 AND A_alojamiento.estado = 'Deshabilitado'");
+        q.setParameters(idAlojamiento);
+        return (long) q.executeUnique();
+	}
+}

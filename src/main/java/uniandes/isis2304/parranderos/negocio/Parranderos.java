@@ -332,6 +332,22 @@ public class Parranderos
         log.info ("Consultando Alojamientos: " + alojamientos.size() + " existentes");
         return alojamientos;
 	}
+
+	// RF10 - REHABILITAR OFERTA DE ALOJAMIENTO
+	/** 
+	* Modifica el estado de una ofera de alojamiento a Habilitado
+	* Adiciona entradas al log de la aplicación
+	* @param idAlojamiento - El id del alojamiento
+	* @return El número de tuplas modificadas
+	*/
+   public long rehabilitarAlojamiento (long idAlojamiento)
+   {
+	   log.info ("Rehabilitar un alojamiento por id: " + idAlojamiento);
+	   long resp = pp.rehabilitarAlojamiento(idAlojamiento);		
+	   log.info ("Rehabilitar un alojamiento por id: " + resp + " tuplas modificadas");
+	   return resp;
+   }
+
 	// RFC1: MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
 	/**
 	 * Encuentra los alojamientos mas populares en Alohaandes

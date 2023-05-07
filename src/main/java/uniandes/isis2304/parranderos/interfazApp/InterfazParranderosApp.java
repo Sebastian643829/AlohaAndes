@@ -483,6 +483,49 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
 	 }
+
+	 //RF10 - REHABILITAR OFERTA DE ALOJAMIENTO
+	 public void rehabilitarAlojamiento( )
+	 {
+		try 
+    	{
+    		String idAlojamiento = JOptionPane.showInputDialog (this, "Id del alojamiento?", "Rehabilitar una oferta de alojamiento", JOptionPane.QUESTION_MESSAGE);			
+
+    		if (idAlojamiento != null && sesionEnCurso)
+    		{
+        		long tb = parranderos.rehabilitarAlojamiento(Long.parseLong(idAlojamiento));
+				if( tb == 1){
+				System.out.println(tb);
+        		String resultado = "En rehabilitarAlojamiento\n\n";
+        		resultado += "El alojamiento con el id " + idAlojamiento + " fue rehabilitado de manera exitosa";
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+				}
+				else{
+					String resultado = "En rehabilitarAlojamiento\n\n";
+        		resultado += "El alojamiento con el id " + idAlojamiento + " ya se encontraba habilitado dentro del sistema";
+    			panelDatos.actualizarInterfaz(resultado);
+				}
+    		}
+			else if (!sesionEnCurso){
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+	 }
+
+
 	 // RFC1: MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
 	/**
      * Consulta en la base de datos las 20 ofertas de alojamiento mas populares
