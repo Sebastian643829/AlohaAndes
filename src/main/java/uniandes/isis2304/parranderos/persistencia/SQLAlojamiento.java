@@ -149,8 +149,8 @@ class SQLAlojamiento {
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();
 	}
-	// RFC3: MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
 
+	// RFC3: MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar las 20 ofertas de alojamientos mas populares 
 	 * base de datos de Alohaandes
@@ -166,8 +166,7 @@ class SQLAlojamiento {
 		return q.executeList();
 	}
 	
-// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
-
+	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la informacion de los Alojamientos disponibles en un rango de fechas que cuenten con
 	 * ciertos servicios de la base de datos de AlohaAndes.  
@@ -194,11 +193,10 @@ class SQLAlojamiento {
 	}
 
 	// RFC9 - ENCONTRAR LAS OFERTAS DE ALOJAMIENTO QUE NO TIENEN MUCHA DEMANDA
-
 	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la informacion que no tienen mucha demanda que no hayan sido reservados en el ultmos mes.  
+	 * Crea y ejecuta la sentencia SQL para encontrar la informacion de los alojamientos que no tienen mucha demanda que no hayan sido reservados en el ultmos mes.  
 	 * @param pm - El manejador de persistencia
-	 * @return Una lista de arreglos de objetos. Los elementos del arreglo corresponden a los datos del alojamientos con poca demanda.
+	 * @return Una lista de arreglos de objetos. Los elementos del arreglo corresponden a los datos de los alojamientos con poca demanda.
 	 */
 	public List<Alojamiento> encontrarOfertasConBajaDemanda (PersistenceManager pm)
 	{
@@ -274,7 +272,7 @@ class SQLAlojamiento {
 	 */
 	public long rehabilitarAlojamiento( PersistenceManager pm, long idAlojamiento)
 	{
-        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaAlojamiento() + " SET A_alojamiento.estado = 'Habilitado' WHERE A_alojamiento.idAlojamiento = 1 AND A_alojamiento.estado = 'Deshabilitado'");
+        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaAlojamiento() + " SET A_alojamiento.estado = 'Habilitado' WHERE A_alojamiento.idAlojamiento = ? AND A_alojamiento.estado = 'Deshabilitado'");
         q.setParameters(idAlojamiento);
         return (long) q.executeUnique();
 	}

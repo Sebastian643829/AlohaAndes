@@ -1042,6 +1042,46 @@ public class Parranderos
         return cliente;
 	}
 
+	// RFC5 - MOSTRAR EL USO DE ALOHANDES PARA CADA TIPO DE USUARIO DE LA COMUNIDAD
+	/**
+	 * Encuentra las principales caracteristicas de cada tipo de usuario existente
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos con las principales carecteristicas, segun el tipo de usuario
+	 */
+	public List<Object[]> darInformacionMiembrosActivos ()
+	{
+		log.info ("Consultando las principales caracteristicas de los diferentes tipos de miembros activos");
+        List<Object[]> informacionMiembrosActivos = pp.darInformacionMiembrosActivos ();	
+        log.info ("Consultando las principales caracteristicas de los diferentes tipos de miembros activos: Listo!");
+        return informacionMiembrosActivos;
+	}
+
+	public List<Object[]> darInformacionMiembrosSecundarios ()
+	{
+		log.info ("Consultando las principales caracteristicas de los diferentes tipos de miembros secundarios");
+        List<Object[]> informacionMiembrosSecundarios = pp.darInformacionMiembrosSecundarios ();	
+        log.info ("Consultando las principales caracteristicas de los diferentes tipos de miembros secundarios: Listo!");
+        return informacionMiembrosSecundarios;
+	}
+
+	// RFC8 - ENCONTRAR LOS CLIENTES FRECUENTES
+	/**
+	 * Encuentra los clintes frecuentes en el alojamiento dado
+	 * Adiciona entradas al log de la aplicación
+	 * @return Una lista de objetos VOCliente con los clientes frecuentes de la aplicación, llenos con su información básica
+	 */
+	public List<VOCliente> encontrarClientesFrecuentes(long idAlojamiento)
+	{
+		log.info ("Generando los VO de Clientes");        
+        List<VOCliente> voClientes = new LinkedList<VOCliente> ();
+        for (Cliente cl : pp.encontrarClientesFrecuentes (idAlojamiento))
+        {
+        	voClientes.add (cl);
+        }
+        log.info ("Generando los VO de Clientes: " + voClientes.size() + " existentes");
+        return voClientes;
+	}
+
 	 /* ****************************************************************
 	 * 			Métodos para manejar los MIEMBROS ACTIVOS
 	 *****************************************************************/

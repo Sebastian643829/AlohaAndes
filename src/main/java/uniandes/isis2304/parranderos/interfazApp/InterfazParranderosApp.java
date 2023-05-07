@@ -575,6 +575,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         }
 		return resp;
 	} 
+
 	// RFC2: MOSTRAR LAS 20 OFERTAS MÁS POPULARES
 	/**
      * Consulta en la base de datos las 20 ofertas de alojamiento mas populares
@@ -727,6 +728,59 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         }
 		return resp;
 	} 
+
+	 // RFC8 - ENCONTRAR LOS CLIENTES FRECUENTES
+	 /**
+     * Retorna el listado de las alojamientos con poca demanda
+     */
+	public void encontrarClientes() 
+	{
+	   try 
+	   {
+		   String idAlojamiento = JOptionPane.showInputDialog (this, "id del alojamiento?", "Dar clientes frecuentes de un alojamiento dado", JOptionPane.QUESTION_MESSAGE);
+		   List <VOCliente> lista = parranderos.encontrarClientesFrecuentes(Long.parseLong(idAlojamiento));
+
+		   if (sesionEnCurso && idAlojamiento != null)
+		   {
+			   String resultado = "Listando los clientes frecuentes que cumplen las condiciones necesarias para que sean considerados como tal";
+			   resultado +=  "\n" + listarEncontrarClientesFrecuentes (lista);;
+			   resultado += "\n Operación terminada";
+			   panelDatos.actualizarInterfaz(resultado);
+		   }
+		   else if (!sesionEnCurso){
+			   String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+			   resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+			   panelDatos.actualizarInterfaz(resultado);
+		   }
+		   else
+		   {
+			   panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+		   }
+	   } 
+	   catch (Exception e) 
+	   {
+//			e.printStackTrace();
+		   String resultado = generarMensajeError(e);
+		   panelDatos.actualizarInterfaz(resultado);
+	   }
+	}
+
+	/**
+	* Genera una cadena de caracteres con la lista de los clientes mas frecuentes del alojamiento dado
+	* @param lista - La lista con clientes frecuentes
+	* @return La cadena con una línea para cada cliente recibido
+	*/
+   private String listarEncontrarClientesFrecuentes(List<VOCliente> lista) 
+   {
+	   String resp = "Los clientes frecuentes del alojamiento dado son:\n";
+	   int i = 1;
+	   for (VOCliente cliente : lista)
+	   {
+		   resp += i++ + ". " + cliente.toString() + "\n";
+	   }
+	   return resp;
+   } 
+
 
 	//  RFC9 - ENCONTRAR LAS OFERTAS DE ALOJAMIENTO QUE NO TIENEN MUCHA DEMANDA
 	 /**
@@ -1155,6 +1209,66 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		}
 	 }
 
+	 // 
+	/**
+     * Consulta en la base de datos las principales caracteristicas del uso de AlohaAndes para acada tipo de usuario
+     */
+    public void mostrarUsoPorTipoDeUsuario( )
+    {
+    	try 
+    	{
+			List <Object[]> lista1 = parranderos.darInformacionMiembrosActivos();
+			List <Object[]> lista2 = parranderos.darInformacionMiembrosSecundarios();
+
+			if (sesionEnCurso){
+			String resultado = "Listando las principales caracteristicas por tipo de usuario \n";
+		    resultado += "MIEMBROS ACTVOS";
+			resultado +=  "\n" + listarMostrarUsoPorTipoDeUsuario(lista1);
+			resultado += " \n MIEMBROS SECUNDARIOS";
+			resultado +=  "\n" + listarMostrarUsoPorTipoDeUsuario(lista2);
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			}
+			else{
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+	/**
+     * Genera una cadena de caracteres con la lista de caracteristicas por tipo de usuario
+     * @param lista - La lista con las principales caracteristicas
+     * @return La cadena con una línea para cada tipo de usuario dentro del sistema
+     */
+    private String listarMostrarUsoPorTipoDeUsuario(List<Object[]> lista) 
+    {
+		String resp = "";
+    	int i = 1;
+        for (Object [] aloj : lista)
+        {
+			String tipoUsuario = (String)aloj[0];
+			long numeroReservas = (long) aloj[1];
+			long totalNochesReservadas = (long) aloj[2];
+			long dineroPagado = (long) aloj[2];
+
+        	resp += i++ + ". "  + "[";
+			resp += "Tipo de usuario: "+ tipoUsuario;
+			resp += ", Numero de reservas: "+numeroReservas;
+			resp += ",Total de noches reservadas: "+totalNochesReservadas;
+			resp += ", Total de dinero pagado: "+dineroPagado+" COP]"+"\n";
+        }
+		return resp;
+	} 
+
+
 
 	 /* ****************************************************************
 	 * 			CRUD de MiembroActivo
@@ -1445,8 +1559,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			String numeroHabitaciones = JOptionPane.showInputDialog (this, "Numero de habitaciones a reservar?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
 			String idCliente = JOptionPane.showInputDialog (this, "ID del cliente?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
 			String duracion = JOptionPane.showInputDialog (this, "duracion de las reservas?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
-			String fechaInicio = JOptionPane.showInputDialog (this, "Fecha de inicio)?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
-			String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
+			String fechaInicio = JOptionPane.showInputDialog (this, "Fecha de inicio ('aaaa-mm-dd')?", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
+			String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final? ('aaaa-mm-dd')", "Registrar reserva colectiva", JOptionPane.QUESTION_MESSAGE);
 
 
 			if (TipodeAlojamiento != null && sesionEnCurso && numeroHabitaciones != null && idCliente != null && fechaInicio  != null && fechaFinal != null)

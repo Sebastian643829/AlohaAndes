@@ -97,4 +97,58 @@ class SQLCliente {
 		q.setResultClass(Cliente.class);
 		return (List<Cliente>) q.executeList();
 	}
+
+	// RFC5 - MOSTRAR EL USO DE ALOHANDES PARA CADA TIPO DE USUARIO DE LA COMUNIDAD
+	/**
+	 * Crea y ejecuta la sentencia SQL para mostrar el uso de Alohandes, segun el tipo de usuario 
+	 * base de datos de Alohaandes
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista con las principales carateristicas del uso que se le ha dado a AlohaAndes, segun el tipo de usuario
+	 */
+	public List<Object> darInformacionMiembrosActivos (PersistenceManager pm)
+	{
+		String sql = "SELECT A_MiembroActivo.tipo, COUNT(A_Reserva.idCliente) AS Numero_reservas, SUM(A_Reserva.duracion) AS Num_nochesReservadas, SUM(A_Reserva.costoTotal) AS Dinero_pagado";
+		sql += " FROM " + pp.darTablaCliente();
+		sql += " INNER JOIN " + pp.darTablaMiembroActivo() + " ON A_MiembroActivo.idMiembroActivo = A_cliente.idCliente";
+	    sql	+= " LEFT OUTER JOIN " + pp.darTablaReserva() + " ON A_Reserva.idCliente = A_cliente.idCliente";
+		sql	+= " GROUP BY A_MiembroActivo.tipo";
+		Query q = pm.newQuery(SQL, sql);
+		return q.executeList();
+	}
+
+	public List<Object> darInformacionMiembrosSecundarios (PersistenceManager pm)
+	{
+		String sql = "SELECT A_MiembroSecundario.tipo, COUNT(A_Reserva.idCliente) AS Numero_reservas, SUM(A_Reserva.duracion) AS Num_nochesReservadas, SUM(A_Reserva.costoTotal) AS Dinero_pagado";
+	    sql += " FROM " + pp.darTablaCliente();
+		sql += " INNER JOIN " + pp.darTablaMiembroSecundario() + " ON A_MiembroSecundario.idMiembroSecundario = A_cliente.idCliente";
+	    sql	+= " LEFT OUTER JOIN " + pp.darTablaReserva() + " ON A_Reserva.idCliente = A_cliente.idCliente";
+		sql	+= " GROUP BY A_MiembroSecundario.tipo";
+		Query q = pm.newQuery(SQL, sql);
+		return q.executeList();
+	}
+
+
+
+
+	// RFC8 - ENCONTRAR LOS CLIENTES FRECUENTES
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la informacion de los clientes fercuentes de un alojamiento.  
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de arreglos de Clientes. Los elementos del arreglo corresponden a los datos de los clientes frecuentes del alojamiento dado.
+	 */
+	public List<Cliente> encontrarClientesFrecuentes (PersistenceManager pm, long idAlojamiento)
+	{
+	    String sql = "SELECT A_Cliente.*";
+	    sql += " FROM " + pp.darTablaCliente();
+		sql += " LEFT OUTER JOIN " + pp.darTablaReserva () + " ON A_Cliente.idCliente = A_reserva.idCliente";
+	    sql	+= " WHERE A_Reserva.idAlojamiento = ?";
+		sql	+= " GROUP BY A_Cliente.idCliente, A_Cliente.tipoIdentificacion, A_Cliente.nombreCliente, A_Cliente.fechaNacimiento";
+		sql	+= " HAVING COUNT(A_Reserva.idReserva) >= 3 OR SUM(A_Reserva.duracion) >= 15";
+
+	    Query q = pm.newQuery(SQL, sql);
+		q.setResultClass(Cliente.class);
+		q.setParameters(idAlojamiento);
+		return (List<Cliente>) q.executeList();
+	}
+
 }

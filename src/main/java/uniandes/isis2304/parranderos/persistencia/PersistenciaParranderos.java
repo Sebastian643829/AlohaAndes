@@ -1649,6 +1649,7 @@ public class PersistenciaParranderos
             pm.close();
         }
 	}
+
 	/**
 	 * Método que elimina, de manera transaccional, una tupla en la tabla Cliente, dado el identificador del Cliente
 	 * Adiciona entradas al log de la aplicación
@@ -1697,6 +1698,73 @@ public class PersistenciaParranderos
 	public Cliente  darClientePorId (long idCliente )
 	{
 		return sqlCliente.darClientePorId (pmf.getPersistenceManager(), idCliente );
+	}
+
+	// RFC5 - MOSTRAR EL USO DE ALOHANDES PARA CADA TIPO DE USUARIO DE LA COMUNIDAD
+	/**
+	 * Método que muestra las principales caragteristicas del uso de AlohaAndes, segun el tipo de usuario
+	 * @return La lista de objetos con las principales caracteristicas de cada tipo de cliente
+	 */
+	public List<Object []> darInformacionMiembrosActivos  ()
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlCliente.darInformacionMiembrosActivos (pmf.getPersistenceManager());
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+
+			String tipoUsuario = (String) datos [0];
+			long numeroReservas = ((BigDecimal) datos [1]).longValue ();
+			long totalNochesReservadas = ((BigDecimal) datos [1]).longValue ();
+			long dineroPagado = ((BigDecimal) datos [3]).longValue ();
+
+			Object [] resp = new Object [3];
+			resp [0] = tipoUsuario;
+			resp [1] = numeroReservas;
+			resp [2] = totalNochesReservadas;
+			resp [2] = dineroPagado;
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+
+	public List<Object []> darInformacionMiembrosSecundarios  ()
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlCliente.darInformacionMiembrosSecundarios (pmf.getPersistenceManager());
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+
+			String tipoAlojamiento = (String) datos [0];
+			long numeroReservas = ((BigDecimal) datos [1]).longValue ();
+			long totalNochesReservadas = ((BigDecimal) datos [1]).longValue ();
+			long dineroPagado = ((BigDecimal) datos [3]).longValue ();
+
+			Object [] resp = new Object [3];
+			resp [0] = tipoAlojamiento;
+			resp [1] = numeroReservas;
+			resp [2] = totalNochesReservadas;
+			resp [2] = dineroPagado;
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+
+
+	
+	// RFC8 - ENCONTRAR LOS CLIENTES FRECUENTES
+	/**
+	 * Método que consultar los clientes frecuentes de cierto alojamiento
+	 * @return La lista de objetos clientes, construidos con base en las tuplas de la tabla CLIENTE
+	 */
+	public List<Cliente> encontrarClientesFrecuentes(long idAlojamiento)
+	{
+		return sqlCliente.encontrarClientesFrecuentes(pmf.getPersistenceManager(), idAlojamiento);
 	}
 
 	 /* ****************************************************************
