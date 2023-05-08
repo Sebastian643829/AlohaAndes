@@ -771,7 +771,32 @@ public class PersistenciaParranderos
             pm.close();
         }
 	}
-
+	public long revisarAlojamiento (long idAlojamiento) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlAlojamiento.revisarAlojamiento(pm, idAlojamiento);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	/**
 	 * Método que elimina, de manera transaccional, una tupla en la tabla Alojamiento, dado el identificador del tipo de bebida
 	 * Adiciona entradas al log de la aplicación
@@ -884,7 +909,75 @@ public class PersistenciaParranderos
 	{
 		return sqlAlojamiento.darAlojamientosDisponibles(pmf.getPersistenceManager(), fecha1, fecha2, nombreServicio);
 	}
+	// RFC7B:ANALIZAR LA OPERACIÓN DE ALOHANDES- Mayor dinero
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la smeana de mayor dinero recaudado
+	 */
+	public List<Object []> darMayorDineroSemana (String tipoAlojamiento)
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlAlojamiento.darMayorDineroSemana (pmf.getPersistenceManager(),tipoAlojamiento);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			Date fechaInicio = new Date(((BigDecimal) datos[0]).longValue());
+			long dinero = ((BigDecimal) datos [1]).longValue ();
 
+			Object [] resp = new Object [2];
+			resp [0] = fechaInicio;
+			resp [1] = dinero;
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+	// RFC7A:ANALIZAR LA OPERACIÓN DE ALOHANDES- Mayor Ocupacion
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la smeana de mayor ocupacion
+	 */
+	public List<Object []> darMayorOcupacionSemana (String tipoAlojamiento)
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlAlojamiento.darMayorOcupacionSemana (pmf.getPersistenceManager(),tipoAlojamiento);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			Date fechaInicio = new Date(((BigDecimal) datos[0]).longValue());
+			long alojamientosOcupados = ((BigDecimal) datos [1]).longValue ();
+
+			Object [] resp = new Object [2];
+			resp [0] = fechaInicio;
+			resp [1] = alojamientosOcupados;
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+	// RFC7C:ANALIZAR LA OPERACIÓN DE ALOHANDES- Menor Ocupacion
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la semana de menor ocupacion
+	 */
+	public List<Object []> darMenorOcupacionSemana (String tipoAlojamiento)
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlAlojamiento.darMenorOcupacionSemana (pmf.getPersistenceManager(),tipoAlojamiento);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			Date fechaInicio = new Date(((BigDecimal) datos[0]).longValue());
+			long alojamientosOcupados = ((BigDecimal) datos [1]).longValue ();
+
+			Object [] resp = new Object [2];
+			resp [0] = fechaInicio;
+			resp [1] = alojamientosOcupados;
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
 	// RFC9 - ENCONTRAR LAS OFERTAS DE ALOJAMIENTO QUE NO TIENEN MUCHA DEMANDA
 	/**
 	 * Método que consultar los alojamientos con poca demanda que no fueron reservados en el ultimo mes

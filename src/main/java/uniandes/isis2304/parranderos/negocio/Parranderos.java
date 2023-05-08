@@ -305,6 +305,13 @@ public class Parranderos
         log.info ("Adicionando Alojamiento: " + alojamiento);
         return alojamiento;
 	}
+	public long revisarAlojamiento (long idAlojamiento) 
+	{
+		log.info ("Revisando estado del Alojamiento: " + idAlojamiento);
+        long resp = pp.revisarAlojamiento (idAlojamiento);		
+        log.info ("Alojamientos encontrados " + resp );
+        return resp;
+	}
 
 	/**
 	 * Elimina un alojamiento por su identificador
@@ -400,6 +407,27 @@ public class Parranderos
 		log.info ("Consultando indice de ocupación de los Alojamientos");
         List<Object[]> indicesOcupacion = pp.darIndiceDeOcupacion ();	
         log.info ("Consultando indice de ocupación de los Alojamientos: Listo!");
+        return indicesOcupacion ;
+	}
+	public List<Object[]> darMayorDineroSemana (String tipoAlojamiento)
+	{
+		log.info ("Consultando fechas de mayores ingresos ");
+        List<Object[]> indicesOcupacion = pp.darMayorDineroSemana (tipoAlojamiento);	
+        log.info ("Consultando fechas de mayores ingresos: Listo!");
+        return indicesOcupacion ;
+	}
+	public List<Object[]> darMayorOcupacionSemana (String tipoAlojamiento)
+	{
+		log.info ("Consultando fechas de mayor ocupación ");
+        List<Object[]> indicesOcupacion = pp.darMayorOcupacionSemana (tipoAlojamiento);	
+        log.info ("Consultando fechas de mayor ocupación: Listo!");
+        return indicesOcupacion ;
+	}
+	public List<Object[]> darMenorOcupacionSemana (String tipoAlojamiento)
+	{
+		log.info ("Consultando fechas de menor ocupación ");
+        List<Object[]> indicesOcupacion = pp.darMenorOcupacionSemana (tipoAlojamiento);	
+        log.info ("Consultando fechas de menor ocupación: Listo!");
         return indicesOcupacion ;
 	}
 	/**

@@ -650,7 +650,40 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
-
+	// RFC7: ANALIZAR LA OPERACIÓN DE ALOHANDES 
+	/**
+     * Consulta en la base de datos las 20 ofertas de alojamiento mas populares
+     */
+    public void darAnalisis( )
+    {
+    	try 
+    	{
+			String tipoAlojamiento = JOptionPane.showInputDialog (this, "Tipo del Operador?", "Analisis de Alohandes", JOptionPane.QUESTION_MESSAGE);
+			List <Object[]> lista1 = parranderos.darMayorDineroSemana(tipoAlojamiento);
+			List <Object[]> lista2 = parranderos.darMayorOcupacionSemana(tipoAlojamiento);
+			List <Object[]> lista3 = parranderos.darMenorOcupacionSemana(tipoAlojamiento);
+			
+			if (sesionEnCurso){
+			String resultado = "Mostrar el analisis de operación de alohandes para el siguiente tipo de alojamiento: "+tipoAlojamiento;
+			resultado +=  "\n" + listarMayorDinero(lista1);
+			resultado +=  "\n" + listarMayorOcupacion(lista2);
+			resultado +=  "\n" + listarMenorOcupacion(lista3);
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			}
+			else{
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
 	/**
      * Genera una cadena de caracteres con la lista de los alojamientos mas populares recibida: una línea por cada alojamiento
      * @param lista - La lista con los alojamientos
@@ -673,6 +706,42 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         }
 		return resp;
 	} 
+	private String listarMayorDinero(List<Object[]> lista) 
+    {
+    	String resp = "La semana en la que hubo los mayores ingresos inció el día:\n";
+        for (Object [] aloj : lista)
+        {
+			
+			Date fechaInicio=(Date) aloj[0];
+			long dinero=(long) aloj[1];
+        	resp += fechaInicio+" Y la cantidad de ingresos que tuvo este tipo de Alojamiento fue: "+dinero+"\n";
+        }
+		return resp;
+	} 
+	private String listarMayorOcupacion(List<Object[]> lista) 
+    {
+    	String resp = "La semana en la que hubo la mayor ocupación inció el día:\n";
+        for (Object [] aloj : lista)
+        {
+			
+			Date fechaInicio=(Date) aloj[0];
+			long dinero=(long) aloj[1];
+        	resp += fechaInicio+" Y la cantidad de alojamientos ocupados que tuvo este tipo de Alojamiento fue: "+dinero+"\n";
+        }
+		return resp;
+	} 
+	private String listarMenorOcupacion(List<Object[]> lista) 
+    {
+    	String resp = "La semana en la que hubo la menor ocupación inció el día:\n";
+        for (Object [] aloj : lista)
+        {
+			
+			Date fechaInicio=(Date) aloj[0];
+			long dinero=(long) aloj[1];
+        	resp += fechaInicio+" Y la cantidad de alojamientos ocupados que tuvo este tipo de Alojamiento fue: "+dinero+"\n";
+        }
+		return resp;
+	}
 	// RFC4: MOSTRAR LOS ALOJAMIENTOS DISPONIBLES EN UN RANGO DE FECHAS, QUE CUMPLEN CON UN CONJUNTO DE SERVICIOS
 	 /**
      * Adiciona un Alojamiento con la información dada por el usuario
@@ -1480,7 +1549,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 
 			if (idAlojamiento != null && idCliente != null && duracion != null && fechaInicio != null && fechaFinal != null&& costoTotal != null&& estado != null&& numPersonas != null && sesionEnCurso)
     		{	long centinela=parranderos.revisarReserva(Long.parseLong(idCliente), java.sql.Date.valueOf(fechaInicio),java.sql.Date.valueOf(fechaFinal));
-				if (centinela == 0){
+				long centinela2=parranderos.revisarAlojamiento(Long.parseLong(idAlojamiento));
+				if (centinela == 0 && centinela2==0){
         		VOReserva tb = parranderos.adicionarReserva (Long.parseLong(idAlojamiento),Long.parseLong(idCliente),Integer.parseInt(duracion),java.sql.Date.valueOf(fechaInicio),java.sql.Date.valueOf(fechaFinal),Long.parseLong(costoTotal), estado,Integer.parseInt(numPersonas));
         		if (tb == null)
         		{
