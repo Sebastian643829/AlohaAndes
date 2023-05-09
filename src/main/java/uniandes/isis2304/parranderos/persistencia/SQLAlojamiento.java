@@ -196,6 +196,7 @@ class SQLAlojamiento {
 	    sql	+= " OR ((A_Reserva.fechainicio BETWEEN ? AND ?) OR (A_Reserva.fechafinal BETWEEN ? AND ?)";
 		sql	+= " AND A_Reserva.estado = 'Cancelada'))";
 	    sql	+= " AND A_Servicio.nombre = ?";
+		sql	+= " AND A_Alojamiento.estado = 'Habilitado'";
 		sql	+= " GROUP BY A_Alojamiento.idalojamiento, A_Alojamiento.nombre, A_Alojamiento.capacidad , A_Alojamiento.ubicacion, A_Alojamiento.tamano, A_Alojamiento.precionoche, A_Alojamiento.ocupacionactual, A_Alojamiento.numreservas, A_Alojamiento.idoperador, A_Alojamiento.estado, A_Alojamiento.tipo";
 
 	    Query q = pm.newQuery(SQL, sql);

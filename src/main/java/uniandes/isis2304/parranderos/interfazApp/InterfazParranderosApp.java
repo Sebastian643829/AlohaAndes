@@ -1643,10 +1643,8 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         			throw new Exception ("No se pudo registrar la reserva colectiva porque no hay suficente disponibilidad del tipo de habitacion deseada");
         		}
 				else{
-						String resultado = "En RegistarReservaColectiva\n\n";
-					for(int x = 0; x < Integer.parseInt(numeroHabitaciones); x++){
-						RegistrarReservasIndividuales(lista, duracion, idCliente, fechaInicio, fechaFinal);
-					}
+					String resultado = "En RegistarReservaColectiva\n\n";
+					RegistrarReservasIndividuales(lista, duracion, idCliente, fechaInicio, fechaFinal, numAlojamientosDisponibles);
 					resultado += "Reserva colectiva registada exitosamente. Numero de reservas individuales registradas: " + Integer.parseInt(numeroHabitaciones);
     				resultado += "\n Operación terminada";
     				panelDatos.actualizarInterfaz(resultado);
@@ -1670,14 +1668,19 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		} 
 	 }
 
-    private void RegistrarReservasIndividuales(List<Object[]> lista, String duracion, String idCliente, String fechaInicio, String fechaFinal) 
+    private void RegistrarReservasIndividuales(List<Object[]> lista, String duracion, String idCliente, String fechaInicio, String fechaFinal, int numAlojamientosDisponibles) 
     {
 		long idReservaColectivaActual = parranderos.obtenerIdReservaColectiva();
+
+		int i = 0;
         for (Object [] aloj : lista)
         {
+			if (i < numAlojamientosDisponibles){
 			long idAlojamientoActual =(long) aloj[0];
 			long PrecioPorNocheActual =(long) aloj[1];
 			parranderos.RegistrarReservaIndividual(idAlojamientoActual,Long.parseLong(idCliente) , Integer.parseInt(duracion), java.sql.Date.valueOf(fechaInicio),java.sql.Date.valueOf(fechaFinal), PrecioPorNocheActual * Long.parseLong(duracion), "Activa", 1, idReservaColectivaActual);
+			}
+			++i;
         }
 	} 
 
