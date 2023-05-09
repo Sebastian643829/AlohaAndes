@@ -1719,7 +1719,7 @@ public class PersistenciaParranderos
 			long dineroPagado = ((BigDecimal) datos [3]).longValue ();
 
 			Object [] resp = new Object [3];
-			resp [0] = tipoUsuario;
+			resp [0] = tipoUsuario ;
 			resp [1] = numeroReservas;
 			resp [2] = totalNochesReservadas;
 			resp [2] = dineroPagado;

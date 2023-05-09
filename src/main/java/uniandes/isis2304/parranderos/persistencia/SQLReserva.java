@@ -153,8 +153,7 @@ class SQLReserva {
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva() + "(idreserva, idalojamiento, idcliente, duracion , fechainicio, fechafinal, costototal, estado, numpersonas, idreservacolectiva) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         q.setParameters(idReserva, idAlojamiento, idCliente, duracion , fechaInicio, fechaFinal, costoTotal, estado, numPersonas, idReservaColectiva);
 		sqlAlojamiento.aumentarNumeroReservasAlojamiento(pm, idAlojamiento);
-        return (long) q.executeUnique();
-		
+        return (long) q.executeUnique();	
 	}
 
 
@@ -171,10 +170,7 @@ class SQLReserva {
         q.setParameters(idReservaColectiva);
         return (long) q.executeUnique();
 	}
-
-	// RFC5 - MOSTRAR EL USO DE ALOHANDES PARA CADA TIPO DE USUARIO DE LA COMUNIDAD
-
-
+	
 
 	// RFC6 - MOSTRAR EL USO DE ALOHANDES PARA UN USUARIO DADO
 	/**
