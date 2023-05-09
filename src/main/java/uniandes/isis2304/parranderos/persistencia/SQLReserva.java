@@ -99,7 +99,7 @@ class SQLReserva {
 	 */
 	public long cancelarReservaPorId (PersistenceManager pm, long idReserva)
 	{
-        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaReserva() + " SET Estado='Cancelada' WHERE idreserva = ?");
+        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaReserva() + " SET Estado='Cancelada' WHERE idreserva = ? AND Estado='Activa'");
         q.setParameters(idReserva);
         return (long) q.executeUnique();
 	}

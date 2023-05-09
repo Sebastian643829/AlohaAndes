@@ -66,6 +66,18 @@ class SQLAlojamiento {
         q.setParameters(idAlojamiento, nombre, capacidad , ubicacion, tamano, precioNoche, ocupacionTotal, numReservas, idOperador, estado, tipo);
         return (long) q.executeUnique();
 	}
+	public long revisarAlojamiento (PersistenceManager pm, long idAlojamiento) 
+	{
+        Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva() + " WHERE idalojamiento=? AND estado='Deshabilitado'");
+        q.setParameters(idAlojamiento);
+		if (q.executeUnique() == null)
+		{
+			return 0;
+		}
+		else{
+			return (long) q.executeUnique();
+		}
+	}
 
 
     /**
@@ -276,5 +288,44 @@ class SQLAlojamiento {
         Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaAlojamiento() + " SET A_alojamiento.estado = 'Habilitado' WHERE A_alojamiento.idAlojamiento = ? AND A_alojamiento.estado = 'Deshabilitado'");
         q.setParameters(idAlojamiento);
         return (long) q.executeUnique();
+	}
+	// RFC7B:ANALIZAR LA OPERACIÓN DE ALOHANDES- Mayor dinero
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la smeana de mayor dinero recaudado
+	 */
+	public List<Object> darMayorDineroSemana (PersistenceManager pm,String tipoAlojamiento)
+	{
+		String sql = "WITH ReservasPorSemana AS (SELECT TRUNC(FECHAINICIO, 'IW') AS Semana, SUM(COSTOTOTAL) AS Ingresos FROM ";
+		sql+=pp.darTablaReserva()+" R JOIN "+pp.darTablaAlojamiento()+" A ON R.IDALOJAMIENTO = A.IDALOJAMIENTO WHERE ESTADO = 'Finalizada' AND TIPO = ? GROUP BY TRUNC(FECHAINICIO, 'IW')) ";
+		sql+="SELECT Semana, Ingresos FROM ReservasPorSemana WHERE Ingresos = (SELECT MAX(Ingresos) FROM ReservasPorSemana)";
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters(tipoAlojamiento);
+		return q.executeList();
+	}
+	// RFC7A:ANALIZAR LA OPERACIÓN DE ALOHANDES- Mayor Ocupacion
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la smeana de mayor ocupación
+	 */
+	public List<Object> darMayorOcupacionSemana (PersistenceManager pm,String tipoAlojamiento)
+	{
+		String sql = "WITH ReservasPorSemana AS (SELECT TRUNC(FECHAINICIO, 'IW') AS Semana, COUNT(IDRESERVA) AS Ocupacion FROM ";
+		sql+=pp.darTablaReserva()+" R JOIN "+pp.darTablaAlojamiento()+" A ON R.IDALOJAMIENTO = A.IDALOJAMIENTO WHERE TIPO = ? AND (ESTADO = 'Finalizada') GROUP BY TRUNC(FECHAINICIO, 'IW')) ";
+		sql+="SELECT Semana, Ocupacion FROM ReservasPorSemana WHERE Ocupacion = (SELECT MAX(Ocupacion) FROM ReservasPorSemana)";
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters(tipoAlojamiento);
+		return q.executeList();
+	}
+	// RFC7A:ANALIZAR LA OPERACIÓN DE ALOHANDES- Mayor Ocupacion
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la smeana de mayor ocupación
+	 */
+	public List<Object> darMenorOcupacionSemana (PersistenceManager pm,String tipoAlojamiento)
+	{
+		String sql = "WITH ReservasPorSemana AS (SELECT TRUNC(FECHAINICIO, 'IW') AS Semana, COUNT(IDRESERVA) AS Ocupacion FROM ";
+		sql+=pp.darTablaReserva()+" R JOIN "+pp.darTablaAlojamiento()+" A ON R.IDALOJAMIENTO = A.IDALOJAMIENTO WHERE TIPO = ? AND (ESTADO = 'Finalizada') GROUP BY TRUNC(FECHAINICIO, 'IW')) ";
+		sql+="SELECT Semana, Ocupacion FROM ReservasPorSemana WHERE Ocupacion = (SELECT MIN(Ocupacion) FROM ReservasPorSemana)";
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters(tipoAlojamiento);
+		return q.executeList();
 	}
 }
