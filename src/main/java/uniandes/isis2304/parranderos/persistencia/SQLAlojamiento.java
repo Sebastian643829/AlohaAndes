@@ -327,4 +327,10 @@ class SQLAlojamiento {
 		q.setParameters(tipoAlojamiento);
 		return q.executeList();
 	}
+	public long deshabilitarAlojamiento( PersistenceManager pm, long idAlojamiento)
+	{
+        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaAlojamiento() + " SET A_alojamiento.estado = 'Deshabilitado' WHERE A_alojamiento.idAlojamiento = ? AND A_alojamiento.estado = 'Habilitado'");
+        q.setParameters(idAlojamiento);
+        return (long) q.executeUnique();
+	}
 }

@@ -1133,6 +1133,39 @@ public class PersistenciaParranderos
             pm.close();
         }
 	}
+	// RF10 - DESHABILITAR OFERTA DE ALOJAMIENTO
+	/**
+	 * Método que deshabilita, de manera transaccional, una tupla en la tabla alojamiento, dado el identificador del alojamiento
+	 * Adiciona entradas al log de la aplicación
+	 * @param idAlojamiento - El id del alojamiento
+	 * @return El número de tuplas modificadas. -1 si ocurre alguna Excepción
+	 */
+	public long deshabilitarAlojamiento (long idAlojamiento) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlAlojamiento.deshabilitarAlojamiento(pm, idAlojamiento);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 
 	 /* ****************************************************************
 	 * 			Métodos para manejar las VIVIENDAS UNIVERSITARIAS

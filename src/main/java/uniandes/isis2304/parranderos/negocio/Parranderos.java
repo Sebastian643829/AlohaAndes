@@ -354,6 +354,20 @@ public class Parranderos
 	   log.info ("Rehabilitar un alojamiento por id: " + resp + " tuplas modificadas");
 	   return resp;
    }
+   // RF - DESHABILITAR OFERTA DE ALOJAMIENTO
+	/** 
+	* Modifica el estado de una ofera de alojamiento a Habilitado
+	* Adiciona entradas al log de la aplicación
+	* @param idAlojamiento - El id del alojamiento
+	* @return El número de tuplas modificadas
+	*/
+	public long deshabilitarAlojamiento (long idAlojamiento)
+	{
+		log.info ("Deshabilitar un alojamiento por id: " + idAlojamiento);
+		long resp = pp.deshabilitarAlojamiento(idAlojamiento);		
+		log.info ("Deshabilitar un alojamiento por id: " + resp + " tuplas modificadas");
+		return resp;
+	}
 
 	// RFC1: MOSTRAR EL ÍNDICE DE OCUPACIÓN DE CADA UNA DE LAS OFERTAS DE ALOJAMIENTO REGISTRADAS
 	/**
