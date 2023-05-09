@@ -1696,9 +1696,9 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			if (idReservaColectiva != null && sesionEnCurso)
     		{
         		long tb = parranderos.cancelarReservaColectivaPorId(Long.parseLong(idReservaColectiva));
-        		if (tb == -1)
+        		if (tb == 0)
         		{
-        			throw new Exception ("No se pudo cancelar la reserva colectiva");
+        			throw new Exception ("No se pudo cancelar la reserva colectiva, debido a que no existe ninguna con el id suministrado");
         		}
         		String resultado = "En cancelarReservaColectiva\n\n";
         		resultado += "Reserva colectiva cancelada exitosamente. Numero de reservas individuales canceladas: " + tb;
