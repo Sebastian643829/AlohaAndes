@@ -354,7 +354,7 @@ public class Parranderos
 	   log.info ("Rehabilitar un alojamiento por id: " + resp + " tuplas modificadas");
 	   return resp;
    }
-   // RF - DESHABILITAR OFERTA DE ALOJAMIENTO
+   // RF9 - DESHABILITAR OFERTA DE ALOJAMIENTO
 	/** 
 	* Modifica el estado de una ofera de alojamiento a Habilitado
 	* Adiciona entradas al log de la aplicación

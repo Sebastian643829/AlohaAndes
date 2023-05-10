@@ -658,7 +658,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     {
     	try 
     	{
-			String tipoAlojamiento = JOptionPane.showInputDialog (this, "Tipo del Operador?", "Analisis de Alohandes", JOptionPane.QUESTION_MESSAGE);
+			String tipoAlojamiento = JOptionPane.showInputDialog (this, "Tipo de alojamiento?", "Analisis de Alohandes", JOptionPane.QUESTION_MESSAGE);
 			List <Object[]> lista1 = parranderos.darMayorDineroSemana(tipoAlojamiento);
 			List <Object[]> lista2 = parranderos.darMayorOcupacionSemana(tipoAlojamiento);
 			List <Object[]> lista3 = parranderos.darMenorOcupacionSemana(tipoAlojamiento);
@@ -712,7 +712,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         for (Object [] aloj : lista)
         {
 			
-			Date fechaInicio=(Date) aloj[0];
+			String fechaInicio= (String) aloj[0];
 			long dinero=(long) aloj[1];
         	resp += fechaInicio+" Y la cantidad de ingresos que tuvo este tipo de Alojamiento fue: "+dinero+"\n";
         }
@@ -724,7 +724,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         for (Object [] aloj : lista)
         {
 			
-			Date fechaInicio=(Date) aloj[0];
+			String fechaInicio= (String) aloj[0];
 			long dinero=(long) aloj[1];
         	resp += fechaInicio+" Y la cantidad de alojamientos ocupados que tuvo este tipo de Alojamiento fue: "+dinero+"\n";
         }
@@ -736,7 +736,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         for (Object [] aloj : lista)
         {
 			
-			Date fechaInicio=(Date) aloj[0];
+			String fechaInicio= (String) aloj[0];
 			long dinero=(long) aloj[1];
         	resp += fechaInicio+" Y la cantidad de alojamientos ocupados que tuvo este tipo de Alojamiento fue: "+dinero+"\n";
         }

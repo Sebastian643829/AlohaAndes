@@ -4,7 +4,7 @@ WITH ReservasPorSemana AS (
     SUM(COSTOTOTAL) AS Ingresos
   FROM A_RESERVA R
   JOIN A_ALOJAMIENTO A ON R.IDALOJAMIENTO = A.IDALOJAMIENTO
-  WHERE ESTADO = 'Finalizada' AND TIPO = 'TipoDeAlojamiento'
+  WHERE R.ESTADO = 'Finalizada' AND TIPO = 'TipoDeAlojamiento'
   GROUP BY TRUNC(FECHAINICIO, 'IW')
 )
 SELECT

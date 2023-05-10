@@ -916,20 +916,21 @@ public class PersistenciaParranderos
 	public List<Object []> darMayorDineroSemana (String tipoAlojamiento)
 	{
 		List<Object []> respuesta = new LinkedList <Object []> ();
+		System.out.println("XXXXXXXXXX");
 		List<Object> tuplas = sqlAlojamiento.darMayorDineroSemana (pmf.getPersistenceManager(),tipoAlojamiento);
+		System.out.println("ooooooooooo");
         for ( Object tupla : tuplas)
         {
 			Object [] datos = (Object []) tupla;
-			Date fechaInicio = new Date(((BigDecimal) datos[0]).longValue());
+			String fechaInicio = (String) datos[0] ;
 			long dinero = ((BigDecimal) datos [1]).longValue ();
 
 			Object [] resp = new Object [2];
 			resp [0] = fechaInicio;
 			resp [1] = dinero;
-			
 			respuesta.add(resp);
         }
-
+		System.out.println(respuesta);
 		return respuesta;
 	}
 	// RFC7A:ANALIZAR LA OPERACIÓN DE ALOHANDES- Mayor Ocupacion
@@ -943,7 +944,7 @@ public class PersistenciaParranderos
         for ( Object tupla : tuplas)
         {
 			Object [] datos = (Object []) tupla;
-			Date fechaInicio = new Date(((BigDecimal) datos[0]).longValue());
+			String fechaInicio = (String) datos[0] ;
 			long alojamientosOcupados = ((BigDecimal) datos [1]).longValue ();
 
 			Object [] resp = new Object [2];
@@ -952,7 +953,7 @@ public class PersistenciaParranderos
 			
 			respuesta.add(resp);
         }
-
+		System.out.println(respuesta);
 		return respuesta;
 	}
 	// RFC7C:ANALIZAR LA OPERACIÓN DE ALOHANDES- Menor Ocupacion
@@ -966,7 +967,7 @@ public class PersistenciaParranderos
         for ( Object tupla : tuplas)
         {
 			Object [] datos = (Object []) tupla;
-			Date fechaInicio = new Date(((BigDecimal) datos[0]).longValue());
+			String fechaInicio = (String) datos[0] ;
 			long alojamientosOcupados = ((BigDecimal) datos [1]).longValue ();
 
 			Object [] resp = new Object [2];
@@ -975,7 +976,7 @@ public class PersistenciaParranderos
 			
 			respuesta.add(resp);
         }
-
+		System.out.println(respuesta);
 		return respuesta;
 	}
 	// RFC9 - ENCONTRAR LAS OFERTAS DE ALOJAMIENTO QUE NO TIENEN MUCHA DEMANDA
