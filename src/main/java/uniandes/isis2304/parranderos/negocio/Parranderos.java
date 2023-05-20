@@ -1124,6 +1124,35 @@ public class Parranderos
         return voClientes;
 	}
 
+	// RFC10 - CONSULTAR CONSUMO EN ALOHANDES
+	public List<VOCliente> consultarConsumoV1 (Date fechaInit, Date fechaMax)
+	{
+		log.info ("Generando los VO de Clientes con al menos una Reserva");        
+        List<VOCliente> voClientes = new LinkedList<VOCliente> ();
+        for (Cliente cl : pp.consultarConsumoV1 (fechaInit, fechaMax))
+        {
+        	voClientes.add (cl);
+        }
+        log.info ("Generando los VO de Clientes con al menos una Reserva: " + voClientes.size() + " existentes");
+        return voClientes;
+	}
+
+
+	// RFC11 - CONSULTAR CONSUMO EN ALOHANDES VERSION 2
+	public List<VOCliente> consultarConsumoV2 (Date fechaInit, Date fechaMax)
+	{
+		log.info ("Generando los VO de Clientes sin al menos una Reserva");        
+        List<VOCliente> voClientes = new LinkedList<VOCliente> ();
+        for (Cliente cl : pp.consultarConsumoV2 (fechaInit, fechaMax))
+        {
+        	voClientes.add (cl);
+        }
+        log.info ("Generando los VO de Clientes sin al menos una Reserva: " + voClientes.size() + " existentes");
+        return voClientes;
+	}
+
+
+
 	 /* ****************************************************************
 	 * 			Métodos para manejar los MIEMBROS ACTIVOS
 	 *****************************************************************/

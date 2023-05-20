@@ -1894,6 +1894,22 @@ public class PersistenciaParranderos
 		return sqlCliente.encontrarClientesFrecuentes(pmf.getPersistenceManager(), idAlojamiento);
 	}
 
+
+	// RFC10 - CONSULTAR CONSUMO EN ALOHANDES
+	public List<Cliente> consultarConsumoV1 (Date fechaInit, Date fechaMax)
+	{
+		return sqlCliente.consultarConsumoV1(pmf.getPersistenceManager(), fechaInit, fechaMax);
+	}
+
+
+	// RFC11 - CONSULTAR CONSUMO EN ALOHANDES VERSION 2
+	public List<Cliente> consultarConsumoV2 (Date fechaInit, Date fechaMax)
+	{
+		return sqlCliente.consultarConsumoV2(pmf.getPersistenceManager(), fechaInit, fechaMax);
+	}
+
+
+
 	 /* ****************************************************************
 	 * 			Métodos para manejar los MIEMBROS ACTIVOS
 	 *****************************************************************/

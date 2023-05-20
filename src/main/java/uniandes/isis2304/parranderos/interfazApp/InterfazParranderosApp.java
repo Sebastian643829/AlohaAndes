@@ -1337,6 +1337,97 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 		return resp;
 	} 
 
+	// RFC10 - CONSULTAR CONSUMO EN ALOHANDES
+	public void consultarConsumoV1() 
+	{
+	   try 
+	   {
+		   String fechaInit = JOptionPane.showInputDialog (this, "Fecha inicial?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
+		   String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
+		   List <VOCliente> lista = parranderos.consultarConsumoV1(java.sql.Date.valueOf(fechaInit), java.sql.Date.valueOf(fechaFinal));
+
+		   if (sesionEnCurso && fechaInit != null && fechaFinal != null )
+		   {
+			   String resultado = "Listando los clientes con al menos una reserva";
+			   resultado +=  "\n" + listarconsultarConsumoV1 (lista);;
+			   resultado += "\n Operación terminada";
+			   panelDatos.actualizarInterfaz(resultado);
+		   }
+		   else if (!sesionEnCurso){
+			   String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+			   resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+			   panelDatos.actualizarInterfaz(resultado);
+		   }
+		   else
+		   {
+			   panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+		   }
+	   } 
+	   catch (Exception e) 
+	   {
+//			e.printStackTrace();
+		   String resultado = generarMensajeError(e);
+		   panelDatos.actualizarInterfaz(resultado);
+	   }
+	}
+
+   private String listarconsultarConsumoV1(List<VOCliente> lista) 
+   {
+	   String resp = "Los clientes con al menos una reserva son:\n";
+	   int i = 1;
+	   for (VOCliente cliente : lista)
+	   {
+		   resp += i++ + ". " + cliente.toString() + "\n";
+	   }
+	   return resp;
+   } 
+
+
+   // RFC11 - CONSULTAR CONSUMO EN ALOHANDES VERSION 2
+   public void consultarConsumoV2() 
+	{
+	   try 
+	   {
+		   String fechaInit = JOptionPane.showInputDialog (this, "Fecha inicial?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
+		   String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
+		   List <VOCliente> lista = parranderos.consultarConsumoV2(java.sql.Date.valueOf(fechaInit), java.sql.Date.valueOf(fechaFinal));
+
+		   if (sesionEnCurso && fechaInit != null && fechaFinal != null )
+		   {
+			   String resultado = "Listando los clientes sin al menos una reserva";
+			   resultado +=  "\n" + listarconsultarConsumoV2 (lista);;
+			   resultado += "\n Operación terminada";
+			   panelDatos.actualizarInterfaz(resultado);
+		   }
+		   else if (!sesionEnCurso){
+			   String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+			   resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+			   panelDatos.actualizarInterfaz(resultado);
+		   }
+		   else
+		   {
+			   panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+		   }
+	   } 
+	   catch (Exception e) 
+	   {
+//			e.printStackTrace();
+		   String resultado = generarMensajeError(e);
+		   panelDatos.actualizarInterfaz(resultado);
+	   }
+	}
+
+   private String listarconsultarConsumoV2(List<VOCliente> lista) 
+   {
+	   String resp = "Los clientes sin al menos una reserva son:\n";
+	   int i = 1;
+	   for (VOCliente cliente : lista)
+	   {
+		   resp += i++ + ". " + cliente.toString() + "\n";
+	   }
+	   return resp;
+   } 
+
 
 
 	 /* ****************************************************************

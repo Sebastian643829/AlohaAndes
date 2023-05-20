@@ -151,4 +151,40 @@ class SQLCliente {
 		return (List<Cliente>) q.executeList();
 	}
 
+	// RFC10 - CONSULTAR CONSUMO EN ALOHANDES
+	public List<Cliente> consultarConsumoV1 (PersistenceManager pm, Date fechaInit, Date fechaMax)
+	{
+	    String sql = "SELECT A_Cliente.*";
+	    sql += " FROM " + pp.darTablaCliente();
+		sql += " INNER JOIN " + pp.darTablaReserva () + " ON A_Cliente.idCliente = A_reserva.idCliente";
+	    sql	+= " WHERE ((A_Reserva.fechaInicio BETWEEN ? AND ? ) AND (A_Reserva.fechaFinal BETWEEN ? AND ? ))";
+		sql	+= " GROUP BY a_cliente.idcliente, a_cliente.tipoidentificacion, a_cliente.nombrecliente, a_cliente.fechanacimiento";
+		sql	+= " ORDER BY a_cliente.idCliente";
+
+	    Query q = pm.newQuery(SQL, sql);
+		q.setResultClass(Cliente.class);
+		q.setParameters(fechaInit, fechaMax, fechaInit, fechaMax);
+		return (List<Cliente>) q.executeList();
+	}
+
+
+	// RFC11 - CONSULTAR CONSUMO EN ALOHANDES VERSION 2
+	public List<Cliente> consultarConsumoV2 (PersistenceManager pm, Date fechaInit, Date fechaMax)
+	{
+	    String sql = "SELECT A_Cliente.*";
+	    sql += " FROM " + pp.darTablaCliente();
+		sql += " LEFT OUTER JOIN " + pp.darTablaReserva () + " ON A_Cliente.idCliente = A_reserva.idCliente";
+	    sql	+= " WHERE a_cliente.idcliente NOT IN (SELECT a_cliente.idCliente";
+		sql	+= " FROM a_cliente";
+		sql	+= " INNER JOIN a_reserva ON a_cliente.idCliente = a_reserva.idCliente";
+		sql	+= " WHERE ((A_Reserva.fechaInicio BETWEEN ? AND ? ) AND (A_Reserva.fechaFinal BETWEEN ? AND ? ))";
+		sql	+= " GROUP BY a_cliente.idcliente)";
+		sql	+= " GROUP BY a_cliente.idcliente, a_cliente.tipoidentificacion, a_cliente.nombrecliente, a_cliente.fechanacimiento";
+		sql	+= " ORDER BY a_cliente.idCliente";
+
+	    Query q = pm.newQuery(SQL, sql);
+		q.setResultClass(Cliente.class);
+		q.setParameters(fechaInit, fechaMax, fechaInit, fechaMax);
+		return (List<Cliente>) q.executeList();
+	}
 }

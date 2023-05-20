@@ -1,0 +1,47 @@
+09:37:23,645 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+09:37:23,645 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+09:37:23,680 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+09:37:52,145 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando las principales caracteristicas de los diferentes tipos de miembros activos
+09:37:52,344 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando las principales caracteristicas de los diferentes tipos de miembros activos: Listo!
+09:37:52,344 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando las principales caracteristicas de los diferentes tipos de miembros secundarios
+09:37:52,386 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando las principales caracteristicas de los diferentes tipos de miembros secundarios: Listo!
+09:42:19,335 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando informacion acerca de la reservas a nombre de ese cliente
+09:42:19,563 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando informacion acerca de la reservas a nombre de ese cliente: Listo!
+09:43:19,335 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando fechas de mayores ingresos 
+09:50:21,431 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Clientes
+09:50:21,511 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Clientes: 1 existentes
+09:51:57,933 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos
+09:51:59,008 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Generando los VO de Alojamientos: 38 existentes
+09:55:44,095 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando informacion acerca de los alojamientos de este tipo de habitacion disponibles
+09:55:44,236 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando informacion acerca de los alojamientos de este tipo de habitacion disponibles: Listo!
+09:55:44,236 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando el id de la reserva colectiva
+09:55:44,358 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Consultando el id de la reserva colectiva: Listo!
+09:55:44,359 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Reserva individual: 
+09:55:44,840 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Reserva individual: Reserva [idAlojamiento=4, idCliente=1212121212, duracion=28, fechaInicio=2023-02-01fechaFinal=2023-02-28, costoTotal=2520000, estado=Activa, numPersonas=1, idReservaColectiva=181]
+09:55:44,840 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Reserva individual: 
+09:55:44,934 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Reserva individual: Reserva [idAlojamiento=6, idCliente=1212121212, duracion=28, fechaInicio=2023-02-01fechaFinal=2023-02-28, costoTotal=1680000, estado=Activa, numPersonas=1, idReservaColectiva=181]
+09:55:44,934 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Reserva individual: 
+09:55:45,041 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Reserva individual: Reserva [idAlojamiento=8, idCliente=1212121212, duracion=28, fechaInicio=2023-02-01fechaFinal=2023-02-28, costoTotal=1960000, estado=Activa, numPersonas=1, idReservaColectiva=181]
+09:55:45,041 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Reserva individual: 
+09:55:45,134 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Reserva individual: Reserva [idAlojamiento=7, idCliente=1212121212, duracion=28, fechaInicio=2023-02-01fechaFinal=2023-02-28, costoTotal=1120000, estado=Activa, numPersonas=1, idReservaColectiva=181]
+09:55:45,134 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Reserva individual: 
+09:55:45,228 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Adicionando Reserva individual: Reserva [idAlojamiento=10, idCliente=1212121212, duracion=28, fechaInicio=2023-02-01fechaFinal=2023-02-28, costoTotal=5600000, estado=Activa, numPersonas=1, idReservaColectiva=181]
+09:56:41,393 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Cancelar Reserva colectiva por id: 1
+09:56:41,438 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Cancelando Reserva colectiva por id: 3 tuplas modificadas
+09:59:13,025 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Rehabilitar un alojamiento por id: 1
+09:59:13,061 (AWT-EventQueue-0) INFO  [uniandes.isis2304.parranderos.negocio.Parranderos] - Rehabilitar un alojamiento por id: 1 tuplas modificadas
+18:08:48,899 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+18:08:48,899 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+18:08:48,933 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+18:09:22,370 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+18:09:22,370 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+18:09:22,380 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+18:10:28,676 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+18:10:28,676 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+18:10:28,686 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+18:11:11,356 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+18:11:11,356 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+18:11:11,367 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
+18:11:54,503 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Interfaz
+18:11:54,504 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se aplica configuración indicada en el archivo de configuración
+18:11:54,515 (main) INFO  [uniandes.isis2304.parranderos.interfazApp.InterfazParranderosApp] - Se encontró un archivo de configuración válido: Tablas BD
