@@ -1896,16 +1896,16 @@ public class PersistenciaParranderos
 
 
 	// RFC10 - CONSULTAR CONSUMO EN ALOHANDES
-	public List<Cliente> consultarConsumoV1 (Date fechaInit, Date fechaMax)
+	public List<Cliente> consultarConsumoV1 (Date fechaInit, Date fechaMax, String tipo, long idAlojamiento)
 	{
-		return sqlCliente.consultarConsumoV1(pmf.getPersistenceManager(), fechaInit, fechaMax);
+		return sqlCliente.consultarConsumoV1(pmf.getPersistenceManager(), fechaInit, fechaMax, tipo, idAlojamiento);
 	}
 
 
 	// RFC11 - CONSULTAR CONSUMO EN ALOHANDES VERSION 2
-	public List<Cliente> consultarConsumoV2 (Date fechaInit, Date fechaMax)
+	public List<Cliente> consultarConsumoV2 (Date fechaInit, Date fechaMax, String tipo, long idAlojamiento)
 	{
-		return sqlCliente.consultarConsumoV2(pmf.getPersistenceManager(), fechaInit, fechaMax);
+		return sqlCliente.consultarConsumoV2(pmf.getPersistenceManager(), fechaInit, fechaMax, tipo, idAlojamiento);
 	}
 
 

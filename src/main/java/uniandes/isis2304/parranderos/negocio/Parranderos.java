@@ -1125,11 +1125,11 @@ public class Parranderos
 	}
 
 	// RFC10 - CONSULTAR CONSUMO EN ALOHANDES
-	public List<VOCliente> consultarConsumoV1 (Date fechaInit, Date fechaMax)
+	public List<VOCliente> consultarConsumoV1 (Date fechaInit, Date fechaMax, String tipo, long idAlojamiento)
 	{
-		log.info ("Generando los VO de Clientes con al menos una Reserva");        
+		log.info ("Generando los VO de Clientes con al menos una Reserva");    
         List<VOCliente> voClientes = new LinkedList<VOCliente> ();
-        for (Cliente cl : pp.consultarConsumoV1 (fechaInit, fechaMax))
+        for (Cliente cl : pp.consultarConsumoV1 (fechaInit, fechaMax, tipo, idAlojamiento))
         {
         	voClientes.add (cl);
         }
@@ -1139,11 +1139,11 @@ public class Parranderos
 
 
 	// RFC11 - CONSULTAR CONSUMO EN ALOHANDES VERSION 2
-	public List<VOCliente> consultarConsumoV2 (Date fechaInit, Date fechaMax)
+	public List<VOCliente> consultarConsumoV2 (Date fechaInit, Date fechaMax, String tipo, long idAlojamiento)
 	{
 		log.info ("Generando los VO de Clientes sin al menos una Reserva");        
         List<VOCliente> voClientes = new LinkedList<VOCliente> ();
-        for (Cliente cl : pp.consultarConsumoV2 (fechaInit, fechaMax))
+        for (Cliente cl : pp.consultarConsumoV2 (fechaInit, fechaMax, tipo, idAlojamiento))
         {
         	voClientes.add (cl);
         }

@@ -1342,11 +1342,13 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 	   try 
 	   {
-		   String fechaInit = JOptionPane.showInputDialog (this, "Fecha inicial?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
-		   String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
-		   List <VOCliente> lista = parranderos.consultarConsumoV1(java.sql.Date.valueOf(fechaInit), java.sql.Date.valueOf(fechaFinal));
+		   String idAlojamiento = JOptionPane.showInputDialog (this, "idAlojamiento?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
+		   String fechaInit = JOptionPane.showInputDialog (this, "Fecha inicial ('aaaa-mm-dd')?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
+		   String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final ('aaaa-mm-dd')?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
+		   String tipo = JOptionPane.showInputDialog (this, "Tipo de ordenamiento (asc/desc)?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
+		   List <VOCliente> lista = parranderos.consultarConsumoV1(java.sql.Date.valueOf(fechaInit), java.sql.Date.valueOf(fechaFinal), tipo, Long.parseLong(idAlojamiento));
 
-		   if (sesionEnCurso && fechaInit != null && fechaFinal != null )
+		   if (sesionEnCurso && fechaInit != null && fechaFinal != null && tipo != null && idAlojamiento != null)
 		   {
 			   String resultado = "Listando los clientes con al menos una reserva";
 			   resultado +=  "\n" + listarconsultarConsumoV1 (lista);;
@@ -1388,11 +1390,14 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 	   try 
 	   {
-		   String fechaInit = JOptionPane.showInputDialog (this, "Fecha inicial?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
-		   String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
-		   List <VOCliente> lista = parranderos.consultarConsumoV2(java.sql.Date.valueOf(fechaInit), java.sql.Date.valueOf(fechaFinal));
+		   String idAlojamiento = JOptionPane.showInputDialog (this, "idAlojamiento?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
+		   String fechaInit = JOptionPane.showInputDialog (this, "Fecha inicial ('aaaa-mm-dd')?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
+		   String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final ('aaaa-mm-dd')?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
+		   String tipo = JOptionPane.showInputDialog (this, "Tipo de ordenamiento (asc/desc)?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
 
-		   if (sesionEnCurso && fechaInit != null && fechaFinal != null )
+		   List <VOCliente> lista = parranderos.consultarConsumoV2(java.sql.Date.valueOf(fechaInit), java.sql.Date.valueOf(fechaFinal), tipo, Long.parseLong(idAlojamiento));
+
+		   if (sesionEnCurso && fechaInit != null && fechaFinal != null && tipo != null && idAlojamiento != null)
 		   {
 			   String resultado = "Listando los clientes sin al menos una reserva";
 			   resultado +=  "\n" + listarconsultarConsumoV2 (lista);;

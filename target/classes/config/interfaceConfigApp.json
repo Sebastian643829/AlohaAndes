@@ -156,13 +156,13 @@
 				},
 				{
 					"label": "RFC11",
-					"event": "consultarConsumoV2"
+					"event": "consultarConsumoV2"  
 				},
-				{ 
+				{
 					"label": "RFC12",
 					"event": ""
 				},
-				{ 
+				{
 					"label": "RFC13",
 					"event": ""
 				}
