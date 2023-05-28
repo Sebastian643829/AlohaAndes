@@ -225,4 +225,65 @@ class SQLCliente {
 		}
 		return null;
 	}
+
+
+	// RFC12 - CONSULTAR FUNCIONAMIENTO
+
+
+
+	// RFC13 - CONSULTAR LOS BUENOS CLIENTES
+	public List<Cliente> encontrarBuenosClientes1 (PersistenceManager pm)
+	{
+	    String sql = "SELECT DISTINCT A_Cliente.*";
+	    sql += " FROM " + pp.darTablaCliente();
+		sql += " INNER JOIN " + pp.darTablaReserva () + " ON A_Cliente.idCliente = A_reserva.idCliente";
+	    sql	+= " INNER JOIN a_alojamiento ON a_reserva.idAlojamiento = a_alojamiento.idAlojamiento";
+		sql	+= " WHERE EXISTS (";
+		sql	+= " SELECT 1";
+		sql	+= " FROM a_reserva";
+		sql	+= " WHERE a_cliente.idCliente = a_reserva.idCliente";
+		sql	+= " GROUP BY TRUNC(a_reserva.fechaInicio, 'MM')";
+		sql	+= "  HAVING COUNT(*) >= 1)";
+	
+	    Query q = pm.newQuery(SQL, sql);
+		q.setResultClass(Cliente.class);
+		return (List<Cliente>) q.executeList();
+	}
+
+	public List<Cliente> encontrarBuenosClientes2 (PersistenceManager pm)
+	{
+		String sql = "SELECT DISTINCT A_Cliente.*";
+	    sql += " FROM " + pp.darTablaCliente();
+		sql += " INNER JOIN " + pp.darTablaReserva () + " ON A_Cliente.idCliente = A_reserva.idCliente";
+	    sql	+= " INNER JOIN a_alojamiento ON a_reserva.idAlojamiento = a_alojamiento.idAlojamiento";
+		sql	+= " WHERE EXISTS (";
+		sql	+= " SELECT 1";
+		sql	+= " FROM a_reserva";
+		sql	+= " INNER JOIN a_alojamiento ON a_reserva.idAlojamiento = a_alojamiento.idAlojamiento";
+		sql	+= " WHERE a_cliente.idCliente = a_reserva.idCliente AND a_alojamiento.precioNoche >= 650000)";
+	
+	    Query q = pm.newQuery(SQL, sql);
+		q.setResultClass(Cliente.class);
+		return (List<Cliente>) q.executeList();
+	    
+	}
+
+	public List<Cliente> encontrarBuenosClientes3 (PersistenceManager pm)
+	{
+	    String sql = "SELECT DISTINCT A_Cliente.*";
+	    sql += " FROM " + pp.darTablaCliente();
+		sql += " INNER JOIN " + pp.darTablaReserva () + " ON A_Cliente.idCliente = A_reserva.idCliente";
+	    sql	+= " INNER JOIN a_alojamiento ON a_reserva.idAlojamiento = a_alojamiento.idAlojamiento";
+		sql	+= " WHERE EXISTS (";
+		sql	+= " SELECT 1";
+		sql	+= " FROM a_reserva";
+		sql	+= " INNER JOIN a_alojamiento ON a_reserva.idAlojamiento = a_alojamiento.idAlojamiento";
+		sql	+= " INNER JOIN a_habitacionHotel ON a_habitacionHotel.idAlojamiento = a_alojamiento.idAlojamiento";
+		sql	+= " WHERE a_cliente.idCliente = a_reserva.idCliente AND a_habitacionHotel.tipoHabitacion = 'Suites')";
+	
+	    Query q = pm.newQuery(SQL, sql);
+		q.setResultClass(Cliente.class);
+		return (List<Cliente>) q.executeList();
+	}
+    
 }

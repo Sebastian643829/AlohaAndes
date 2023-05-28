@@ -1434,6 +1434,61 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
    } 
 
 
+    // RFC12 - CONSULTAR FUNCIONAMIENTO
+
+
+
+	// RFC13 - CONSULTAR LOS BUENOS CLIENTES
+	public void encontrarBuenosClientes() 
+	{
+	   try 
+	   {
+
+		   List <VOCliente> lista1 = parranderos.encontrarBuenosClientes1();
+		   List <VOCliente> lista2 = parranderos.encontrarBuenosClientes2();
+		   List <VOCliente> lista3 = parranderos.encontrarBuenosClientes3();
+
+		   if (sesionEnCurso)
+		   {
+			   String resultado = "Listando los clientes que son considerados como buenos en el sistema: ";
+			   resultado += "\n 1.Clientes que reservan por lo menos un alojamiento al mes: ";
+			   resultado +=  "\n" + listarEncontrarBuenosClientes (lista1);;
+			   resultado += "\n 2.Clientes que reservan alojamientos costosos (mas de 150 dolares): ";
+			   resultado +=  "\n" + listarEncontrarBuenosClientes (lista2);
+			   resultado += "\n 3.Clientes que reservan siempre suites: ";
+			   resultado +=  "\n" + listarEncontrarBuenosClientes (lista3);;
+			   resultado += "\n Operación terminada";
+			   panelDatos.actualizarInterfaz(resultado);
+		   }
+		   else if (!sesionEnCurso){
+			   String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+			   resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+			   panelDatos.actualizarInterfaz(resultado);
+		   }
+		   else
+		   {
+			   panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+		   }
+	   } 
+	   catch (Exception e) 
+	   {
+//			e.printStackTrace();
+		   String resultado = generarMensajeError(e);
+		   panelDatos.actualizarInterfaz(resultado);
+	   }
+	}
+
+   private String listarEncontrarBuenosClientes(List<VOCliente> lista) 
+   {
+	   String resp = "Los clientes que cumplen esta condicion son:\n";
+	   int i = 1;
+	   for (VOCliente cliente : lista)
+	   {
+		   resp += i++ + ". " + cliente.toString() + "\n";
+	   }
+	   return resp;
+   } 
+
 
 	 /* ****************************************************************
 	 * 			CRUD de MiembroActivo

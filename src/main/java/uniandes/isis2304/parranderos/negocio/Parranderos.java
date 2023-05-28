@@ -1151,6 +1151,46 @@ public class Parranderos
         return voClientes;
 	}
 
+	// RFC12 - CONSULTAR FUNCIONAMIENTO
+
+
+
+	// RFC13 - CONSULTAR LOS BUENOS CLIENTES
+	public List<VOCliente> encontrarBuenosClientes1 ()
+	{
+		log.info ("Generando los VO de Clientes buenos que hacen al menos una resrva al mes");        
+        List<VOCliente> voClientes = new LinkedList<VOCliente> ();
+        for (Cliente cl : pp.encontrarBuenosClientes1 ())
+        {
+        	voClientes.add (cl);
+        }
+        log.info ("Generando los VO de Clientes buenos que hacen al menos una resrva al mes: " + voClientes.size() + " existentes");
+        return voClientes;
+	}
+
+	public List<VOCliente> encontrarBuenosClientes2 ()
+	{
+		log.info ("Generando los VO de Clientes que solo reservan alojamientos que valen mas de 150$ por noche");        
+        List<VOCliente> voClientes = new LinkedList<VOCliente> ();
+        for (Cliente cl : pp.encontrarBuenosClientes2 ())
+        {
+        	voClientes.add (cl);
+        }
+        log.info ("Generando los VO de Clientes que solo reservan alojamientos que valen mas de 150$ por noche: " + voClientes.size() + " existentes");
+        return voClientes;
+	}
+
+	public List<VOCliente> encontrarBuenosClientes3 ()
+	{
+		log.info ("Generando los VO de Clientes que solo reservan suites cuando van a hoteles");        
+        List<VOCliente> voClientes = new LinkedList<VOCliente> ();
+        for (Cliente cl : pp.encontrarBuenosClientes3 ())
+        {
+        	voClientes.add (cl);
+        }
+        log.info ("Generando los VO de Clientes que solo reservan suites cuando van a hoteles: " + voClientes.size() + " existentes");
+        return voClientes;
+	}
 
 
 	 /* ****************************************************************

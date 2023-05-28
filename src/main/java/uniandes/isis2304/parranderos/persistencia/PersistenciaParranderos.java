@@ -1908,6 +1908,26 @@ public class PersistenciaParranderos
 		return sqlCliente.consultarConsumoV2(pmf.getPersistenceManager(), fechaInit, fechaMax, tipo, idAlojamiento);
 	}
 
+	// RFC12 - CONSULTAR FUNCIONAMIENTO
+
+
+
+	// RFC13 - CONSULTAR LOS BUENOS CLIENTES
+	public List<Cliente> encontrarBuenosClientes1 ()
+	{
+		return sqlCliente.encontrarBuenosClientes1(pmf.getPersistenceManager());
+	}
+
+	public List<Cliente> encontrarBuenosClientes2 ()
+	{
+		return sqlCliente.encontrarBuenosClientes2(pmf.getPersistenceManager());
+	}
+
+	public List<Cliente> encontrarBuenosClientes3 ()
+	{
+		return sqlCliente.encontrarBuenosClientes3(pmf.getPersistenceManager());
+	}
+
 
 
 	 /* ****************************************************************

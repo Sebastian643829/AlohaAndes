@@ -163,8 +163,8 @@
 					"event": ""
 				},
 				{
-					"label": "RFC13",
-					"event": ""
+					"label": "RFC13", 
+					"event": "encontrarBuenosClientes"
 				}
 			]
 		},
