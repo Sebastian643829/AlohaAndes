@@ -191,4 +191,25 @@ class SQLReserva {
 		return  q.executeList();
 	}
 
+	// RFC12 - CONSULTAR FUNCIONAMIENTO
+	public List<Object> consultarFuncionamiento (PersistenceManager pm)
+	{
+		String sql = " SELECT fechaInicial,";
+	    sql += " MAX(OCCUPATION) AS MAX_OCUPACION,";
+		sql += " MIN(OCCUPATION) AS MIN_OCUPACION,";
+	    sql	+= " MAX(SOLICITADOS) AS MAX_SOLICITADOS,";
+		sql	+= " MIN(SOLICITADOS) AS MIN_SOLICITADOS";
+		sql	+= " FROM(";
+		sql	+= " SELECT TRUNC(a_reserva.fechaInicio, 'IW') fechaInicial,";
+		sql	+= " COUNT(a_reserva.idAlojamiento) AS OCCUPATION,";
+		sql	+= " COUNT(a_alojamiento.idOperador) AS SOLICITADOS";
+		sql	+= " FROM " + pp.darTablaReserva () ;
+		sql	+= " INNER JOIN " + pp.darTablaAlojamiento() + " ON a_alojamiento.idalojamiento = a_reserva.idalojamiento";
+		sql	+= " GROUP BY TRUNC(a_reserva.fechaInicio, 'IW')";
+		sql	+= " ) subquery";
+		sql	+= " GROUP BY fechaInicial";
+		Query q = pm.newQuery(SQL, sql);
+		return q.executeList();
+	}
+
 }

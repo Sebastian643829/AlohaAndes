@@ -1151,9 +1151,6 @@ public class Parranderos
         return voClientes;
 	}
 
-	// RFC12 - CONSULTAR FUNCIONAMIENTO
-
-
 
 	// RFC13 - CONSULTAR LOS BUENOS CLIENTES
 	public List<VOCliente> encontrarBuenosClientes1 ()
@@ -1660,6 +1657,14 @@ public class Parranderos
         return caracteristicasReservasCliente ;
 	}
 
+	// RFC12 - CONSULTAR FUNCIONAMIENTO
+	public List<Object[]> consultarFuncionamiento ()
+	{
+		log.info ("Consultando informacion acerca del funcionamiento por semana de Alohaandes");
+        List<Object[]> funcionamiento = pp.consultarFuncionamiento ();	
+        log.info ("Consultando informacion acerca del funcionamiento por semana de Alohaandes: Listo!");
+        return funcionamiento ;
+	}
 
 	/* ****************************************************************
 	 * 			Métodos para administración

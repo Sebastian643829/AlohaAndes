@@ -227,10 +227,6 @@ class SQLCliente {
 	}
 
 
-	// RFC12 - CONSULTAR FUNCIONAMIENTO
-
-
-
 	// RFC13 - CONSULTAR LOS BUENOS CLIENTES
 	public List<Cliente> encontrarBuenosClientes1 (PersistenceManager pm)
 	{

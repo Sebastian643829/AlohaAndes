@@ -160,7 +160,7 @@
 				},
 				{
 					"label": "RFC12",
-					"event": ""
+					"event": "consultarFuncionamiento"  
 				},
 				{
 					"label": "RFC13", 

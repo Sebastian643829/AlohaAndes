@@ -1,6 +1,7 @@
 package uniandes.isis2304.parranderos.persistencia;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -1908,9 +1909,6 @@ public class PersistenciaParranderos
 		return sqlCliente.consultarConsumoV2(pmf.getPersistenceManager(), fechaInit, fechaMax, tipo, idAlojamiento);
 	}
 
-	// RFC12 - CONSULTAR FUNCIONAMIENTO
-
-
 
 	// RFC13 - CONSULTAR LOS BUENOS CLIENTES
 	public List<Cliente> encontrarBuenosClientes1 ()
@@ -2584,7 +2582,32 @@ public class PersistenciaParranderos
 		return respuesta;
 	}
 
+	// RFC12 - CONSULTAR FUNCIONAMIENTO
+	public List<Object []> consultarFuncionamiento ()
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlReserva.consultarFuncionamiento (pmf.getPersistenceManager());
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			Timestamp fechaInicial = (Timestamp) datos [0];
+			long maxOcupacion = ((BigDecimal) datos [1]).longValue ();
+			long minOcupacion = ((BigDecimal) datos [2]).longValue ();
+			long maxSolicitados = ((BigDecimal) datos [3]).longValue ();
+			long minSolicitados = ((BigDecimal) datos [3]).longValue ();
 
+			Object [] resp = new Object [5];
+			resp [0] = fechaInicial;
+			resp [1] = maxOcupacion;
+			resp [2] = minOcupacion;
+			resp [3] = maxSolicitados;
+			resp [4] = minSolicitados;
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
 
 
 	/**

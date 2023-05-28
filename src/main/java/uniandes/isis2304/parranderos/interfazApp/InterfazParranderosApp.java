@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -1433,11 +1434,6 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	   return resp;
    } 
 
-
-    // RFC12 - CONSULTAR FUNCIONAMIENTO
-
-
-
 	// RFC13 - CONSULTAR LOS BUENOS CLIENTES
 	public void encontrarBuenosClientes() 
 	{
@@ -1929,6 +1925,59 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
         }
 		return resp;
 	} 
+
+
+	// RFC12 - CONSULTAR FUNCIONAMIENTO
+	public void consultarFuncionamiento()
+    {
+    	try 
+    	{
+			List <Object[]> lista = parranderos.consultarFuncionamiento();
+
+			if (sesionEnCurso){
+			String resultado = "Listando el funcionamiento de AlohaAndes por semana";
+			resultado +=  "\n" + listarConsutarFuncionamiento(lista);
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+			}
+			else{
+				String resultado = "No cuenta con los permisos necesarios para ejecutar esta operacion\n\n";
+        		resultado += "Es necesario que inicie sesion con un cuenta que si cuente con los permisos necesarios: " ;
+    			panelDatos.actualizarInterfaz(resultado);
+			}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+
+
+    private String listarConsutarFuncionamiento(List<Object[]> lista) 
+    {
+    	String resp = "La lista de las principales caracteristicas por semana de AlohAndes:\n";
+    	int i = 1;
+        for (Object [] aloj : lista)
+        {
+			Timestamp fechaInicial =(Timestamp) aloj[0];
+			long maxOcupacion =(long) aloj[1];
+			long minOcupacion =(long) aloj[2];
+			long maxSolicitados =(long) aloj[3];
+			long minSolicitados =(long) aloj[4];
+
+        	resp += i++ + ". "  + "[";
+			resp += "Dia inicial de la semana: "+fechaInicial;
+			resp += ", Ocupacion maxima: "+maxOcupacion;
+			resp += ", Ocupacion Minima: "+minOcupacion;
+			resp += ", Numero maximo solicitados: "+maxSolicitados;
+			resp += ", Numero minimo solicitados: "+minSolicitados+" "+"\n";
+        }
+		return resp;
+	} 
+
+
 
 	/* ****************************************************************
 	 * 			Métodos administrativos
