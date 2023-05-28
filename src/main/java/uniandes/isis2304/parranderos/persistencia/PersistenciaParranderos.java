@@ -1897,16 +1897,16 @@ public class PersistenciaParranderos
 
 
 	// RFC10 - CONSULTAR CONSUMO EN ALOHANDES
-	public List<Cliente> consultarConsumoV1 (Date fechaInit, Date fechaMax, String tipo, long idAlojamiento)
+	public List<Cliente> consultarConsumoV1 (Date fechaInit, Date fechaMax, String tipo)
 	{
-		return sqlCliente.consultarConsumoV1(pmf.getPersistenceManager(), fechaInit, fechaMax, tipo, idAlojamiento);
+		return sqlCliente.consultarConsumoV1(pmf.getPersistenceManager(), fechaInit, fechaMax, tipo);
 	}
 
 
 	// RFC11 - CONSULTAR CONSUMO EN ALOHANDES VERSION 2
-	public List<Cliente> consultarConsumoV2 (Date fechaInit, Date fechaMax, String tipo, long idAlojamiento)
+	public List<Cliente> consultarConsumoV2 (Date fechaInit, Date fechaMax, String tipo)
 	{
-		return sqlCliente.consultarConsumoV2(pmf.getPersistenceManager(), fechaInit, fechaMax, tipo, idAlojamiento);
+		return sqlCliente.consultarConsumoV2(pmf.getPersistenceManager(), fechaInit, fechaMax, tipo);
 	}
 
 
@@ -2583,25 +2583,43 @@ public class PersistenciaParranderos
 	}
 
 	// RFC12 - CONSULTAR FUNCIONAMIENTO
-	public List<Object []> consultarFuncionamiento ()
+	public List<Object []> consultarFuncionamiento1 ()
 	{
 		List<Object []> respuesta = new LinkedList <Object []> ();
-		List<Object> tuplas = sqlReserva.consultarFuncionamiento (pmf.getPersistenceManager());
+		List<Object> tuplas = sqlReserva.consultarFuncionamiento1 (pmf.getPersistenceManager());
         for ( Object tupla : tuplas)
         {
 			Object [] datos = (Object []) tupla;
 			Timestamp fechaInicial = (Timestamp) datos [0];
 			long maxOcupacion = ((BigDecimal) datos [1]).longValue ();
 			long minOcupacion = ((BigDecimal) datos [2]).longValue ();
-			long maxSolicitados = ((BigDecimal) datos [3]).longValue ();
-			long minSolicitados = ((BigDecimal) datos [3]).longValue ();
 
-			Object [] resp = new Object [5];
+			Object [] resp = new Object [3];
 			resp [0] = fechaInicial;
 			resp [1] = maxOcupacion;
 			resp [2] = minOcupacion;
-			resp [3] = maxSolicitados;
-			resp [4] = minSolicitados;
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+
+	public List<Object []> consultarFuncionamiento2 ()
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlReserva.consultarFuncionamiento2 (pmf.getPersistenceManager());
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			Timestamp fechaInicial = (Timestamp) datos [0];
+			long maxSolicitados = ((BigDecimal) datos [1]).longValue ();
+			long minSolicitados = ((BigDecimal) datos [2]).longValue ();
+
+			Object [] resp = new Object [3];
+			resp [0] = fechaInicial;
+			resp [1] = maxSolicitados;
+			resp [2] = minSolicitados;
 			
 			respuesta.add(resp);
         }

@@ -152,20 +152,20 @@ class SQLCliente {
 	}
 
 	// RFC10 - CONSULTAR CONSUMO EN ALOHANDES
-	public List<Cliente> consultarConsumoV1 (PersistenceManager pm, Date fechaInit, Date fechaMax, String tipo, long idAlojamiento)
+	public List<Cliente> consultarConsumoV1 (PersistenceManager pm, Date fechaInit, Date fechaMax, String tipo)
 	{
 		//System.out.println(tipo);
 		if (tipo.equals("asc")) { 
 	    String sql = "SELECT A_Cliente.*";
 	    sql += " FROM " + pp.darTablaCliente();
 		sql += " INNER JOIN " + pp.darTablaReserva () + " ON A_Cliente.idCliente = A_reserva.idCliente";
-	    sql	+= " WHERE ((A_Reserva.fechaInicio BETWEEN ? AND ? ) AND (A_Reserva.fechaFinal BETWEEN ? AND ? ) AND A_Reserva.idAlojamiento = ?)";
+	    sql	+= " WHERE ((A_Reserva.fechaInicio BETWEEN ? AND ? ) AND (A_Reserva.fechaFinal BETWEEN ? AND ? ))";
 		sql	+= " GROUP BY a_cliente.idcliente, a_cliente.tipoidentificacion, a_cliente.nombrecliente, a_cliente.fechanacimiento";
 		sql	+= " ORDER BY a_cliente.idCliente ASC";
 
 	    Query q = pm.newQuery(SQL, sql);
 		q.setResultClass(Cliente.class);
-		q.setParameters(fechaInit, fechaMax, fechaInit, fechaMax, idAlojamiento);
+		q.setParameters(fechaInit, fechaMax, fechaInit, fechaMax);
 		return (List<Cliente>) q.executeList();
 		}
 
@@ -173,13 +173,13 @@ class SQLCliente {
 	    String sql = "SELECT A_Cliente.*";
 	    sql += " FROM " + pp.darTablaCliente();
 		sql += " INNER JOIN " + pp.darTablaReserva () + " ON A_Cliente.idCliente = A_reserva.idCliente";
-	    sql	+= " WHERE ((A_Reserva.fechaInicio BETWEEN ? AND ? ) AND (A_Reserva.fechaFinal BETWEEN ? AND ? ) AND A_Reserva.idAlojamiento = ?)";
+	    sql	+= " WHERE ((A_Reserva.fechaInicio BETWEEN ? AND ? ) AND (A_Reserva.fechaFinal BETWEEN ? AND ? ))";
 		sql	+= " GROUP BY a_cliente.idcliente, a_cliente.tipoidentificacion, a_cliente.nombrecliente, a_cliente.fechanacimiento";
 		sql	+= " ORDER BY a_cliente.idCliente DESC";
 
 	    Query q = pm.newQuery(SQL, sql);
 		q.setResultClass(Cliente.class);
-		q.setParameters(fechaInit, fechaMax, fechaInit, fechaMax, idAlojamiento);
+		q.setParameters(fechaInit, fechaMax, fechaInit, fechaMax);
 		return (List<Cliente>) q.executeList();
 		}
 		return null;
@@ -187,7 +187,7 @@ class SQLCliente {
 
 
 	// RFC11 - CONSULTAR CONSUMO EN ALOHANDES VERSION 2
-	public List<Cliente> consultarConsumoV2 (PersistenceManager pm, Date fechaInit, Date fechaMax, String tipo, long idAlojamiento)
+	public List<Cliente> consultarConsumoV2 (PersistenceManager pm, Date fechaInit, Date fechaMax, String tipo)
 	{
 		if (tipo.equals("asc")) {
 	    String sql = "SELECT A_Cliente.*";
@@ -196,14 +196,14 @@ class SQLCliente {
 	    sql	+= " WHERE a_cliente.idcliente NOT IN (SELECT a_cliente.idCliente";
 		sql	+= " FROM a_cliente";
 		sql	+= " INNER JOIN a_reserva ON a_cliente.idCliente = a_reserva.idCliente";
-		sql	+= " WHERE ((A_Reserva.fechaInicio BETWEEN ? AND ? ) AND (A_Reserva.fechaFinal BETWEEN ? AND ? ) AND A_Reserva.idAlojamiento = ?)";
+		sql	+= " WHERE ((A_Reserva.fechaInicio BETWEEN ? AND ? ) AND (A_Reserva.fechaFinal BETWEEN ? AND ? ))";
 		sql	+= " GROUP BY a_cliente.idcliente)";
 		sql	+= " GROUP BY a_cliente.idcliente, a_cliente.tipoidentificacion, a_cliente.nombrecliente, a_cliente.fechanacimiento";
 		sql	+= " ORDER BY a_cliente.idCliente ASC";
 
 	    Query q = pm.newQuery(SQL, sql);
 		q.setResultClass(Cliente.class);
-		q.setParameters(fechaInit, fechaMax, fechaInit, fechaMax, idAlojamiento);
+		q.setParameters(fechaInit, fechaMax, fechaInit, fechaMax);
 		return (List<Cliente>) q.executeList();
 		}
 		else if (tipo.equals("desc")){
@@ -213,14 +213,14 @@ class SQLCliente {
 			sql	+= " WHERE a_cliente.idcliente NOT IN (SELECT a_cliente.idCliente";
 			sql	+= " FROM a_cliente";
 			sql	+= " INNER JOIN a_reserva ON a_cliente.idCliente = a_reserva.idCliente";
-			sql	+= " WHERE ((A_Reserva.fechaInicio BETWEEN ? AND ? ) AND (A_Reserva.fechaFinal BETWEEN ? AND ? ) AND A_Reserva.idAlojamiento = ?)";
+			sql	+= " WHERE ((A_Reserva.fechaInicio BETWEEN ? AND ? ) AND (A_Reserva.fechaFinal BETWEEN ? AND ? ))";
 			sql	+= " GROUP BY a_cliente.idcliente)";
 			sql	+= " GROUP BY a_cliente.idcliente, a_cliente.tipoidentificacion, a_cliente.nombrecliente, a_cliente.fechanacimiento";
 			sql	+= " ORDER BY a_cliente.idCliente DESC";
 	
 			Query q = pm.newQuery(SQL, sql);
 			q.setResultClass(Cliente.class);
-			q.setParameters(fechaInit, fechaMax, fechaInit, fechaMax, idAlojamiento);
+			q.setParameters(fechaInit, fechaMax, fechaInit, fechaMax);
 			return (List<Cliente>) q.executeList();
 		}
 		return null;
@@ -236,7 +236,7 @@ class SQLCliente {
 	    sql	+= " INNER JOIN a_alojamiento ON a_reserva.idAlojamiento = a_alojamiento.idAlojamiento";
 		sql	+= " WHERE EXISTS (";
 		sql	+= " SELECT 1";
-		sql	+= " FROM a_reserva";
+		sql	+= " FROM a_reserva, a_cliente";
 		sql	+= " WHERE a_cliente.idCliente = a_reserva.idCliente";
 		sql	+= " GROUP BY TRUNC(a_reserva.fechaInicio, 'MM')";
 		sql	+= "  HAVING COUNT(*) >= 1)";

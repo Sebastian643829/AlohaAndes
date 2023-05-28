@@ -97,6 +97,10 @@ nombre_servicio_provider = DynamicProvider(
     elements = ['Piscina', 'Sauna', 'Cocina', 'Turco', 'Spa', 'Gimnasio', 'Comida']
 )
 
+ubicacion_provider = DynamicProvider(
+    provider_name = "ubicacion",
+    elements = ['Norte', 'Sur', 'Este', 'Oeste']
+)
 
 
 fake.add_provider(estado_alojamiento_provider)
@@ -110,12 +114,13 @@ fake.add_provider(tipo_miembroSecundario_provider)
 fake.add_provider(estado_reserva_provider)
 fake.add_provider(tipo_vinculacion_provider)
 fake.add_provider(nombre_servicio_provider)
+fake.add_provider(ubicacion_provider)
 
 # CSV OPERADOR
 for op in range(1,200000):
     fake_data_operador["idOperador"].append( op )
     operador_index.append(op)
-    fake_data_operador["telefono"].append( fake.unique.random_int(3000000000, 3999999999) )
+    fake_data_operador["telefono"].append( fake.phone_number() )
     fake_data_operador["tipoVinculacion"].append( fake.tipo_vinculacion() )
 
 
@@ -133,7 +138,7 @@ for pro in range(1,100001):
     fake_data_propietario["idOperador"].append( pro )
     operador_index.append(pro)
     fake_data_propietario["identificacion"].append( fake.unique.random_int(1000000000, 1999999999) )
-    fake_data_propietario["tipoIdentificacion"].append( fake.tipo_identificacion )
+    fake_data_propietario["tipoIdentificacion"].append( fake.tipo_identificacion() )
     fake_data_propietario["nombrePropietario"].append( fake.name() )
 
 df_fake_data_propietario = pd.DataFrame(fake_data_propietario)
@@ -144,7 +149,7 @@ for emp in range(100001,200001):
     fake_data_empresa["idOperador"].append( emp )
     operador_index.append(emp)
     fake_data_empresa["nit"].append( fake.unique.random_int(1000000000, 1999999999) )
-    fake_data_empresa["nombreEmpresa"].append( fake.name() )
+    fake_data_empresa["nombreEmpresa"].append( fake.company() )
 
 df_fake_data_empresa = pd.DataFrame(fake_data_empresa)
 df_fake_data_empresa.to_csv("csv loader/empresas.csv", index=False)
@@ -154,11 +159,12 @@ for aloj in range(1,180001):
     fake_data_alojamiento["idAlojamiento"].append( aloj )
     alojamiento_index.append(aloj)
     fake_data_alojamiento["nombre"].append( fake.name() )
-    fake_data_alojamiento["capacidad"].append( fake.random_int(1,100) )
-    fake_data_alojamiento["ubicacion"].append( fake.name() )
+    capacidad = fake.random_int(1,100)
+    fake_data_alojamiento["capacidad"].append( capacidad )
+    fake_data_alojamiento["ubicacion"].append( fake.ubicacion() )
     fake_data_alojamiento["tamano"].append(fake.random_int(1,300))
     fake_data_alojamiento["precioNoche"].append(fake.random_int(20000,2000000) )
-    fake_data_alojamiento["ocupacionActual"].append(fake.random_int(20000,2000000))
+    fake_data_alojamiento["ocupacionActual"].append(fake.random_int(1,capacidad))
     fake_data_alojamiento["numReservas"].append( fake.random_int(0, 20) )
     fake_data_alojamiento["idOperador"].append(fake.random_int(1, 200000) )
     fake_data_alojamiento["estado"].append( fake.estado_alojamiento() )
@@ -213,8 +219,8 @@ df_fake_data_habitacionHotel.to_csv("csv loader/habitacionesHoteles.csv", index=
 for h in range(120001, 150001):
     fake_data_hostal["idAlojamiento"].append( h )
     alojamiento_index.append(h)
-    fake_data_hostal["horarioApertura"].append( fake.tipo_hotel() )
-    fake_data_hostal["horarioCierre"].append( fake.tipo_hotel() )
+    fake_data_hostal["horarioApertura"].append( fake.time() )
+    fake_data_hostal["horarioCierre"].append( fake.time() )
 
 df_fake_data_hostal = pd.DataFrame(fake_data_hostal)
 df_fake_data_hostal.to_csv("csv loader/hostales.csv", index=False)
@@ -234,7 +240,7 @@ for cl in range(1, 180001):
     cliente_index.append(cl)
     fake_data_cliente["tipoIdentificacion"].append( fake.tipo_identificacion() )
     fake_data_cliente["nombreCliente"].append( fake.name() )
-    fake_data_cliente["fechaNacimiento"].append( fake.unique.random_int(1000000000, 1999999999) )
+    fake_data_cliente["fechaNacimiento"].append( fake.date_of_birth() )
 
 df_fake_data_cliente = pd.DataFrame(fake_data_cliente)
 df_fake_data_cliente.to_csv("csv loader/clientes.csv", index=False)
@@ -299,7 +305,7 @@ for res in range(1, 200001):
     duracion = fake.random_int(1,30)
     fake_data_reserva["duracion"].append( duracion )
     fake_data_reserva["fechaInicio"].append( fake.date_time_between(start_date = "-4y", end_date = "now") )
-    fake_data_reserva["fechaFinal"].append( fake.date_time_between(start_date = fake_data_reserva["fechaInicio"][-1], end_date = "now") )
+    fake_data_reserva["fechaFinal"].append( fake.date_time_between(start_date = fake_data_reserva["fechaInicio"][-1], end_date = fake.date_time_between(start_date = fake_data_reserva["fechaInicio"][-1], end_date = "+30d") ))
     fake_data_reserva["costoTotal"].append( duracion * fake.random_int(20000,2000000))
     fake_data_reserva["estado"].append( fake.estado_reserva() )
     fake_data_reserva["numPersonas"].append( fake.random_int(1,10) )

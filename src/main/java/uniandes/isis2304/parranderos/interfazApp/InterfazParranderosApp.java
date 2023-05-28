@@ -1343,13 +1343,12 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 	   try 
 	   {
-		   String idAlojamiento = JOptionPane.showInputDialog (this, "idAlojamiento?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
 		   String fechaInit = JOptionPane.showInputDialog (this, "Fecha inicial ('aaaa-mm-dd')?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
 		   String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final ('aaaa-mm-dd')?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
 		   String tipo = JOptionPane.showInputDialog (this, "Tipo de ordenamiento (asc/desc)?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
-		   List <VOCliente> lista = parranderos.consultarConsumoV1(java.sql.Date.valueOf(fechaInit), java.sql.Date.valueOf(fechaFinal), tipo, Long.parseLong(idAlojamiento));
+		   List <VOCliente> lista = parranderos.consultarConsumoV1(java.sql.Date.valueOf(fechaInit), java.sql.Date.valueOf(fechaFinal), tipo);
 
-		   if (sesionEnCurso && fechaInit != null && fechaFinal != null && tipo != null && idAlojamiento != null)
+		   if (sesionEnCurso && fechaInit != null && fechaFinal != null && tipo != null)
 		   {
 			   String resultado = "Listando los clientes con al menos una reserva";
 			   resultado +=  "\n" + listarconsultarConsumoV1 (lista);;
@@ -1391,14 +1390,13 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	{
 	   try 
 	   {
-		   String idAlojamiento = JOptionPane.showInputDialog (this, "idAlojamiento?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
 		   String fechaInit = JOptionPane.showInputDialog (this, "Fecha inicial ('aaaa-mm-dd')?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
 		   String fechaFinal = JOptionPane.showInputDialog (this, "Fecha final ('aaaa-mm-dd')?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
 		   String tipo = JOptionPane.showInputDialog (this, "Tipo de ordenamiento (asc/desc)?", "Consultar consumo AlohaAndes", JOptionPane.QUESTION_MESSAGE);
 
-		   List <VOCliente> lista = parranderos.consultarConsumoV2(java.sql.Date.valueOf(fechaInit), java.sql.Date.valueOf(fechaFinal), tipo, Long.parseLong(idAlojamiento));
+		   List <VOCliente> lista = parranderos.consultarConsumoV2(java.sql.Date.valueOf(fechaInit), java.sql.Date.valueOf(fechaFinal), tipo);
 
-		   if (sesionEnCurso && fechaInit != null && fechaFinal != null && tipo != null && idAlojamiento != null)
+		   if (sesionEnCurso && fechaInit != null && fechaFinal != null && tipo != null)
 		   {
 			   String resultado = "Listando los clientes sin al menos una reserva";
 			   resultado +=  "\n" + listarconsultarConsumoV2 (lista);;
@@ -1932,11 +1930,15 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     {
     	try 
     	{
-			List <Object[]> lista = parranderos.consultarFuncionamiento();
+			List <Object[]> lista1 = parranderos.consultarFuncionamiento1();
+			List <Object[]> lista2 = parranderos.consultarFuncionamiento2();
 
 			if (sesionEnCurso){
 			String resultado = "Listando el funcionamiento de AlohaAndes por semana";
-			resultado +=  "\n" + listarConsutarFuncionamiento(lista);
+			resultado += "\n Ocupacion maxima y minima por semana";
+			resultado +=  "\n" + listarConsutarFuncionamiento1(lista1);
+			resultado += "\n  alojamientos solicitados por semana";
+			resultado +=  "\n" + listarConsutarFuncionamiento2(lista2);
 			resultado += "\n Operación terminada";
 			panelDatos.actualizarInterfaz(resultado);
 			}
@@ -1955,7 +1957,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
     }
 
 
-    private String listarConsutarFuncionamiento(List<Object[]> lista) 
+    private String listarConsutarFuncionamiento1(List<Object[]> lista) 
     {
     	String resp = "La lista de las principales caracteristicas por semana de AlohAndes:\n";
     	int i = 1;
@@ -1964,19 +1966,32 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 			Timestamp fechaInicial =(Timestamp) aloj[0];
 			long maxOcupacion =(long) aloj[1];
 			long minOcupacion =(long) aloj[2];
-			long maxSolicitados =(long) aloj[3];
-			long minSolicitados =(long) aloj[4];
 
         	resp += i++ + ". "  + "[";
 			resp += "Dia inicial de la semana: "+fechaInicial;
 			resp += ", Ocupacion maxima: "+maxOcupacion;
-			resp += ", Ocupacion Minima: "+minOcupacion;
+			resp += ", Ocupacion Minima: "+minOcupacion+" "+"\n";
+        }
+		return resp;
+	} 
+			
+	private String listarConsutarFuncionamiento2(List<Object[]> lista) 
+    {
+    	String resp = "La lista de las principales caracteristicas es:\n";
+    	int i = 1;
+        for (Object [] aloj : lista)
+        {
+			Timestamp fechaInicial =(Timestamp) aloj[0];
+			long maxSolicitados =(long) aloj[1];
+			long minSolicitados =(long) aloj[2];
+
+        	resp += i++ + ". "  + "[";
+			resp += "Dia inicial de la semana: "+fechaInicial;
 			resp += ", Numero maximo solicitados: "+maxSolicitados;
 			resp += ", Numero minimo solicitados: "+minSolicitados+" "+"\n";
         }
 		return resp;
 	} 
-
 
 
 	/* ****************************************************************

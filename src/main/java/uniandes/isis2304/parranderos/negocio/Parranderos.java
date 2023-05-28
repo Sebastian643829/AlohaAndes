@@ -1125,11 +1125,11 @@ public class Parranderos
 	}
 
 	// RFC10 - CONSULTAR CONSUMO EN ALOHANDES
-	public List<VOCliente> consultarConsumoV1 (Date fechaInit, Date fechaMax, String tipo, long idAlojamiento)
+	public List<VOCliente> consultarConsumoV1 (Date fechaInit, Date fechaMax, String tipo)
 	{
 		log.info ("Generando los VO de Clientes con al menos una Reserva");    
         List<VOCliente> voClientes = new LinkedList<VOCliente> ();
-        for (Cliente cl : pp.consultarConsumoV1 (fechaInit, fechaMax, tipo, idAlojamiento))
+        for (Cliente cl : pp.consultarConsumoV1 (fechaInit, fechaMax, tipo))
         {
         	voClientes.add (cl);
         }
@@ -1139,11 +1139,11 @@ public class Parranderos
 
 
 	// RFC11 - CONSULTAR CONSUMO EN ALOHANDES VERSION 2
-	public List<VOCliente> consultarConsumoV2 (Date fechaInit, Date fechaMax, String tipo, long idAlojamiento)
+	public List<VOCliente> consultarConsumoV2 (Date fechaInit, Date fechaMax, String tipo)
 	{
 		log.info ("Generando los VO de Clientes sin al menos una Reserva");        
         List<VOCliente> voClientes = new LinkedList<VOCliente> ();
-        for (Cliente cl : pp.consultarConsumoV2 (fechaInit, fechaMax, tipo, idAlojamiento))
+        for (Cliente cl : pp.consultarConsumoV2 (fechaInit, fechaMax, tipo))
         {
         	voClientes.add (cl);
         }
@@ -1658,11 +1658,19 @@ public class Parranderos
 	}
 
 	// RFC12 - CONSULTAR FUNCIONAMIENTO
-	public List<Object[]> consultarFuncionamiento ()
+	public List<Object[]> consultarFuncionamiento1 ()
 	{
-		log.info ("Consultando informacion acerca del funcionamiento por semana de Alohaandes");
-        List<Object[]> funcionamiento = pp.consultarFuncionamiento ();	
-        log.info ("Consultando informacion acerca del funcionamiento por semana de Alohaandes: Listo!");
+		log.info ("Consultando informacion acerca del funcionamiento por semana de Alohaandes (ocupacion)");
+        List<Object[]> funcionamiento = pp.consultarFuncionamiento1 ();	
+        log.info ("Consultando informacion acerca del funcionamiento por semana de Alohaandes (ocupacion): Listo!");
+        return funcionamiento ;
+	}
+
+	public List<Object[]> consultarFuncionamiento2 ()
+	{
+		log.info ("Consultando informacion acerca del funcionamiento por semana de Alohaandes (operadores solicitados)");
+        List<Object[]> funcionamiento = pp.consultarFuncionamiento2 ();	
+        log.info ("Consultando informacion acerca del funcionamiento por semana de Alohaandes (operadores solicitados): Listo!");
         return funcionamiento ;
 	}
 

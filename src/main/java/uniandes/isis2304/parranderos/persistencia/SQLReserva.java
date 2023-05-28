@@ -192,24 +192,43 @@ class SQLReserva {
 	}
 
 	// RFC12 - CONSULTAR FUNCIONAMIENTO
-	public List<Object> consultarFuncionamiento (PersistenceManager pm)
+	public List<Object> consultarFuncionamiento1 (PersistenceManager pm)
 	{
 		String sql = " SELECT fechaInicial,";
-	    sql += " MAX(OCCUPATION) AS MAX_OCUPACION,";
-		sql += " MIN(OCCUPATION) AS MIN_OCUPACION,";
-	    sql	+= " MAX(SOLICITADOS) AS MAX_SOLICITADOS,";
-		sql	+= " MIN(SOLICITADOS) AS MIN_SOLICITADOS";
-		sql	+= " FROM(";
-		sql	+= " SELECT TRUNC(a_reserva.fechaInicio, 'IW') fechaInicial,";
-		sql	+= " COUNT(a_reserva.idAlojamiento) AS OCCUPATION,";
-		sql	+= " COUNT(a_alojamiento.idOperador) AS SOLICITADOS";
-		sql	+= " FROM " + pp.darTablaReserva () ;
-		sql	+= " INNER JOIN " + pp.darTablaAlojamiento() + " ON a_alojamiento.idalojamiento = a_reserva.idalojamiento";
-		sql	+= " GROUP BY TRUNC(a_reserva.fechaInicio, 'IW')";
-		sql	+= " ) subquery";
-		sql	+= " GROUP BY fechaInicial";
+	    sql += " MAX(CASE WHEN OCCUPATION = MAX_OCUPACION THEN idAlojamiento END) AS ID_MAX_OCUPACION,";
+		sql += " MIN(CASE WHEN OCCUPATION = MIN_OCUPACION THEN idAlojamiento END) AS ID_MIN_OCUPACION";
+		sql += " FROM( SELECT a_reserva.idAlojamiento, ";
+		sql += " TRUNC(a_reserva.fechaInicio, 'IW') fechaInicial,";
+		sql += " SUM(a_reserva.numPersonas) AS OCCUPATION,";
+		sql += " MAX(SUM(a_reserva.numPersonas)) OVER (PARTITION BY TRUNC(a_reserva.fechaInicio, 'IW')) AS MAX_OCUPACION,";
+		sql += " MIN(SUM(a_reserva.numPersonas)) OVER (PARTITION BY TRUNC(a_reserva.fechaInicio, 'IW')) AS MIN_OCUPACION";
+		sql += " FROM " + pp.darTablaReserva();
+		sql += " GROUP BY a_reserva.idAlojamiento, TRUNC(a_reserva.fechaInicio, 'IW')";
+		sql += " ) subquery";
+		sql += " GROUP BY fechaInicial";
+		sql += " ORDER BY fechaInicial";
 		Query q = pm.newQuery(SQL, sql);
 		return q.executeList();
+	}
+
+	public List<Object> consultarFuncionamiento2 (PersistenceManager pm)
+	{
+		String sql = " SELECT fechaInicial,";
+	    sql += " MAX(CASE WHEN SOLICITADOS = MAX_SOLICITADOS THEN idOperador END) AS ID_MAX_SOLICITADOS,";
+		sql += " MIN(CASE WHEN SOLICITADOS = MIN_SOLICITADOS THEN idOperador END) AS ID_MIN_SOLICITADOS";
+		sql += " FROM( SELECT a_alojamiento.idOperador, TRUNC(a_reserva.fechaInicio, 'IW') fechaInicial, ";
+		sql += " COUNT(a_alojamiento.idOperador) AS SOLICITADOS,";
+		sql += " MAX(COUNT(a_alojamiento.idOperador)) OVER (PARTITION BY TRUNC(a_reserva.fechaInicio, 'IW')) AS MAX_SOLICITADOS,";
+		sql += " MIN(COUNT(a_alojamiento.idOperador)) OVER (PARTITION BY TRUNC(a_reserva.fechaInicio, 'IW')) AS MIN_SOLICITADOS";
+		sql += " FROM " + pp.darTablaReserva();
+		sql += " INNER JOIN " + pp.darTablaAlojamiento() + " a_alojamiento ON a_alojamiento.idalojamiento = a_reserva.idalojamiento";
+		sql += " GROUP BY a_alojamiento.idOperador, TRUNC(a_reserva.fechaInicio, 'IW')";
+		sql += " ) subquery";
+		sql += " GROUP BY fechaInicial";
+		sql += " ORDER BY fechaInicial";
+		Query q = pm.newQuery(SQL, sql);
+		return q.executeList();
+
 	}
 
 }

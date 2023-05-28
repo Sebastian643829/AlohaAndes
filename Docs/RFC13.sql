@@ -6,7 +6,7 @@ WHERE
     -- Clientes que hacen reservas al menos una vez al mes
     EXISTS (
         SELECT 1
-        FROM a_reserva
+        FROM a_reserva, a_cliente
         WHERE a_cliente.idCliente = a_reserva.idCliente
         GROUP BY TRUNC(a_reserva.fechaInicio, 'MM')
         HAVING COUNT(*) >= 1
